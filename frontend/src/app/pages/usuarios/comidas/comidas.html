@@ -1,1 +1,82 @@
-<p>comidas works!</p>
+<div class="container py-4">
+
+  <!-- Título -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">Plan de comidas del día</h2>
+    <p class="text-muted small">
+      Marca si cumpliste tu dieta o registra cambios
+    </p>
+  </div>
+
+  <div class="d-flex flex-column gap-3">
+
+    <div class="card shadow-sm border-0" *ngFor="let comida of comidas">
+      <div class="card-body">
+
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="fw-bold mb-0">{{ comida.tipo }}</h5>
+          <span class="badge bg-light text-dark">
+            {{ comida.calorias }} kcal
+          </span>
+        </div>
+
+        <!-- Plan -->
+        <p class="mb-3">
+          <strong>Plan:</strong>
+          <span class="text-muted">{{ comida.plan }}</span>
+        </p>
+
+        <!-- Opciones -->
+        <div class="d-flex gap-3 mb-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              [name]="comida.tipo"
+              value="cumplida"
+              [(ngModel)]="comida.estado"
+            />
+            <label class="form-check-label">
+              La cumplí
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              [name]="comida.tipo"
+              value="no-cumplida"
+              [(ngModel)]="comida.estado"
+            />
+            <label class="form-check-label">
+              No la cumplí
+            </label>
+          </div>
+        </div>
+
+        <!-- Registro alternativo -->
+        <div *ngIf="comida.estado === 'no-cumplida'">
+          <label class="form-label small">
+            ¿Qué comiste en lugar de esto?
+          </label>
+          <textarea
+            class="form-control form-control-sm"
+            rows="2"
+            [(ngModel)]="comida.registro"
+            placeholder="Describe brevemente..."
+          ></textarea>
+        </div>
+
+        <!-- Estado visual -->
+        <div *ngIf="comida.estado === 'cumplida'" class="text-success small fw-semibold">
+          ✔ Comida cumplida según el plan
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

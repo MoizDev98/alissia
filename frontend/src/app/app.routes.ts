@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { DashboardComponent } from './pages/usuarios/dashboard/dashboard';
 import { ObjetivoComponent } from './pages/usuarios/objetivo/objetivo';
 import { ComidasComponent } from './pages/usuarios/comidas/comidas';
 import { PesoComponent } from './pages/usuarios/peso/peso';
@@ -11,13 +10,12 @@ export const routes: Routes = [
     {
         path: 'usuarios',
         children: [
-        { path: 'dashboard', component: DashboardComponent },
         { path: 'objetivo', component: ObjetivoComponent },
         { path: 'comidas', component: ComidasComponent },
         { path: 'peso', component: PesoComponent },
         { path: 'progreso', component: ProgresoComponent },
         { path: 'recomendaciones', component: RecomendacionesComponent },
-        {path: 'inicio', component: Inicio},
+        { path: 'inicio', component: Inicio},
         { path: '', redirectTo: 'inicio', pathMatch: 'full' }
         ]
     },
