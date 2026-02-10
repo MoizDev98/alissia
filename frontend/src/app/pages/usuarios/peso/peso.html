@@ -1,1 +1,101 @@
-<p>peso works!</p>
+<div class="container py-4">
+
+  <h4 class="fw-bold mb-4">Registro de peso</h4>
+
+  <!-- PESO ACTUAL -->
+  <div class="card mb-4 shadow-sm">
+        <div class="card-body text-center">
+        <div class="text-muted small">Peso actual</div>
+        <div class="display-5 fw-bold">{{pesoActual}} Kg</div>
+        <div class="small text-muted">Última actualización: Hoy</div>
+        </div>
+    </div>
+
+    <div class="card mt-4 shadow-sm text-center">
+  <div class="card-body">
+
+    <div
+        class="fw-semibold mb-1"
+        [ngClass]="{
+            'text-success': tendencia === 'baja',
+            'text-danger': tendencia === 'sube',
+            'text-secondary': tendencia === 'igual'
+        }"
+        >
+
+        <ng-container *ngIf="tendencia === 'baja'">
+            ⬇ Bajaste
+        </ng-container>
+
+        <ng-container *ngIf="tendencia === 'sube'">
+            ⬆ Subiste
+        </ng-container>
+
+        <ng-container *ngIf="tendencia === 'igual'">
+            ➖ Sin cambios
+        </ng-container>
+
+        </div>
+
+        <div
+        class="display-6 fw-bold"
+        [ngClass]="{
+            'text-success': tendencia === 'baja',
+            'text-danger': tendencia === 'sube',
+            'text-secondary': tendencia === 'igual'
+        }"
+        >
+        <ng-container *ngIf="tendencia !== 'igual'">
+            {{ diferenciaConAnterior() | number:'1.1-1' }} kg
+        </ng-container>
+        </div>
+
+        <div class="small text-muted mt-1">
+        Comparado con el registro anterior
+        </div>
+
+    </div>
+    </div>
+
+
+
+  <!-- REGISTRAR PESO -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h6 class="fw-semibold mb-3">Registrar nuevo peso</h6>
+
+      <div class="input-group">
+        <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="nuevoPeso"
+            placeholder="Ej: 70.5"
+            />
+
+        <button class="btn btn-primary w-100" (click)="registrarPeso()">
+        Guardar peso
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div class="card">
+    <div class="card-body">
+      <h6 class="fw-semibold mb-3">Historial reciente</h6>
+
+      <ul class="list-group list-group-flush">
+            <li
+                class="list-group-item d-flex justify-content-between"
+                *ngFor="let item of historial; let i = index">
+                <span>
+                {{ i === 0 ? 'Hoy' : item.fecha }}
+                </span>
+                <strong>{{ item.peso }} kg</strong>
+            </li>
+        </ul>
+
+    </div>
+  </div>
+</div>
+

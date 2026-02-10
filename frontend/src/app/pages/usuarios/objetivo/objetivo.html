@@ -1,1 +1,160 @@
-<p>objetivo works!</p>
+<div class="container mt-4 mb-5">
+
+  <!-- HEADER -->
+  <section class="mb-4 text-center">
+    <h2 class="fw-bold">Define tu objetivo</h2>
+    <p class="text-muted">
+      Esta información nos ayudará a acompañarte mejor en tu alimentación diaria.
+    </p>
+  </section>
+
+  <!-- OBJETIVO PRINCIPAL -->
+  <section class="mb-5">
+    <h5 class="fw-semibold mb-3">¿Qué quieres lograr?</h5>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card text-center selectable-card"
+            [class.border-primary]="objetivoSeleccionado === 'bajar'"
+            [class.shadow]="objetivoSeleccionado === 'bajar'"
+            (click)="seleccionarObjetivo('bajar')">
+          <div class="card-body">
+            <div class="fs-1 mb-2">⬇️</div>
+            <h6 class="fw-bold">Bajar de peso</h6>
+            <p class="text-muted small">Reducir peso de forma progresiva</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center selectable-card"
+            [class.border-primary]="objetivoSeleccionado === 'mantener'"
+            [class.shadow]="objetivoSeleccionado === 'mantener'"
+            (click)="seleccionarObjetivo('mantener')">
+          <div class="card-body">
+            <div class="fs-1 mb-2">⚖️</div>
+            <h6 class="fw-bold">Mantener peso</h6>
+            <p class="text-muted small">Conservar tu estado actual</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center selectable-card"
+            [class.border-primary]="objetivoSeleccionado === 'subir'"
+            [class.shadow]="objetivoSeleccionado === 'subir'"
+            (click)="seleccionarObjetivo('subir')">
+          <div class="card-body">
+            <div class="fs-1 mb-2">⬆️</div>
+            <h6 class="fw-bold">Subir de peso</h6>
+            <p class="text-muted small">Aumentar masa de forma controlada</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RITMO -->
+  <section class="mb-5">
+    <h5 class="fw-semibold mb-3">¿A qué ritmo?</h5>
+
+    <div class="d-flex flex-column gap-2">
+      <button
+        type="button"
+        class="btn text-start w-100"
+        (click)="seleccionarRitmo('lento')"
+        [ngClass]="{
+            'btn-outline-secondary': ritmoSeleccionado !== 'lento',
+            'btn-primary': ritmoSeleccionado === 'lento'
+        }"
+        >
+        🐢 <strong>Lento y sostenible</strong>
+        <div class="small opacity-75">
+            Cambios progresivos y constantes
+        </div>
+        </button>
+
+
+      <button
+        type="button"
+        class="btn text-start w-100"
+        (click)="seleccionarRitmo('moderado')"
+        [ngClass]="{
+            'btn-outline-secondary': ritmoSeleccionado !== 'moderado',
+            'btn-primary': ritmoSeleccionado === 'moderado'
+        }"
+        >
+        🚶 <strong>Moderado</strong>
+        <div class="small opacity-75">
+            Equilibrio entre resultados y constancia
+        </div>
+        </button>
+
+
+      <button
+        type="button"
+        class="btn text-start w-100"
+        (click)="seleccionarRitmo('rapido')"
+        [ngClass]="{
+            'btn-outline-warning': ritmoSeleccionado !== 'rapido',
+            'btn-warning': ritmoSeleccionado === 'rapido'
+        }"
+        >
+        🏃 <strong>Rápido</strong>
+        <div class="small opacity-75">
+            Requiere mayor disciplina y seguimiento
+        </div>
+</button>
+
+    </div>
+  </section>
+
+  <!-- PREFERENCIAS -->
+  <section class="mb-5">
+    <h5 class="fw-semibold mb-3">
+      Preferencias alimenticias
+      <span class="text-muted small">(opcional)</span>
+    </h5>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-outline-primary btn-sm"
+            [class.active]="preferenciasSeleccionadas.includes('Sin lactosa')"
+            (click)="togglePreferencia('Sin lactosa')"
+      >Sin lactosa</button>
+      <button class="btn btn-outline-primary btn-sm"
+            [class.active]="preferenciasSeleccionadas.includes('Vegetariano')"
+            (click)="togglePreferencia('Vegetariano')"
+      >Vegetariano</button>
+      <button class="btn btn-outline-primary btn-sm"
+            [class.active]="preferenciasSeleccionadas.includes('Evitar fritos')"
+            (click)="togglePreferencia('Evitar fritos')"
+      >Evitar fritos</button>
+      <button class="btn btn-outline-primary btn-sm"
+            [class.active]="preferenciasSeleccionadas.includes('Evitar azúcares')"
+            (click)="togglePreferencia('Evitar azúcares')"
+      >Evitar azúcares</button>
+    </div>
+  </section>
+
+  <!-- RESUMEN -->
+  <section class="mb-4">
+    <div class="card bg-light border-0">
+      <div class="card-body">
+        <h6 class="fw-bold mb-2">Resumen de tu objetivo</h6>
+        <ul class="mb-0 text-muted small">
+          <li>Objetivo: <strong>Bajar de peso</strong></li>
+          <li>Ritmo: <strong>Moderado</strong></li>
+          <li>Preferencias: <strong>Sin lactosa</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCIÓN -->
+  <section class="text-center">
+    <button class="btn btn-primary btn-lg px-5">
+      Guardar objetivo
+    </button>
+  </section>
+
+</div>

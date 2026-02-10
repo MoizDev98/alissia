@@ -1,1 +1,58 @@
-<p>progreso works!</p>
+<div class="container py-4">
+
+  <!-- ESTADO -->
+  <div class="card mb-4 shadow-sm text-center">
+    <div class="card-body">
+      <h5>
+        <span *ngIf="estado === 'bien'">✅ Vas por buen camino</span>
+        <span *ngIf="estado === 'alerta'">⚠️ Revisa tu constancia</span>
+      </h5>
+      <p class="text-muted mb-0">
+        Has bajado {{ progresoKg | number:'1.1-1' }} kg desde que iniciaste
+      </p>
+    </div>
+  </div>
+
+  <!-- GRAFICA (placeholder) -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body text-center">
+      <h6 class="fw-semibold mb-3">Evolución del peso</h6>
+      <div class="grafica-placeholder">
+        📈 Gráfica de peso (luego va Chart.js)
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESO OBJETIVO -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h6 class="fw-semibold mb-2">Progreso al objetivo</h6>
+
+      <div class="mb-2">
+        <strong>{{ progresoPorcentaje | number:'1.0-0' }}%</strong> completado
+      </div>
+
+      <div class="progress mb-2">
+        <div
+          class="progress-bar bg-success"
+          [style.width.%]="progresoPorcentaje">
+        </div>
+      </div>
+
+      <small class="text-muted">
+        Te faltan {{ faltanteKg | number:'1.1-1' }} kg para tu objetivo
+      </small>
+    </div>
+  </div>
+
+  <!-- INSIGHT -->
+  <div class="card shadow-sm text-center">
+    <div class="card-body">
+      <p class="mb-0">
+        💡 Manteniendo este ritmo, estás cada vez más cerca de tu meta
+      </p>
+    </div>
+  </div>
+
+</div>
+
