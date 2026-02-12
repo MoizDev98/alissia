@@ -1,0 +1,52 @@
+/* Contenedor general */
+.container {
+  max-width: 850px;
+}
+
+/* Título */
+h4 {
+  letter-spacing: 0.5px;
+}
+
+/* Cards generales */
+.card {
+  border-radius: 12px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Resumen IA */
+.card-body p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Lista de recomendaciones */
+.list-group-item {
+  border: none;
+  padding: 0.9rem 0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-group-item:not(:last-child) {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+/* Badge confianza */
+.badge {
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Disclaimer */
+.text-muted.small {
+  margin-top: 10px;
+  opacity: 0.85;
+}
