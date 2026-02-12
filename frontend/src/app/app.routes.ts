@@ -5,7 +5,9 @@ import { ComidasComponent } from './pages/usuarios/comidas/comidas';
 import { PesoComponent } from './pages/usuarios/peso/peso';
 import { ProgresoComponent } from './pages/usuarios/progreso/progreso';
 import { RecomendacionesComponent } from './pages/usuarios/recomendaciones/recomendaciones';
-import { Inicio } from './pages/usuarios/inicio/inicio';    
+import { Inicio } from './pages/usuarios/inicio/inicio';
+import {  } from './pages/usuarios/inicio/inicio';
+    
 export const routes: Routes = [
     {
         path: 'usuarios',
