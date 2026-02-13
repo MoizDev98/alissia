@@ -7,10 +7,12 @@
 
       <div class="d-flex align-items-center gap-3">
 
-        <button class="btn btn-success d-flex align-items-center gap-2">
+        <button class="btn btn-success d-flex align-items-center gap-2"
+                (click)="abrirModal()">
           <i class="bi bi-plus-lg"></i>
           Crear
         </button>
+
 
         <div class="input-group" style="width: 250px;">
           <span class="input-group-text">
@@ -61,7 +63,9 @@
 
             <td class="text-end">
 
-              <button class="btn btn-sm btn-outline-primary me-2 d-inline-flex align-items-center gap-1">
+              <button
+                class="btn btn-sm btn-outline-primary me-2 d-inline-flex align-items-center gap-1"
+                (click)="abrirModal(usuario)">
                 <i class="bi bi-pencil"></i>
                 Editar
               </button>
@@ -85,6 +89,15 @@
   </div>
 
 </div>
+
+<app-modal-usuario
+  *ngIf="mostrarModal"
+  [usuarioEditar]="usuarioSeleccionado"
+  (cerrar)="cerrarModal()"
+  (guardar)="agregarUsuario($event)">
+</app-modal-usuario>
+
+
 
 
 

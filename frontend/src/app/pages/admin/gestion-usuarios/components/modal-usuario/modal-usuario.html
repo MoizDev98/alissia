@@ -1,0 +1,68 @@
+<div class="modal-backdrop">
+
+  <div class="modal-container">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h5 class="mb-0">
+        {{ modoEdicion ? 'Editar Usuario' : 'Crear Usuario' }}
+      </h5>
+      <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="usuario.nombre">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          [(ngModel)]="usuario.email">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select
+          class="form-select"
+          [(ngModel)]="usuario.rol">
+          <option value="Usuario">Usuario</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select
+          class="form-select"
+          [(ngModel)]="usuario.estado">
+          <option [ngValue]="1">Activo</option>
+          <option [ngValue]="0">Inactivo</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cerrarModal()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary" (click)="guardarUsuario()">
+        {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
