@@ -32,11 +32,7 @@ export class RecomendacionesComponent implements OnInit {
     if (this.objetivo === 'bajar') {
       this.resumenIA = "Estás en un plan de pérdida de peso. Es importante mantener un déficit calórico moderado y priorizar alimentos altos en proteína.";
 
-      this.recomendaciones = [
-        "Aumenta el consumo de proteínas magras.",
-        "Reduce azúcares añadidos y fritos.",
-        "Mantén buena hidratación.",
-        "Incluye vegetales en cada comida."
+      this.recomendaciones = [ 
       ];
     }
 
