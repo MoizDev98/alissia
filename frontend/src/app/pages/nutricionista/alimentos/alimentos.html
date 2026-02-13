@@ -1,0 +1,100 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm">
+
+    <!-- Header -->
+    <div class="card-header">
+
+      <div class="d-flex align-items-center gap-3">
+
+        <button class="btn btn-success d-flex align-items-center gap-2"
+                (click)="abrirModal()">
+          <i class="bi bi-plus-lg"></i>
+          Crear
+        </button>
+
+        <div class="input-group" style="width: 250px;">
+          <span class="input-group-text">
+            <i class="bi bi-search"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar"
+            [(ngModel)]="filtroNombre"
+          />
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Tabla -->
+    <div class="card-body">
+
+      <table class="table table-hover align-middle">
+
+        <thead class="table-light">
+          <tr>
+            <th>Nombre</th>
+            <th>Calorías</th>
+            <th>Proteínas</th>
+            <th>Carbohidratos</th>
+            <th>Grasas</th>
+            <th>Estado</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let alimento of alimentosFiltrados">
+
+            <td>{{ alimento.nombre }}</td>
+            <td>{{ alimento.calorias }} kcal</td>
+            <td>{{ alimento.proteinas }} g</td>
+            <td>{{ alimento.carbohidratos }} g</td>
+            <td>{{ alimento.grasas }} g</td>
+
+            <td>
+              <span
+                class="badge"
+                [ngClass]="alimento.estado === 1 ? 'bg-success' : 'bg-danger'">
+                {{ alimento.estado === 1 ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+
+            <td class="text-end">
+
+              <button
+                class="btn btn-sm btn-outline-primary me-2 d-inline-flex align-items-center gap-1"
+                (click)="abrirModal(alimento)">
+                <i class="bi bi-pencil"></i>
+                Editar
+              </button>
+
+              <button
+                class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
+                (click)="cambiarEstado(alimento)">
+                <i class="bi bi-trash"></i>
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<app-modal-alimento
+  *ngIf="mostrarModal"
+  [alimentoEditar]="alimentoSeleccionado"
+  (cerrar)="cerrarModal()"
+  (guardar)="agregarAlimento($event)">
+</app-modal-alimento>

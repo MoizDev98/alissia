@@ -1,0 +1,80 @@
+<div class="modal-backdrop">
+
+  <div class="modal-container">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h5 class="mb-0">
+        {{ modoEdicion ? 'Editar Alimento' : 'Crear Alimento' }}
+      </h5>
+      <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <div class="mb-3">
+        <label class="form-label">Nombre del Alimento</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="alimento.nombre">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Calorías (kcal/100g)</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="alimento.calorias">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Proteínas (g/100g)</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="alimento.proteinas">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Carbohidratos (g/100g)</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="alimento.carbohidratos">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Grasas (g/100g)</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="alimento.grasas">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Estado</label>
+        <select
+          class="form-select"
+          [(ngModel)]="alimento.estado">
+          <option [ngValue]="1">Activo</option>
+          <option [ngValue]="0">Inactivo</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cerrarModal()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary" (click)="guardarAlimento()">
+        {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+
+  </div>
+
+</div>

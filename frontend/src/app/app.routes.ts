@@ -10,7 +10,8 @@ import {  } from './pages/usuarios/inicio/inicio';
 import { AdminHomeComponent } from './pages/admin/home/home';
 import { GestionUsuariosComponent } from './pages/admin/gestion-usuarios/gestion-usuarios';
 import { MetricasComponent } from './pages/admin/metricas/metricas';
-
+import { AlimentosComponent } from './pages/nutricionista/alimentos/alimentos';
+import { NutricionistaHomeComponent } from './pages/nutricionista/home/home';
 
     
 export const routes: Routes = [
@@ -32,6 +33,16 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: AdminHomeComponent },
       { path: 'usuarios', component: GestionUsuariosComponent },
+      { path: 'metricas', component: MetricasComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
+    ]
+  },
+
+  {
+    path: 'nutricionista',
+    children: [
+      { path: 'home', component: NutricionistaHomeComponent },
+      { path: 'alimentos', component: AlimentosComponent },
       { path: 'metricas', component: MetricasComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
