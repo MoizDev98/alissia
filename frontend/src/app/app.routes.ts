@@ -22,4 +22,6 @@ export const routes: Routes = [
         ]
     },
     { path: '', redirectTo: 'usuarios/inicio', pathMatch: 'full' }
+
+        
 ];
