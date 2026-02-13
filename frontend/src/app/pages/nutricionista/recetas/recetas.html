@@ -1,0 +1,94 @@
+<div class="container mt-4">
+
+  <div class="card shadow-sm">
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="d-flex align-items-center gap-3">
+
+        <button class="btn btn-success d-flex align-items-center gap-2"
+                (click)="abrirModal()">
+          <i class="bi bi-plus-lg"></i>
+          Crear
+        </button>
+
+        <div class="input-group" style="width: 250px;">
+          <span class="input-group-text">
+            <i class="bi bi-search"></i>
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar"
+            [(ngModel)]="busqueda"
+          />
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card-body">
+
+      <table class="table table-hover align-middle">
+
+        <thead class="table-light">
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Calorías</th>
+            <th>Estado</th>
+            <th class="text-end">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let receta of recetasFiltradas">
+
+            <td>{{ receta.nombre }}</td>
+            <td>{{ receta.descripcion }}</td>
+            <td>{{ receta.caloriasTotales }} kcal</td>
+
+            <td>
+              <span
+                class="badge"
+                [ngClass]="receta.estado === 1 ? 'bg-success' : 'bg-warning text-dark'">
+                {{ receta.estado === 1 ? 'Aprobada' : 'Pendiente' }}
+              </span>
+            </td>
+
+            <td class="text-end">
+
+              <button
+                class="btn btn-sm btn-outline-primary me-2 d-inline-flex align-items-center gap-1"
+                (click)="abrirModal(receta)">
+                <i class="bi bi-pencil"></i>
+                Editar
+              </button>
+
+              <button
+                class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1"
+                (click)="cambiarEstado(receta)">
+                <i class="bi bi-check2-circle"></i>
+                Aprobar
+              </button>
+
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<app-modal-receta
+  *ngIf="mostrarModal"
+  [recetaEditar]="recetaSeleccionada"
+  (cerrar)="cerrarModal()"
+  (guardar)="guardarReceta($event)">
+</app-modal-receta>

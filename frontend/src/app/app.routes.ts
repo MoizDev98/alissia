@@ -12,7 +12,8 @@ import { GestionUsuariosComponent } from './pages/admin/gestion-usuarios/gestion
 import { MetricasComponent } from './pages/admin/metricas/metricas';
 import { AlimentosComponent } from './pages/nutricionista/alimentos/alimentos';
 import { NutricionistaHomeComponent } from './pages/nutricionista/home/home';
-
+import { RecetasComponent } from './pages/nutricionista/recetas/recetas';
+import { Home } from './pages/home/home';
     
 export const routes: Routes = [
   {
@@ -43,10 +44,10 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: NutricionistaHomeComponent },
       { path: 'alimentos', component: AlimentosComponent },
-      { path: 'metricas', component: MetricasComponent },
+      { path: 'recetas', component: RecetasComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
 
-  { path: '', redirectTo: 'usuarios/inicio', pathMatch: 'full' }
+  { path: '', component: Home }
 ];
