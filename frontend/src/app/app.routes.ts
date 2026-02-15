@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
-
 import { ObjetivoComponent } from './pages/usuarios/objetivo/objetivo';
 import { ComidasComponent } from './pages/usuarios/comidas/comidas';
 import { PesoComponent } from './pages/usuarios/peso/peso';
 import { ProgresoComponent } from './pages/usuarios/progreso/progreso';
 import { RecomendacionesComponent } from './pages/usuarios/recomendaciones/recomendaciones';
 import { Inicio } from './pages/usuarios/inicio/inicio';
-import {  } from './pages/usuarios/inicio/inicio';
+import {} from './pages/usuarios/inicio/inicio';
 import { AdminHomeComponent } from './pages/admin/home/home';
 import { GestionUsuariosComponent } from './pages/admin/gestion-usuarios/gestion-usuarios';
 import { MetricasComponent } from './pages/admin/metricas/metricas';
@@ -14,6 +13,8 @@ import { AlimentosComponent } from './pages/nutricionista/alimentos/alimentos';
 import { NutricionistaHomeComponent } from './pages/nutricionista/home/home';
 import { RecetasComponent } from './pages/nutricionista/recetas/recetas';
 import { Home } from './pages/home/home';
+import { loginComponent} from './pages/login/login';
+ 
     
 export const routes: Routes = [
   {
@@ -49,5 +50,6 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '', component: Home }
+  { path: '', component: Home },
+  { path: 'login', component: loginComponent },
 ];
