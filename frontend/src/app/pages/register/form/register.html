@@ -1,0 +1,62 @@
+<div class="min-vh-100 d-flex justify-content-center align-items-center bg-light">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">Registro</h2>
+    <form>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control form-control-lg" id="name" placeholder="Juan Carlos">
+            <label for="floatingInput">Nombre(s)</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control form-control-lg" id="lastName" placeholder="Perez Martinez">
+            <label for="floatingInput">Apellidos</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            <input 
+            type="tel" 
+            class="form-control form-control-lg" 
+            id="phone" 
+            placeholder="3001234567" 
+            (keypress)="validarSoloNumeros($event)" >
+            <label for="floatingInput">Numero de celular</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control form-control-lg" id="email" placeholder="name@example.com">
+            <label for="floatingInput">Correo electronico</label>
+        </div>
+
+
+        <div class="form-floating mb-4">
+            <input type="password" class="form-control" id="Password" placeholder="********">
+            <label for="floatingPassword">Contraseña</label>
+        </div>
+
+
+        <div class="form-floating mb-4">
+            <input type="password" class="form-control" id="ConfirPassword" placeholder="********">
+            <label for="floatingPassword">Confirma tu contraseña</label>
+        </div>
+
+
+        <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+        </div>
+    </form>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1"></label>
+            <a routerLink="/register/termsConditions" class="text-center mt-3">Leer y aceptar terminos y condiciones</a>
+        </div>  
+    </div>
+</div>
+    
+    
+
+
+
