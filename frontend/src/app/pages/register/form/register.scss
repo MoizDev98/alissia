@@ -1,0 +1,19 @@
+ .register-card {
+	 width: min(520px, 92vw);
+	 border-radius: 16px;
+ }
+
+ .register-form .form-floating > .form-control,
+ .register-form .form-floating > .form-select {
+	 height: 56px;
+	 padding-top: 1.25rem;
+ }
+
+ .register-form .form-floating > label {
+	 font-size: 0.92rem;
+	 line-height: 1.2;
+ }
+
+ .register-form .form-floating > .form-select {
+	 padding-top: 1.25rem;
+ }
