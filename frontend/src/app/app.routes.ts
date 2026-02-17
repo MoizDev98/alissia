@@ -14,8 +14,10 @@ import { NutricionistaHomeComponent } from './pages/nutricionista/home/home';
 import { RecetasComponent } from './pages/nutricionista/recetas/recetas';
 import { Home } from './pages/home/home';
 import { loginComponent} from './pages/login/login';
- 
-    
+import { registerComponent} from './pages/register/form/register';
+import { TermsConditions} from './pages/register//terms-conditions/terms-conditions';
+
+
 export const routes: Routes = [
   {
     path: 'usuarios',
@@ -52,4 +54,14 @@ export const routes: Routes = [
 
   { path: '', component: Home },
   { path: 'login', component: loginComponent },
+
+
+  { 
+    path: 'register', 
+    children: [
+      {path: 'form', component: registerComponent },
+      {path: 'termsConditions', component: TermsConditions },
+      {path: '', redirectTo: 'home', pathMatch: 'full' }    
+    ]
+  },
 ];
