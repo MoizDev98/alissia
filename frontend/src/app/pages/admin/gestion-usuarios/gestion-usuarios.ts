@@ -34,11 +34,10 @@ export class GestionUsuariosComponent {
   mostrarModal = false;
 
   abrirModal(usuario: any = null) {
-    this.usuarioSeleccionado = usuario;
-    this.mostrarModal = true;
+   this.usuarioSeleccionado = usuario;
+   this.mostrarModal = true;
   }
-
-
+  
   cerrarModal() {
     this.mostrarModal = false;
   }
