@@ -1,12 +1,30 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
+import { CommonModule } from '@angular/common'; 
+import { AuthService } from '/home/moises-solis/alissia_project/frontend/src/app/services/auth.service';
 
 @Component({  
   selector: 'app-header', 
   standalone: true,       
-  imports: [RouterLink],  
+  imports: [RouterLink, CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
+export class HeaderComponent implements OnInit {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-export class HeaderComponent {}
+  usuarioLogueado: any = null;
+
+  ngOnInit() {
+   
+    this.authService.currentUser$.subscribe(user => {
+      this.usuarioLogueado = user;
+    });
+  }
+
+  salir() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+}

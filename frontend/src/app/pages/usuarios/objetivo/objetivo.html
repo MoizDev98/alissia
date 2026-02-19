@@ -1,22 +1,45 @@
-<div class="container mt-4 mb-5">
+<div class="container mt-4 mb-5" style="max-width: 800px;">
 
-  <!-- HEADER -->
   <section class="mb-4 text-center">
-    <h2 class="fw-bold">Define tu objetivo</h2>
+    <h2 class="fw-bold">Define tu perfil y objetivo</h2>
     <p class="text-muted">
-      Esta información nos ayudará a acompañarte mejor en tu alimentación diaria.
+      Kamoca necesita tus medidas exactas para calcular tus calorías correctamente.
     </p>
   </section>
 
-  <!-- OBJETIVO PRINCIPAL -->
+  <section class="mb-5 bg-white p-4 rounded shadow-sm border">
+    <h5 class="fw-semibold mb-3">Tus Medidas Físicas</h5>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label small fw-bold">Peso (kg)</label>
+        <input type="number" class="form-control" [(ngModel)]="peso" placeholder="Ej: 70">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label small fw-bold">Altura (cm)</label>
+        <input type="number" class="form-control" [(ngModel)]="altura" placeholder="Ej: 175">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label small fw-bold">Edad</label>
+        <input type="number" class="form-control" [(ngModel)]="edad" placeholder="Ej: 25">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label small fw-bold">Género</label>
+        <select class="form-select" [(ngModel)]="genero">
+          <option value="" disabled selected>Elige...</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Masculino">Masculino</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
   <section class="mb-5">
     <h5 class="fw-semibold mb-3">¿Qué quieres lograr?</h5>
-
     <div class="row g-3">
       <div class="col-md-4">
-        <div class="card text-center selectable-card"
+        <div class="card text-center selectable-card h-100" style="cursor: pointer;"
             [class.border-primary]="objetivoSeleccionado === 'bajar'"
-            [class.shadow]="objetivoSeleccionado === 'bajar'"
+            [class.bg-primary-subtle]="objetivoSeleccionado === 'bajar'"
             (click)="seleccionarObjetivo('bajar')">
           <div class="card-body">
             <div class="fs-1 mb-2">⬇️</div>
@@ -25,11 +48,10 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-4">
-        <div class="card text-center selectable-card"
+        <div class="card text-center selectable-card h-100" style="cursor: pointer;"
             [class.border-primary]="objetivoSeleccionado === 'mantener'"
-            [class.shadow]="objetivoSeleccionado === 'mantener'"
+            [class.bg-primary-subtle]="objetivoSeleccionado === 'mantener'"
             (click)="seleccionarObjetivo('mantener')">
           <div class="card-body">
             <div class="fs-1 mb-2">⚖️</div>
@@ -38,11 +60,10 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-4">
-        <div class="card text-center selectable-card"
+        <div class="card text-center selectable-card h-100" style="cursor: pointer;"
             [class.border-primary]="objetivoSeleccionado === 'subir'"
-            [class.shadow]="objetivoSeleccionado === 'subir'"
+            [class.bg-primary-subtle]="objetivoSeleccionado === 'subir'"
             (click)="seleccionarObjetivo('subir')">
           <div class="card-body">
             <div class="fs-1 mb-2">⬆️</div>
@@ -54,107 +75,48 @@
     </div>
   </section>
 
-  <!-- RITMO -->
   <section class="mb-5">
     <h5 class="fw-semibold mb-3">¿A qué ritmo?</h5>
-
     <div class="d-flex flex-column gap-2">
-      <button
-        type="button"
-        class="btn text-start w-100"
-        (click)="seleccionarRitmo('lento')"
-        [ngClass]="{
-            'btn-outline-secondary': ritmoSeleccionado !== 'lento',
-            'btn-primary': ritmoSeleccionado === 'lento'
-        }"
-        >
+      <button type="button" class="btn text-start w-100 border" (click)="seleccionarRitmo('lento')" [ngClass]="{'btn-light': ritmoSeleccionado !== 'lento', 'btn-primary text-white': ritmoSeleccionado === 'lento'}">
         🐢 <strong>Lento y sostenible</strong>
-        <div class="small opacity-75">
-            Cambios progresivos y constantes
-        </div>
-        </button>
-
-
-      <button
-        type="button"
-        class="btn text-start w-100"
-        (click)="seleccionarRitmo('moderado')"
-        [ngClass]="{
-            'btn-outline-secondary': ritmoSeleccionado !== 'moderado',
-            'btn-primary': ritmoSeleccionado === 'moderado'
-        }"
-        >
+      </button>
+      <button type="button" class="btn text-start w-100 border" (click)="seleccionarRitmo('moderado')" [ngClass]="{'btn-light': ritmoSeleccionado !== 'moderado', 'btn-primary text-white': ritmoSeleccionado === 'moderado'}">
         🚶 <strong>Moderado</strong>
-        <div class="small opacity-75">
-            Equilibrio entre resultados y constancia
-        </div>
-        </button>
-
-
-      <button
-        type="button"
-        class="btn text-start w-100"
-        (click)="seleccionarRitmo('rapido')"
-        [ngClass]="{
-            'btn-outline-warning': ritmoSeleccionado !== 'rapido',
-            'btn-warning': ritmoSeleccionado === 'rapido'
-        }"
-        >
+      </button>
+      <button type="button" class="btn text-start w-100 border" (click)="seleccionarRitmo('rapido')" [ngClass]="{'btn-light': ritmoSeleccionado !== 'rapido', 'btn-warning text-dark': ritmoSeleccionado === 'rapido'}">
         🏃 <strong>Rápido</strong>
-        <div class="small opacity-75">
-            Requiere mayor disciplina y seguimiento
-        </div>
-</button>
-
+      </button>
     </div>
   </section>
 
-  <!-- PREFERENCIAS -->
   <section class="mb-5">
-    <h5 class="fw-semibold mb-3">
-      Preferencias alimenticias
-      <span class="text-muted small">(opcional)</span>
-    </h5>
-
+    <h5 class="fw-semibold mb-3">Preferencias alimenticias <span class="text-muted small">(opcional)</span></h5>
     <div class="d-flex flex-wrap gap-2">
-      <button class="btn btn-outline-primary btn-sm"
-            [class.active]="preferenciasSeleccionadas.includes('Sin lactosa')"
-            (click)="togglePreferencia('Sin lactosa')"
-      >Sin lactosa</button>
-      <button class="btn btn-outline-primary btn-sm"
-            [class.active]="preferenciasSeleccionadas.includes('Vegetariano')"
-            (click)="togglePreferencia('Vegetariano')"
-      >Vegetariano</button>
-      <button class="btn btn-outline-primary btn-sm"
-            [class.active]="preferenciasSeleccionadas.includes('Evitar fritos')"
-            (click)="togglePreferencia('Evitar fritos')"
-      >Evitar fritos</button>
-      <button class="btn btn-outline-primary btn-sm"
-            [class.active]="preferenciasSeleccionadas.includes('Evitar azúcares')"
-            (click)="togglePreferencia('Evitar azúcares')"
-      >Evitar azúcares</button>
+      <button class="btn btn-outline-primary btn-sm" [class.active]="preferenciasSeleccionadas.includes('Sin lactosa')" (click)="togglePreferencia('Sin lactosa')">Sin lactosa</button>
+      <button class="btn btn-outline-primary btn-sm" [class.active]="preferenciasSeleccionadas.includes('Vegetariano')" (click)="togglePreferencia('Vegetariano')">Vegetariano</button>
+      <button class="btn btn-outline-primary btn-sm" [class.active]="preferenciasSeleccionadas.includes('Evitar fritos')" (click)="togglePreferencia('Evitar fritos')">Evitar fritos</button>
+      <button class="btn btn-outline-primary btn-sm" [class.active]="preferenciasSeleccionadas.includes('Evitar azúcares')" (click)="togglePreferencia('Evitar azúcares')">Evitar azúcares</button>
     </div>
   </section>
 
-  <!-- RESUMEN -->
   <section class="mb-4">
     <div class="card bg-light border-0">
       <div class="card-body">
         <h6 class="fw-bold mb-2">Resumen de tu objetivo</h6>
         <ul class="mb-0 text-muted small">
-          <li>Objetivo: <strong>Bajar de peso</strong></li>
-          <li>Ritmo: <strong>Moderado</strong></li>
-          <li>Preferencias: <strong>Sin lactosa</strong></li>
+          <li>Medidas: <strong>{{ peso || '?' }}kg / {{ altura || '?' }}cm</strong></li>
+          <li>Objetivo: <strong class="text-capitalize">{{ objetivoSeleccionado || 'No seleccionado' }}</strong></li>
+          <li>Ritmo: <strong class="text-capitalize">{{ ritmoSeleccionado || 'No seleccionado' }}</strong></li>
+          <li>Preferencias: <strong>{{ preferenciasSeleccionadas.length > 0 ? preferenciasSeleccionadas.join(', ') : 'Ninguna' }}</strong></li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ACCIÓN -->
   <section class="text-center">
-    <button class="btn btn-primary btn-lg px-5">
-      Guardar objetivo
+    <button class="btn btn-primary btn-lg px-5 shadow" (click)="guardarTodo()" [disabled]="cargando">
+      {{ cargando ? 'Guardando...' : 'Guardar y Ver Dieta' }}
     </button>
   </section>
-
 </div>

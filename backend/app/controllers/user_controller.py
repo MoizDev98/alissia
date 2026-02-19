@@ -42,3 +42,23 @@ def soft_delete_user(user_id: int):
         return {"message": f"Usuario {user_id} desactivado correctamente"}
     except Exception as e:
         return {"error": str(e)}
+    
+
+
+def login_user(email: str, password: str):
+    try:
+        
+        response = supabase.table("users")\
+            .select("*")\
+            .eq("email", email)\
+            .eq("password", password)\
+            .execute()
+        
+        
+        if len(response.data) == 0:
+            return {"error": "Credenciales incorrectas"}
+        
+        return response.data[0]
+        
+    except Exception as e:
+        return {"error": str(e)}

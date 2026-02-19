@@ -1,11 +1,18 @@
 from fastapi import APIRouter, HTTPException
-
+from pydantic import BaseModel
 from controllers.user_controller import (
     get_all_users, 
     create_user, 
     update_user, 
-    soft_delete_user
+    soft_delete_user,
+    login_user
 )
+
+#cree el modelo aqui por que es pequeño y no amerita a hacer el controlador aparte, ademas de que es solo para el login y no se va a usar en ningun otro lugar, por lo que no tiene sentido crear un modelo aparte para esto
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
 
 from models.user_model import UserCreate, UserUpdate
 
@@ -48,4 +55,13 @@ def delete_user_endpoint(id: int):
     if "error" in result:
          raise HTTPException(status_code=400, detail=result["error"])
          
+    return result
+
+@user_router.post("/login")
+def login_endpoint(credentials: LoginRequest):
+    result = login_user(credentials.email, credentials.password)
+    
+    if "error" in result:
+        raise HTTPException(status_code=401, detail=result["error"])
+        
     return result

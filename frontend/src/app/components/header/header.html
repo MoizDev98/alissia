@@ -1,20 +1,30 @@
 <header class="main-header">
     <nav class="navbar bg-success-subtle shadow-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">
-      <img src="assets/logo.svg" alt="Logo" width="160" height="auto" class="d-inline-block align-text-top ">
-    </a>
-    <div class="d-flex ms-auto gap-4">
-        <a class="nav-link active" aria-current="page" routerLink="#">Contactanos</a>
-        <a class="nav-link active" aria-current="page" routerLink="#">Sobre nosotros</a>
-        <a class="nav-link active" aria-current="page" routerLink="#">Comunidad</a>
-    </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/">
+          <img src="assets/logo.svg" alt="Logo" width="160" height="auto" class="d-inline-block align-text-top">
+        </a>
+        <div class="d-flex ms-auto gap-4">
+            <a class="nav-link active" routerLink="#">Contáctanos</a>
+            <a class="nav-link active" routerLink="#">Sobre nosotros</a>
+            <a class="nav-link active" routerLink="#">Comunidad</a>
+        </div>
+  
+        <div class="d-flex ms-auto gap-2" *ngIf="!usuarioLogueado">  
+            <button type="button" class="btn btn-outline-dark" routerLink="/register/form">Regístrate</button>
+            <button type="button" class="btn btn-light" routerLink="/login">Iniciar Sesión</button>
+        </div>
 
-    <div class="d-flex ms-auto gap-2">  
-        <button type="button" class="btn btn-outline-dark" routerLink="/register/form">Registrate</button>
-        <button type="button" class="btn btn-light" routerLink="/login">Inciar Sesion</button>
-    </div>
-     
-  </div>
-</nav>
+        <div class="d-flex ms-auto gap-3 align-items-center" *ngIf="usuarioLogueado">  
+            <span class="fw-bold text-dark">
+               Hola, {{ usuarioLogueado.first_name || 'Usuario' }}
+            </span>
+            
+            <button type="button" class="btn btn-danger btn-sm" (click)="salir()">
+                Salir de la sesión
+            </button>
+        </div>
+         
+      </div>
+    </nav>
 </header>
