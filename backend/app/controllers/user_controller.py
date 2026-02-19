@@ -1,5 +1,5 @@
 from config.db import supabase
-from models.user_model import UserCreate
+from models.user_model import UserCreate, UserUpdate
 
 #llamamos a la tabla de usuarios y seleccionamos todos los datos
 def get_all_users():
@@ -26,7 +26,7 @@ def delete_user(user_id: int):
         return {"error": str(e)}
     
  #actualizamos un usuario a partir de su id y los datos recibidos en el cuerpo de la solicitud   
-def update_user(user_id: int, user: UserCreate):
+def update_user(user_id: int, user: UserUpdate):
   try:  
     datos_limpios = user.dict(exclude_unset=True)
     response = supabase.table("users").update(datos_limpios).eq("id", user_id).execute()

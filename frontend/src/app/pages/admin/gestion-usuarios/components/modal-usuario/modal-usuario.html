@@ -14,11 +14,19 @@
     <div class="modal-body">
 
       <div class="mb-3">
-        <label class="form-label">Nombre</label>
+        <label class="form-label">Nombre(s)</label>
         <input
           type="text"
           class="form-control"
-          [(ngModel)]="usuario.nombre">
+          [(ngModel)]="usuario.first_name">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Apellidos</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="usuario.last_name">
       </div>
 
       <div class="mb-3">
@@ -30,22 +38,60 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Rol</label>
-        <select
-          class="form-select"
-          [(ngModel)]="usuario.rol">
-          <option value="Usuario">Usuario</option>
-          <option value="Admin">Admin</option>
-        </select>
+        <label class="form-label">Rol (ID)</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="usuario.role_id">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tipo de documento (ID)</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="usuario.document_type_id">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Numero de documento</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="usuario.document_number">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Genero</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="usuario.gender">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Telefono</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="usuario.phone">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Contrasena</label>
+        <input
+          type="password"
+          class="form-control"
+          [(ngModel)]="usuario.password">
       </div>
 
       <div class="mb-3">
         <label class="form-label">Estado</label>
         <select
           class="form-select"
-          [(ngModel)]="usuario.estado">
-          <option [ngValue]="1">Activo</option>
-          <option [ngValue]="0">Inactivo</option>
+          [(ngModel)]="usuario.status">
+          <option value="ACTIVE">Activo</option>
+          <option value="INACTIVE">Inactivo</option>
         </select>
       </div>
 

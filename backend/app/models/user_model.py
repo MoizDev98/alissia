@@ -18,7 +18,7 @@ class UserResponse(UserCreate):
     status: str
 
 class UserUpdate(BaseModel):
-    
+    role_id: Optional[int] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     document_type_id: Optional[int] = None
@@ -27,3 +27,4 @@ class UserUpdate(BaseModel):
     phone: Optional[str] = None
     password: Optional[str] = None
     email: Optional[str] = None
+    status: Optional[str] = None

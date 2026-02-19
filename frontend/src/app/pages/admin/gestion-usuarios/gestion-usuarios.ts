@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario';
+import { ApiService } from '../../../services/api';
 
 
 @Component({
@@ -11,15 +12,40 @@ import { ModalUsuarioComponent } from './components/modal-usuario/modal-usuario'
   templateUrl: './gestion-usuarios.html',
   styleUrls: ['./gestion-usuarios.scss']
 })
-export class GestionUsuariosComponent {
+export class GestionUsuariosComponent implements OnInit {
 
   filtroNombre: string = '';
 
-  usuarios = [
-    { id: 1, nombre: 'Carlos Ruiz', email: 'carlos@mail.com', rol: 'Usuario', estado: 1 },
-    { id: 2, nombre: 'Ana López', email: 'ana@mail.com', rol: 'Nutricionista', estado: 1 },
-    { id: 3, nombre: 'Pedro Gómez', email: 'pedro@mail.com', rol: 'Usuario', estado: 0 }
-  ];
+  usuarios: any[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.cargarUsuarios();
+  }
+
+  cargarUsuarios(): void {
+    this.apiService.getUsers().subscribe({
+      next: (response: any) => {
+        const rawUsers = Array.isArray(response)
+          ? response
+          : response?.data || response?.users || [];
+
+        this.usuarios = rawUsers.map((user: any) => ({
+          ...user,
+          id: user.id,
+          nombre: `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim(),
+          email: user.email,
+          rol: user.role_id ?? 'Sin rol',
+          estado: (user.status ?? '').toUpperCase() === 'ACTIVE' ? 1 : 0
+        }));
+      },
+      error: (error) => {
+        console.error('Error al cargar usuarios', error);
+        this.usuarios = [];
+      }
+    });
+  }
 
   get usuariosFiltrados() {
     return this.usuarios.filter(u =>
@@ -28,7 +54,16 @@ export class GestionUsuariosComponent {
   }
 
   cambiarEstado(usuario: any) {
-    usuario.estado = usuario.estado === 1 ? 0 : 1;
+    if (!usuario?.id) {
+      return;
+    }
+
+    this.apiService.deleteUser(usuario.id).subscribe({
+      next: () => this.cargarUsuarios(),
+      error: (error) => {
+        console.error('Error al desactivar usuario', error);
+      }
+    });
   }
 
   mostrarModal = false;
@@ -40,20 +75,67 @@ export class GestionUsuariosComponent {
   
   cerrarModal() {
     this.mostrarModal = false;
+    this.usuarioSeleccionado = null;
   }
 
   agregarUsuario(usuario: any) {
-
-    if (this.usuarioSeleccionado) {
-      // EDITAR
-      const index = this.usuarios.findIndex(u => u.email === this.usuarioSeleccionado.email);
-      this.usuarios[index] = usuario;
-    } else {
-      // CREAR
-      this.usuarios.push(usuario);
+    if (this.usuarioSeleccionado?.id) {
+      const payload = this.buildUpdatePayload(usuario);
+      this.apiService.updateUser(this.usuarioSeleccionado.id, payload).subscribe({
+        next: () => {
+          this.usuarioSeleccionado = null;
+          this.cargarUsuarios();
+        },
+        error: (error) => {
+          console.error('Error al actualizar usuario', error);
+        }
+      });
+      return;
     }
 
-    this.usuarioSeleccionado = null;
+    const payload = this.buildCreatePayload(usuario);
+    this.apiService.createUser(payload).subscribe({
+      next: () => {
+        this.cargarUsuarios();
+      },
+      error: (error) => {
+        console.error('Error al crear usuario', error);
+      }
+    });
+  }
+
+  private buildCreatePayload(usuario: any) {
+    return {
+      role_id: Number(usuario.role_id),
+      document_type_id: Number(usuario.document_type_id),
+      document_number: usuario.document_number,
+      first_name: usuario.first_name,
+      last_name: usuario.last_name,
+      gender: usuario.gender,
+      phone: usuario.phone,
+      password: usuario.password,
+      email: usuario.email
+    };
+  }
+
+  private buildUpdatePayload(usuario: any) {
+    const payload: any = {
+      role_id: Number(usuario.role_id),
+      document_type_id: Number(usuario.document_type_id),
+      document_number: usuario.document_number,
+      first_name: usuario.first_name,
+      last_name: usuario.last_name,
+      gender: usuario.gender,
+      phone: usuario.phone,
+      email: usuario.email,
+      status: usuario.status
+    };
+
+    if (usuario.password) {
+      payload.password = usuario.password;
+    }
+
+    return payload;
   }
 
 

@@ -17,17 +17,24 @@ export class ModalUsuarioComponent implements OnInit {
   @Output() guardar = new EventEmitter<any>();
 
   usuario = {
-    nombre: '',
+    id: null,
+    first_name: '',
+    last_name: '',
     email: '',
-    rol: 'Usuario',
-    estado: 1
+    role_id: null,
+    document_type_id: null,
+    document_number: '',
+    gender: '',
+    phone: '',
+    password: '',
+    status: 'ACTIVE'
   };
 
   modoEdicion = false;
 
   ngOnInit() {
     if (this.usuarioEditar) {
-      this.usuario = { ...this.usuarioEditar };
+      this.usuario = { ...this.usuarioEditar, password: '' };
       this.modoEdicion = true;
     }
   }
