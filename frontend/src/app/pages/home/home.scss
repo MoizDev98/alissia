@@ -1,88 +1,181 @@
-.home-container {
-  max-width: 1200px;
-  min-height: 100vh;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.icon-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+.home-image-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  color: white;
-  font-size: 2rem;
+  align-items: center;
+
+  img {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 28px;
+    box-shadow: 0 20px 45px rgba(79, 182, 166, 0.35);
+    object-fit: cover;
+  }
+}
+.home {
+  background: #f9fafb;
 }
 
-.card {
-  border: 1px solid #e0e0e0;
-  transition: transform 0.2s, box-shadow 0.2s;
+/* HERO */
+.hero {
+  padding: 7rem 1.5rem 3rem;
+  display: flex;
+  justify-content: center;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(40, 167, 69, 0.15) !important;
+.hero-card {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.card-title {
-  color: #28a745;
-  font-weight: 600;
+.hero-img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+}
+
+/* FEATURES */
+.features {
+  padding: 4rem 1.5rem;
+  text-align: center;
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #64748b;
+    font-size: 0.95rem;
+  }
+}
+
+.personalizacion { background: #ecfeff; }
+.seguimiento { background: #eff6ff; }
+.analisis { background: #ecfdf5; }
+
+/* ABOUT */
+.about {
+  padding: 4rem 1.5rem;
+}
+
+.about-card {
+  background: white;
+  border-radius: 24px;
+  padding: 3rem;
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.badge {
+  display: inline-block;
+  background: #d1fae5;
+  color: #047857;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
   margin-bottom: 1rem;
 }
 
-ul li {
-  padding: 0.25rem 0;
+.about-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.9rem;
+  }
 }
 
-ul li i {
-  margin-right: 0.5rem;
+.about-logo img {
+  width: 180px;
+  margin: auto;
+  display: block;
 }
 
-.step-number {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+/* CTA */
+.cta {
+  margin: 5rem auto 4rem;
+  background: #4fb6a6;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 auto;
-}
+  text-align: center;
+  max-width: 900px;
+  padding: 3rem 2rem;
+  border-radius: 28px;
+  box-shadow: 0 12px 30px rgba(79, 182, 166, 0.45);
 
-.feature-list {
-  display: grid;
-  gap: 1.5rem;
-}
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
 
-.feature-item {
-  display: flex;
-  gap: 1rem;
-  align-items: start;
-}
+  p {
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
 
-.feature-item i {
-  font-size: 1.75rem;
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-}
+  button {
+    background: white;
+    color: #4fb6a6;
+    border: none;
+    padding: 0.9rem 2.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-.feature-item h6 {
-  margin-bottom: 0.25rem;
-  font-weight: 600;
-}
-
-.card.border-success {
-  border-width: 2px;
-  transition: transform 0.2s;
-}
-
-.card.border-success:hover {
-  transform: translateX(8px);
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
 }

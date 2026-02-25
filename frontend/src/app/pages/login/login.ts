@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from "@angular/router";
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '/home/moises-solis/alissia_project/frontend/src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',

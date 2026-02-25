@@ -1,30 +1,39 @@
 <header class="main-header">
-    <nav class="navbar bg-success-subtle shadow-sm">
-      <div class="container-fluid">
-        <a class="navbar-brand" routerLink="/">
-          <img src="assets/logo.svg" alt="Logo" width="160" height="auto" class="d-inline-block align-text-top">
-        </a>
-        <div class="d-flex ms-auto gap-4">
-            <a class="nav-link active" routerLink="#">Contáctanos</a>
-            <a class="nav-link active" routerLink="#">Sobre nosotros</a>
-            <a class="nav-link active" routerLink="#">Comunidad</a>
-        </div>
-  
-        <div class="d-flex ms-auto gap-2" *ngIf="!usuarioLogueado">  
-            <button type="button" class="btn btn-outline-dark" routerLink="/register/form">Regístrate</button>
-            <button type="button" class="btn btn-light" routerLink="/login">Iniciar Sesión</button>
-        </div>
+  <nav class="navbar navbar-expand bg-success-subtle shadow-sm custom-navbar">
+    <div class="container-fluid">
+      
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
+        <span class="brand-text">NutriSync</span>
+      </a>
 
-        <div class="d-flex ms-auto gap-3 align-items-center" *ngIf="usuarioLogueado">  
-            <span class="fw-bold text-dark">
-               Hola, {{ usuarioLogueado.first_name || 'Usuario' }}
-            </span>
-            
-            <button type="button" class="btn btn-danger btn-sm" (click)="salir()">
-                Salir de la sesión
-            </button>
-        </div>
-         
+      <!-- Links -->
+      <div class="d-flex ms-auto gap-4 nav-links">
+        <a class="nav-link" routerLink="#">Contáctanos</a>
+        <a class="nav-link" routerLink="#">Sobre nosotros</a>
+        <a class="nav-link" routerLink="#">Comunidad</a>
       </div>
-    </nav>
+
+      <!-- Botones cuando NO está logueado -->
+      <div class="d-flex ms-auto gap-2 actions" *ngIf="!usuarioLogueado">
+        <button type="button" class="btn btn-outline-dark btn-soft" routerLink="/register/form">
+          Regístrate
+        </button>
+        <button type="button" class="btn btn-light btn-soft-primary" routerLink="/login">
+          Iniciar Sesión
+        </button>
+      </div>
+
+      <!-- Usuario logueado -->
+      <div class="d-flex ms-auto gap-3 align-items-center user-area" *ngIf="usuarioLogueado">
+        <span class="fw-bold text-dark">
+          Hola, {{ usuarioLogueado.first_name || 'Usuario' }}
+        </span>
+        <button type="button" class="btn btn-danger btn-sm" (click)="salir()">
+          Salir de la sesión
+        </button>
+      </div>
+
+    </div>
+  </nav>
 </header>

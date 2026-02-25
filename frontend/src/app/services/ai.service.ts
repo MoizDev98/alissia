@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PatientProfile } from '/home/moises-solis/alissia_project/frontend/src/app/models/data.model';
+import { PatientProfile } from '../models/data.model';
 
 @Injectable({
   providedIn: 'root'

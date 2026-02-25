@@ -1,9 +1,9 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '/home/moises-solis/alissia_project/frontend/src/app/services/auth.service';
-import { DataService } from '/home/moises-solis/alissia_project/frontend/src/app/services/data.service';
-import { AiService } from '/home/moises-solis/alissia_project/frontend/src/app/services/ai.service';
+import { AuthService } from '../../../services/auth.service';
+import { DataService } from '../../../services/data.service';
+import { AiService } from '../../../services/ai.service';
 
 @Component({
   selector: 'app-recomendaciones',

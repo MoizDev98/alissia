@@ -1,33 +1,69 @@
-<div class="min-vh-100 d-flex justify-content-center align-items-center bg-light">
-    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
-        <h2 class="text-center mb-4">Inicio de sesión</h2>
-        
-        <form (ngSubmit)="iniciarSesion()">
-            
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="correo" placeholder="name@example.com" required>
-                <label for="email">Correo electrónico</label>
-            </div>
-            
-            <div class="form-floating mb-4">
-                <input type="password" class="form-control" id="Password" name="password" [(ngModel)]="clave" placeholder="********" required>
-                <label for="Password">Contraseña</label>
-            </div>
+<section class="login-layout">
+  <!-- Lado izquierdo (banner) -->
+  <aside class="login-banner">
+    <div class="banner-content">
+      <h1>
+        Tu Plan Nutricional,<br />
+        Potenciado por IA
+      </h1>
+      <p class="subtitle">Personalizado. Dinámico. Inteligente.</p>
 
-            <div *ngIf="mensajeError" class="alert alert-danger py-2 text-center" role="alert">
-                {{ mensajeError }}
-            </div>
-
-            <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-primary btn-lg" [disabled]="cargando">
-                    {{ cargando ? 'Verificando...' : 'Ingresar' }}
-                </button>
-            </div>
-        </form>
-
-        <div class="text-center d-flex flex-column gap-2">
-            <a routerLink="/recuperar" class="text-center mt-3 text-decoration-none">Recuperar contraseña</a>
-            <a routerLink="/register/form" class="text-decoration-none small">¿No tienes cuenta? Regístrate</a>
-        </div>   
+      <div class="badges">
+        <div class="badge">
+          <span class="icon"></span>
+          <span>Análisis en tiempo real</span>
+        </div>
+        <div class="badge">
+          <span class="icon"></span>
+          <span>Recetas Inteligentes</span>
+        </div>
+      </div>
     </div>
-</div>
+
+    <div class="banner-graphic"></div>
+  </aside>
+
+  <!-- Lado derecho (formulario) -->
+  <main class="login-form">
+    <div class="form-container">
+      <div class="brand">
+        <div class="logo">🤖</div>
+        <div>
+          <h2>Asistente IA</h2>
+          <small>ALIMENTACIÓN INTELIGENTE</small>
+        </div>
+      </div>
+
+      <h3>Bienvenido de nuevo</h3>
+      <p class="description">Ingresa tus credenciales para acceder a tu panel.</p>
+
+      <form>
+        <div class="field">
+          <label>Correo Electrónico</label>
+          <input type="email" placeholder=" " />
+        </div>
+
+        <div class="field">
+          <div class="field-row">
+            <label>Contraseña</label>
+            <a class="forgot" href="#">¿Olvidaste tu contraseña?</a>
+          </div>
+          <input type="password" placeholder=" " />
+        </div>
+
+        <label class="remember">
+          <input type="checkbox" />
+          Recordarme en este dispositivo
+        </label>
+
+        <button class="submit">Iniciar Sesión</button>
+      </form>
+
+      <p class="register">
+        ¿No tienes una cuenta?
+        <a href="#">Crear una cuenta</a>
+      </p>
+
+    </div>
+  </main>
+</section>

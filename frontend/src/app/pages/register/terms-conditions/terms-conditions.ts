@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-terms-conditions',
-  imports: [],
+  standalone: true,   // 👈 ESTO ES CLAVE
+  imports: [CommonModule],
   templateUrl: './terms-conditions.html',
-  styleUrl: './terms-conditions.scss',
+  styleUrls: ['./terms-conditions.scss']
 })
-export class TermsConditions {
+export class TermsConditionsComponent {
+  @Output() close = new EventEmitter<void>();
 
+  cerrar() {
+    this.close.emit();
+  }
 }

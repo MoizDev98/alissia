@@ -1,1 +1,47 @@
-<p>terms-conditions works!</p>
+<div class="terms-overlay" (click)="cerrar()">
+  <div class="terms-modal" (click)="$event.stopPropagation()">
+    <header class="terms-header">
+      <h2>Términos y Condiciones</h2>
+      <button class="close-btn" (click)="cerrar()">×</button>
+    </header>
+
+    <div class="terms-content">
+      <p>
+        Bienvenido a nuestra plataforma de planes nutricionales inteligentes.
+        Al usar este servicio aceptas los siguientes términos:
+      </p>
+
+      <h4>1. Uso del servicio</h4>
+      <p>
+        Esta aplicación ofrece recomendaciones nutricionales basadas en la información
+        que proporcionas. No sustituye asesoría médica profesional.
+      </p>
+
+      <h4>2. Información del usuario</h4>
+      <p>
+        El usuario se compromete a proporcionar datos reales como peso, edad, estatura,
+        nivel de actividad física y objetivos de salud.
+      </p>
+
+      <h4>3. Privacidad</h4>
+      <p>
+        Los datos proporcionados serán usados únicamente para mejorar la experiencia
+        y generar planes nutricionales personalizados.
+      </p>
+
+      <h4>4. Cambios</h4>
+      <p>
+        Nos reservamos el derecho de actualizar estos términos cuando sea necesario.
+      </p>
+
+      <h4>5. Aceptación</h4>
+      <p>
+        Al utilizar esta aplicación aceptas estos términos y condiciones.
+      </p>
+    </div>
+
+    <footer class="terms-footer">
+      <button class="btn-close" (click)="cerrar()">Entendido</button>
+    </footer>
+  </div>
+</div>

@@ -2,9 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
-import { AuthService } from '/home/moises-solis/alissia_project/frontend/src/app/services/auth.service';
-import { DataService } from '/home/moises-solis/alissia_project/frontend/src/app/services/data.service';
-import { PatientProfile } from '/home/moises-solis/alissia_project/frontend/src/app/models/data.model';
+import { AuthService } from '../../../services/auth.service';
+import { DataService } from '../../../services/data.service';
+import { PatientProfile } from '../../../models/data.model';
 
 @Component({
   selector: 'app-objetivo',

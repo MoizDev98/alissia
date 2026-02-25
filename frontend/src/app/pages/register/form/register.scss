@@ -1,19 +1,168 @@
- .register-card {
-	 width: min(520px, 92vw);
-	 border-radius: 16px;
- }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
- .register-form .form-floating > .form-control,
- .register-form .form-floating > .form-select {
-	 height: 56px;
-	 padding-top: 1.25rem;
- }
+* {
+  box-sizing: border-box;
+}
 
- .register-form .form-floating > label {
-	 font-size: 0.92rem;
-	 line-height: 1.2;
- }
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e9fbf3, #f5fffb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+}
 
- .register-form .form-floating > .form-select {
-	 padding-top: 1.25rem;
- }
+.register-card {
+  width: 1100px;
+  max-width: 95%;
+  min-height: 650px;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* IZQUIERDA */
+.register-left {
+  background: linear-gradient(135deg, #c9f5e7, #e8fff7);
+  padding: 4rem 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.left-content {
+  .logo {
+    width: 72px;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    color: #0f5f4a;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.05rem;
+    color: #2f7a65;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .benefits {
+    display: grid;
+    gap: 1rem;
+
+    div {
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 0.9rem 1.2rem;
+      border-radius: 12px;
+      color: #145f4a;
+      font-weight: 500;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+/* DERECHA */
+.register-right {
+  padding: 3.5rem 3rem;
+
+  h3 {
+    font-size: 2rem;
+    color: #0f5f4a;
+    margin-bottom: 0.3rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #6aa79a;
+    margin-bottom: 2rem;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #2f7a65;
+    margin-bottom: 0.4rem;
+  }
+
+  input,
+  select {
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #cfeee4;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: none;
+      border-color: #34d399;
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+    }
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 0.9rem;
+  color: #2f7a65;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #34d399, #10b981);
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.login-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+
+  a {
+    color: #10b981;
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .register-card {
+    grid-template-columns: 1fr;
+  }
+
+  .register-left {
+    display: none;
+  }
+}

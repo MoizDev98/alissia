@@ -1,69 +1,74 @@
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
 .main-header {
-  display: flex;             
-  justify-content: space-between; 
-  align-items: center;       
-  padding: 1rem 2rem;        
-  background-color: #2ea84f; 
-  color: white;              
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
 
-  .logo-area h1 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
+.custom-navbar {
+  background: rgba(234, 244, 238, 0.9) !important;
+  border-bottom: 1px solid #d7e8de;
+}
 
-  .nav-links {
-    display: flex;
-    gap: 20px; 
+.logo-img {
+  height: 36px;
+  width: auto;
+}
 
-    a {
-      color: rgb(255, 253, 253);
-      text-decoration: none; 
-      font-weight: 500;
-      transition: opacity 0.3s;
+.brand-text {
+  font-weight: 800;
+  color: #2c3e31;
+  font-size: 1rem;
+}
 
-      &:hover { 
-        opacity: 0.8;
-      }
-    }
-  }
-
-  .logout-btn {
-    background-color: rgb(8, 7, 7);
-    color: #0d0c0d;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px; 
-    cursor: pointer;
-    font-weight: bold;
+.nav-links {
+  a {
+    color: #4a6d55 !important;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 2px;
 
     &:hover {
-      background-color: #e6e6e6;
+      color: #2c3e31 !important;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background: #a8d5ba;
+      transition: 0.2s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
     }
   }
+}
 
-
-  .login-btn {
-    border-: px;
-    background-color: transparent;
-    color: #e6e6e6;
-
+.actions {
+  .btn-soft {
+    border-radius: 10px;
+    font-weight: 700;
+    padding: 0.4rem 0.9rem;
   }
 
-  .sing-in-btn{
-    margin-right: 15px;
+  .btn-soft-primary {
+    background: #a8d5ba !important;
+    border: none;
+    color: white !important;
+
+    &:hover {
+      background: #96c3a8 !important;
+    }
   }
-} */
+}
+
+.user-area {
+  span {
+    color: #2c3e31;
+  }
+}

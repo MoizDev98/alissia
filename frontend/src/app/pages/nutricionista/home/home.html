@@ -1,20 +1,86 @@
 <div class="admin-home-container">
 
-  <h2 class="titulo">Panel de Nutricionista</h2>
+  <div class="header-panel">
+    <div>
+      <h2 class="titulo">Panel de Nutricionista</h2>
+      <p class="subtitulo">
+        Sistema de gestión nutricional para control de alimentos, recetas y pacientes
+      </p>
+    </div>
 
+    <div class="badge">
+      Proyecto Académico 2026
+    </div>
+  </div>
+
+  <!-- CARDS PRINCIPALES -->
   <div class="cards-container">
 
     <div class="admin-card" routerLink="/nutricionista/alimentos">
-      <div class="icono">👥</div>
+      <div class="icono">🥗</div>
       <h4>Gestión de Alimentos</h4>
       <p>Crear, editar y administrar alimentos del sistema</p>
+      <span class="accion">Entrar</span>
     </div>
 
     <div class="admin-card" routerLink="/nutricionista/recetas">
-      <div class="icono">📊</div>
+      <div class="icono">📋</div>
       <h4>Recetas</h4>
       <p>Crear, editar y administrar recetas del sistema</p>
+      <span class="accion">Entrar</span>
     </div>
+
+    <div class="admin-card">
+      <div class="icono">👤</div>
+      <h4>Pacientes</h4>
+      <p>Gestiona perfiles, objetivos y progreso nutricional</p>
+      <span class="accion">Próximamente</span>
+    </div>
+
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="overview">
+
+    <h3 class="overview-title">Resumen del Sistema</h3>
+
+    <div class="stats">
+
+      <div class="stat-card">
+        <h5>Total Alimentos</h5>
+        <p class="numero">124</p>
+      </div>
+
+      <div class="stat-card">
+        <h5>Recetas Activas</h5>
+        <p class="numero">18</p>
+      </div>
+
+      <div class="stat-card">
+        <h5>Pacientes</h5>
+        <p class="numero">42</p>
+      </div>
+
+      <div class="stat-card">
+        <h5>Planes Activos</h5>
+        <p class="numero">12</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ESTADO DEL PROYECTO -->
+  <div class="progress-container">
+
+    <h3>Estado del Proyecto</h3>
+    <p>Avance del desarrollo del sistema nutricional</p>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <span class="progress-text">65% completado</span>
 
   </div>
 

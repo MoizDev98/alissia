@@ -15,8 +15,7 @@ import { RecetasComponent } from './pages/nutricionista/recetas/recetas';
 import { Home } from './pages/home/home';
 import { loginComponent} from './pages/login/login';
 import { registerComponent} from './pages/register/form/register';
-import { TermsConditions} from './pages/register//terms-conditions/terms-conditions';
-
+import { TermsConditionsComponent } from '../app/pages/register/terms-conditions/terms-conditions';
 
 export const routes: Routes = [
   {
@@ -60,7 +59,7 @@ export const routes: Routes = [
     path: 'register', 
     children: [
       {path: 'form', component: registerComponent },
-      {path: 'termsConditions', component: TermsConditions },
+      {path: 'termsConditions', component: TermsConditionsComponent },
       {path: '', redirectTo: 'home', pathMatch: 'full' }    
     ]
   },

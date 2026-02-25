@@ -1,12 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { CommonModule } from '@angular/common';
+import { TermsConditionsComponent } from '../../pages/register/terms-conditions/terms-conditions';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, TermsConditionsComponent],
   templateUrl: './footer.html',
-  styleUrl: './footer.scss',
+  styleUrls: ['./footer.scss']
 })
 export class FooterComponent {
-  currentYear: number = new Date().getFullYear();
+  mostrarTerminos = false;
+
+  abrirTerminos() {
+    this.mostrarTerminos = true;
+  }
+
+  cerrarTerminos() {
+    this.mostrarTerminos = false;
+  }
 }
