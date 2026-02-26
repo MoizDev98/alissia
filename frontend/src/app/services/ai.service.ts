@@ -14,8 +14,9 @@ export class AiService {
   constructor() { }
 
   generarDieta(datosPaciente: any): Observable<any> {
-    
-    return this.http.post(`${this.baseUrl}generar-dieta`, datosPaciente);
-    
+    // VERSION ANTERIOR (no borrar):
+    // return this.http.post(`${this.baseUrl}generar-dieta`, datosPaciente);
+
+    return this.http.post(`${this.baseUrl}dieta`, datosPaciente);
   }
 }

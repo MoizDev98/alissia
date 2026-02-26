@@ -47,6 +47,25 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.currentUserSubject.value;
+    const currentUser = this.currentUserSubject.value;
+
+    if (currentUser) {
+      return currentUser;
+    }
+
+    if (isPlatformBrowser(this.platformId)) {
+      const userJson = localStorage.getItem('kamoca_user');
+      if (userJson) {
+        try {
+          const parsedUser = JSON.parse(userJson);
+          this.currentUserSubject.next(parsedUser);
+          return parsedUser;
+        } catch {
+          localStorage.removeItem('kamoca_user');
+        }
+      }
+    }
+
+    return null;
   }
 }

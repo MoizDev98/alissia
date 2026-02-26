@@ -45,11 +45,12 @@ export class RecomendacionesComponent implements OnInit {
           this.pedirDietaA_La_IA(perfil);
         } else {
           console.warn("Primero necesitamos tus medidas para que Kamoca trabaje.");
-          this.router.navigate(['usuarios/objetivo']);
+          this.router.navigate(['/usuarios/objetivo']);
         }
       },
       error: (err) => {
         console.error("Error buscando el perfil", err);
+        this.router.navigate(['/usuarios/objetivo']);
         this.cargando = false;
       }
     });
@@ -72,14 +73,25 @@ export class RecomendacionesComponent implements OnInit {
     this.aiService.generarDieta(datosParaIA).subscribe({
       next: (dietaGenerada) => {
         console.log("¡RESPUESTA RECIBIDA EN ANGULAR!", dietaGenerada);
-        this.caloriasTotales = dietaGenerada.calorias_totales;
-        
-        this.resumenIA = `Para alcanzar tu meta, tu plan de hoy está calculado en aproximadamente ${this.caloriasTotales} kcal. ${dietaGenerada.recomendacion_clave}`;
+        const dieta = this.normalizarRespuestaIA(dietaGenerada);
+
+        // VERSION ANTERIOR (no borrar):
+        // this.caloriasTotales = dietaGenerada.calorias_totales;
+        // this.resumenIA = `Para alcanzar tu meta, tu plan de hoy está calculado en aproximadamente ${this.caloriasTotales} kcal. ${dietaGenerada.recomendacion_clave}`;
+        // this.recomendaciones = [
+        //   `🍳 Desayuno: ${dietaGenerada.desayuno}`,
+        //   `🍲 Almuerzo: ${dietaGenerada.almuerzo}`,
+        //   `🥗 Cena: ${dietaGenerada.cena}`,
+        //   `💧 Mantén una hidratación constante durante el día.`
+        // ];
+
+        this.caloriasTotales = Number(dieta.calorias_totales ?? 0);
+        this.resumenIA = `Para alcanzar tu meta, tu plan de hoy está calculado en aproximadamente ${this.caloriasTotales} kcal. ${dieta.recomendacion_clave ?? ''}`;
 
         this.recomendaciones = [
-          `🍳 Desayuno: ${dietaGenerada.desayuno}`,
-          `🍲 Almuerzo: ${dietaGenerada.almuerzo}`,
-          `🥗 Cena: ${dietaGenerada.cena}`,
+          `🍳 Desayuno: ${dieta.desayuno ?? 'No disponible'}`,
+          `🍲 Almuerzo: ${dieta.almuerzo ?? 'No disponible'}`,
+          `🥗 Cena: ${dieta.cena ?? 'No disponible'}`,
           `💧 Mantén una hidratación constante durante el día.`
         ];
 
@@ -95,5 +107,17 @@ export class RecomendacionesComponent implements OnInit {
         this.cargando = false;
       }
     });
+  }
+
+  private normalizarRespuestaIA(respuesta: any) {
+    const base = respuesta?.data ?? respuesta?.resultado ?? respuesta;
+
+    return {
+      desayuno: base?.desayuno ?? base?.breakfast,
+      almuerzo: base?.almuerzo ?? base?.lunch,
+      cena: base?.cena ?? base?.dinner,
+      calorias_totales: base?.calorias_totales ?? base?.caloriasTotales ?? base?.total_calories,
+      recomendacion_clave: base?.recomendacion_clave ?? base?.recomendacionClave ?? base?.recommendation
+    };
   }
 }
