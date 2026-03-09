@@ -1,12 +1,15 @@
 <section class="home">
 
   <!-- HERO -->
-  <div class="home-image-container">
-  <img 
-    src="/imagenes/pexels-janetrangdoan-1092730.jpg" 
-    alt="Comida saludable"
-  />
-</div>
+  <section class="hero">
+    <div class="hero-card">
+      <img 
+        class="hero-img"
+        src="assets/imagenes/pexels-janetrangdoan-1092730.jpg"
+        alt="Comida saludable"
+      />
+    </div>
+  </section>
 
   <!-- FEATURES -->
   <section class="features" id="caracteristicas">
@@ -15,66 +18,98 @@
       Utilizamos algoritmos avanzados para entender tus necesidades biológicas y metas personales.
     </p>
 
-    <div class="features-grid">
-      <div class="feature-card personalizacion">
-        <div class="icon">👤</div>
-        <h3>Personalización</h3>
-        <p>
-          Planes únicos basados en tu metabolismo, preferencias y restricciones alimentarias. Ninguna dieta es igual a otra.
-        </p>
-      </div>
+   <div class="features-grid">
 
-      <div class="feature-card seguimiento">
-        <div class="icon">🎯</div>
-        <h3>Seguimiento Diario</h3>
-        <p>
-          Registra tus comidas y actividades en tiempo real. Obtén feedback instantáneo para mantenerte en el camino correcto.
-        </p>
-      </div>
-
-      <div class="feature-card analisis">
-        <div class="icon">🧠</div>
-        <h3>Análisis Inteligente</h3>
-        <p>
-          Nuestra IA analiza tendencias en tus hábitos y sugiere ajustes dinámicos para optimizar tus resultados.
-        </p>
-      </div>
+  <div class="feature-card personalizacion">
+    <div class="icon">
+      <i class="bi bi-person-heart"></i>
     </div>
+    <h3>Personalización</h3>
+    <p>
+      Planes únicos basados en tu metabolismo, preferencias y restricciones alimentarias.
+    </p>
+  </div>
+
+  <div class="feature-card seguimiento">
+    <div class="icon">
+      <i class="bi bi-clipboard2-pulse"></i>
+    </div>
+    <h3>Seguimiento Diario</h3>
+    <p>
+      Registra tus comidas y actividades en tiempo real y recibe feedback inmediato.
+    </p>
+  </div>
+
+  <div class="feature-card analisis">
+    <div class="icon">
+      <i class="bi bi-graph-up-arrow"></i>
+    </div>
+    <h3>Análisis Inteligente</h3>
+    <p>
+      La IA analiza tus hábitos y sugiere mejoras para optimizar tus resultados.
+    </p>
+  </div>
+
+</div>
   </section>
+
+</section>
+
 
   <!-- ABOUT -->
   <section class="about" id="equipo">
+
     <div class="about-card">
+
       <div class="about-text">
+
         <span class="badge">🎓 Proyecto Universitario</span>
+
         <h2>Sobre el Proyecto</h2>
+
         <p>
-          Este desarrollo nace en el entorno académico con el objetivo de democratizar el acceso a asesoría nutricional de alta calidad mediante el uso de Inteligencia Artificial. Durante 4 meses, diseñamos una solución integral que combina tecnología y bienestar.
+          Este desarrollo nace en el entorno académico con el objetivo de democratizar
+          el acceso a asesoría nutricional de alta calidad mediante el uso de
+          Inteligencia Artificial. Durante 4 meses diseñamos una solución integral
+          que combina tecnología y bienestar.
         </p>
 
         <div class="about-stats">
+
           <div class="stat">
             <strong>Equipo</strong>
             <span>3 Integrantes</span>
           </div>
+
           <div class="stat">
             <strong>Duración</strong>
             <span>4 Meses</span>
           </div>
+
         </div>
+
       </div>
 
       <div class="about-logo">
-        <img src="assets/logo.png" alt="Logo del proyecto" />
+        <img src="assets/imagenes/logo.png" alt="Logo del proyecto">
       </div>
+
     </div>
+
   </section>
 
-  <!-- CTA -->
+
+  <!-- CALL TO ACTION -->
   <section class="cta" id="comenzar">
-    <h2>¿Listo para mejorar tu alimentación?</h2>
-    <p>Únete a la nueva era de la nutrición inteligente y personalizada.</p>
-    <button routerLink="/register/form">Comenzar ahora gratis</button>
-  </section>
 
-</section>
+    <h2>¿Listo para mejorar tu alimentación?</h2>
+
+    <p>
+      Únete a la nueva era de la nutrición inteligente y personalizada.
+    </p>
+
+    <button routerLink="/register/form">
+      Comenzar ahora gratis
+    </button>
+
+  </section>

@@ -1,66 +1,107 @@
 <div class="register-page">
-  <div class="register-card">
-    
-    <!-- Panel visual -->
-    <section class="register-left">
+
+  <div class="register-container">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="register-left">
+
+      <div class="overlay"></div>
+
       <div class="left-content">
-        
 
-        <h2>Empieza tu transformación</h2>
-        <p>
-          Diseñamos tu plan nutricional ideal con ayuda de inteligencia artificial.
-          Mejora tu salud, hábitos y energía día a día.
-        </p>
+        <img class="logo" src="assets/imagenes/logo.png">
+<div class="hero-content">
 
-        <div class="benefits">
-          <div>🥗 Planes personalizados</div>
-          <div>📊 Seguimiento inteligente</div>
-          <div>💚 Resultados reales</div>
-        </div>
+  <h1 class="hero-title">Tu camino hacia el bienestar</h1>
+
+  <p class="hero-subtitle">
+    Planes nutricionales inteligentes creados con inteligencia artificial
+    para ayudarte a mejorar tu salud, tus hábitos y tu energía diaria.
+  </p>
+
+  <div class="benefits">
+
+    <div class="benefit">
+      <div class="icon">
+        <i class="bi bi-heart-pulse-fill"></i>
       </div>
-    </section>
+      <span>Salud</span>
+    </div>
 
-    <!-- Formulario -->
-    <section class="register-right">
-      <h3>Crear tu cuenta</h3>
-      <p class="subtitle">
-        Cuéntanos un poco sobre ti para crear tu plan nutricional
-      </p>
+    <div class="benefit">
+      <div class="icon">
+        <i class="bi bi-graph-up-arrow"></i>
+      </div>
+      <span>Progreso</span>
+    </div>
+
+    <div class="benefit">
+      <div class="icon">
+        <i class="bi bi-lightning-charge-fill"></i>
+      </div>
+      <span>Energía</span>
+    </div>
+
+  </div>
+
+</div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FORMULARIO -->
+    <div class="register-right">
+
+      <div class="form-header">
+
+        <span class="badge">
+          <i class="bi bi-stars"></i>
+          Asistente Inteligente
+        </span>
+
+        <h2>Crear Cuenta</h2>
+
+        <p>Regístrate para comenzar tu plan nutricional personalizado</p>
+
+      </div>
 
       <form>
+
         <div class="field">
           <label>Nombre Completo</label>
-          <input type="text" placeholder="" />
+          <input type="text" placeholder="">
         </div>
 
         <div class="field">
-          <label>Correo electrónico</label>
-          <input type="email" placeholder="" />
+          <label>Correo Electrónico</label>
+          <input type="email" placeholder="">
         </div>
 
         <div class="row">
           <div class="field">
             <label>Edad</label>
-            <input type="number" placeholder="" />
+            <input type="number">
           </div>
 
           <div class="field">
-            <label>Telefono</label>
-            <input type="" placeholder="" />
+            <label>Teléfono</label>
+            <input type="text">
           </div>
         </div>
 
         <div class="row">
           <div class="field">
-            <label>Numero de documento</label>
-            <input type="number" placeholder="" />
+            <label>Número de documento</label>
+            <input type="number">
           </div>
 
           <div class="field">
-            <label>TIpo de documento</label>
+            <label>Tipo de documento</label>
             <select>
-              <option value="">Selecciona</option>
-              <option>Cedula</option>
+              <option>Selecciona</option>
+              <option>Cédula</option>
               <option>Permiso de permanencia</option>
               <option>Tarjeta de identidad</option>
             </select>
@@ -70,30 +111,31 @@
         <div class="row">
           <div class="field">
             <label>Contraseña</label>
-            <input type="password" />
+            <input type="password">
           </div>
 
           <div class="field">
             <label>Confirmar contraseña</label>
-            <input type="password" />
+            <input type="password">
           </div>
         </div>
 
         <label class="checkbox">
-          <input type="checkbox" />
-          Acepto los términos y condiciones
+          <input type="checkbox">
+          Acepto términos y condiciones
         </label>
 
-        <button class="btn-primary" type="submit">
-          Crear mi cuenta
-        </button>
+        <button class="btn-primary">Crear Cuenta</button>
 
         <p class="login-link">
-          ¿Ya tienes cuenta?
-          <a routerLink="/login">Inicia sesión</a>
+          ¿Ya tienes una cuenta?
+          <a routerLink="/login">Iniciar Sesión</a>
         </p>
+
       </form>
-    </section>
+
+    </div>
 
   </div>
+
 </div>
