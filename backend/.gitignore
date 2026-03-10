@@ -6,3 +6,11 @@ __pycache__/
 *.pyc
 .DS_Store
 
+# Computer vision artifacts (Ultralytics/YOLO)
+*.pt
+runs/
+
+# Local runtime data
+app/uploads/
+.pytest_cache/
+

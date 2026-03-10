@@ -1,0 +1,50 @@
+<div class="container py-4 contextura-page">
+	<div class="card shadow-sm border-0 mb-4">
+		<div class="card-body">
+			<h4 class="fw-bold mb-2">Analizador de Contextura</h4>
+			<p class="text-muted mb-0">
+				Sube una foto de cuerpo completo para estimar contextura corporal con IA visual.
+			</p>
+		</div>
+	</div>
+
+	<div class="card shadow-sm border-0 mb-4">
+		<div class="card-body">
+			<label class="form-label fw-semibold">Selecciona una imagen</label>
+			<input
+				class="form-control"
+				type="file"
+				accept="image/*"
+				(change)="onFileSelected($event)"
+			/>
+
+			<div class="preview-box mt-3" *ngIf="previewUrl">
+				<img [src]="previewUrl" alt="Vista previa" />
+			</div>
+
+			<button class="btn btn-primary mt-3" [disabled]="cargando" (click)="analizar()">
+				{{ cargando ? 'Analizando...' : 'Analizar imagen' }}
+			</button>
+
+			<p class="text-danger mt-3 mb-0" *ngIf="error">{{ error }}</p>
+		</div>
+	</div>
+
+	<div class="card shadow-sm border-0" *ngIf="resultado">
+		<div class="card-body">
+			<h5 class="fw-semibold mb-3">Resultado</h5>
+			<p class="mb-1"><strong>Persona detectada:</strong> Si</p>
+			<p class="mb-1"><strong>Contextura estimada:</strong> {{ resultado.contextura }}</p>
+			<p class="mb-3"><strong>Ratio corporal:</strong> {{ resultado.ratio }}</p>
+
+			<div class="small text-muted">
+				Bounding box: [{{ resultado.bounding_box.x1 }}, {{ resultado.bounding_box.y1 }}] -
+				[{{ resultado.bounding_box.x2 }}, {{ resultado.bounding_box.y2 }}]
+			</div>
+		</div>
+	</div>
+
+	<p class="small text-muted mt-3 mb-0">
+		Esta estimacion es una aproximacion visual academica y no reemplaza una evaluacion medica.
+	</p>
+</div>

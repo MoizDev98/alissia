@@ -44,6 +44,12 @@ export class Inicio {
       descripcion: 'Orientación alimenticia general.',
       ruta: '/usuarios/recomendaciones',
       icono: '💡'
+    },
+    {
+      titulo: 'Analizar contextura',
+      descripcion: 'Sube una foto para estimar la contextura corporal.',
+      ruta: '/usuarios/contextura',
+      icono: '📷'
     }
   ];
 }

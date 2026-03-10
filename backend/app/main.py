@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.plan_routes import plan_router
 from routes.ia_routes import ia_router
 from routes.profile_routes import profile_router
+from routes.contextura_routes import contextura_router
 
 
 app = FastAPI(
@@ -29,6 +30,7 @@ app.include_router(user_router)
 app.include_router(ia_router)
 app.include_router(profile_router)
 app.include_router(plan_router)
+app.include_router(contextura_router)
 
 @app.get("/")
 def home():
