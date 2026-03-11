@@ -1,29 +1,66 @@
 <footer class="main-footer">
-  <div class="container-fluid footer-container">
-    
-    <div class="footer-left">
-      <span class="brand-text">NutriSync</span>
-    </div>
 
-    <div class="footer-links">
-      <a href="#">Privacidad</a>
+  <div class="footer-top">
 
-      <!-- BOTÓN TÉRMINOS -->
+    <!-- LINKS IZQUIERDA -->
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Política de Privacidad</a>
+      <a href="#">Cookies</a>
+
       <button class="link-btn" (click)="abrirTerminos()">
-        Términos
+        Términos y Condiciones
       </button>
 
-      <a href="#">Soporte</a>
+      <a href="#">Uso de Datos</a>
     </div>
 
-    <div class="footer-copy">
-      © 2026 Proyecto Universitario
+
+    <!-- LOGO + REDES -->
+    <div class="footer-center">
+
+      <h2 class="brand">NutriSync</h2>
+      <p class="brand-sub">Tecnología que cuida tu alimentación</p>
+
+      <div class="social-icons">
+
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-youtube"></i></a>
+        <a href="#"><i class="bi bi-linkedin"></i></a>
+
+      </div>
+
     </div>
+
+
+    <!-- LINKS DERECHA -->
+    <div class="footer-col">
+      <h4>Explorar</h4>
+      <a href="#">Blog</a>
+      <a href="#">Contacto</a>
+      <a href="#">FAQs</a>
+      <a href="#">Comunidad</a>
+    </div>
+
   </div>
 
-  <!-- MODAL DE TÉRMINOS -->
- <app-terms-conditions
+
+  <!-- FOOTER BOTTOM -->
+  <div class="footer-bottom">
+
+    <p>
+      NutriSync © 2026 | Proyecto Universitario
+      | Tecnología de nutrición inteligente
+    </p>
+
+  </div>
+
+
+  <!-- MODAL -->
+  <app-terms-conditions
     *ngIf="mostrarTerminos"
     (close)="mostrarTerminos = false">
   </app-terms-conditions>
+
 </footer>

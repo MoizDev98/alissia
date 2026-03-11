@@ -1,3 +1,18 @@
+.icon{
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  color: #0f766e;
+
+  i{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background: rgba(16,185,129,0.15);
+    border-radius: 14px;
+  }
+}
 .home-image-container {
   display: flex;
   justify-content: center;
@@ -62,6 +77,7 @@
 
 .feature-card {
   padding: 2rem;
+  border: 1px solid rgba(0,0,0,0.04);
   border-radius: 20px;
   background: white;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
@@ -87,17 +103,18 @@
   }
 }
 
-.personalizacion { background: #ecfeff; }
-.seguimiento { background: #eff6ff; }
-.analisis { background: #ecfdf5; }
+.personalizacion { background: #dff6f4; }
+.seguimiento { background: #e3edf9; }
+.analisis { background: #e1eff5; }
 
 /* ABOUT */
 .about {
   padding: 4rem 1.5rem;
 }
 
+
 .about-card {
-  background: white;
+  background: #e1f5ec;
   border-radius: 24px;
   padding: 3rem;
   max-width: 1100px;
@@ -137,7 +154,7 @@
 }
 
 .about-logo img {
-  width: 180px;
+  width: 280px;
   margin: auto;
   display: block;
 }
@@ -145,7 +162,7 @@
 /* CTA */
 .cta {
   margin: 5rem auto 4rem;
-  background: #4fb6a6;
+  background: #2c6d63;
   color: white;
   text-align: center;
   max-width: 900px;
@@ -165,7 +182,7 @@
 
   button {
     background: white;
-    color: #4fb6a6;
+    color: #2c6d63;
     border: none;
     padding: 0.9rem 2.5rem;
     border-radius: 999px;

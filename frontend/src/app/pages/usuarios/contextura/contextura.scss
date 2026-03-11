@@ -1,0 +1,18 @@
+.contextura-page {
+	max-width: 900px;
+}
+
+.preview-box {
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 10px;
+	background: #f8fafc;
+}
+
+.preview-box img {
+	display: block;
+	width: 100%;
+	max-height: 480px;
+	object-fit: contain;
+	border-radius: 8px;
+}
