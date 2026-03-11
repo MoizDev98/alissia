@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 class UserCreate(BaseModel):
@@ -28,3 +28,8 @@ class UserUpdate(BaseModel):
     password: Optional[str] = None
     email: Optional[str] = None
     status: Optional[str] = None
+
+
+class LoginAzureRequest(BaseModel):
+    email: EmailStr
+

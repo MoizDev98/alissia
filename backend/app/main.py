@@ -4,12 +4,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.plan_routes import plan_router
 from routes.ia_routes import ia_router
 from routes.profile_routes import profile_router
+from contextlib import asynccontextmanager
+from core.security import azure_scheme
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("Descargando configuración de seguridad de Microsoft Azure...")
+    await azure_scheme.openid_config.load_config()
+    print("¡Seguridad de Azure cargada correctamente!")
+    yield
 
 app = FastAPI(
     title="Alissia API",
     description="API para proyecto Alissia",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 origins = [

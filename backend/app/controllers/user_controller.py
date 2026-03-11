@@ -1,5 +1,5 @@
 from config.db import supabase
-from models.user_model import UserCreate, UserUpdate
+from models.user_schemas import UserCreate, UserUpdate
 
 #llamamos a la tabla de usuarios y seleccionamos todos los datos
 def get_all_users():
@@ -20,7 +20,7 @@ def create_user(user: UserCreate):
 #eliminamos un usuario a partir de su id
 def delete_user(user_id: int):
     try:
-        response = supabase.table("users").upda().eq("id", user_id).execute()
+        response = supabase.table("users").delete().eq("id", user_id).execute()
         return response.data
     except Exception as e:
         return {"error": str(e)}

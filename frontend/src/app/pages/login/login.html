@@ -57,13 +57,21 @@
         </label>
 
         <button type="submit" class="submit" [disabled]="cargando">Iniciar Sesión</button>
+        
+        <div class="divider pl-5">
+          <span>o ingresa con</span>
+        </div>
+        <button type="button" class="submit azure-btn" (click)="iniciarSesionAzure()" [disabled]="cargando">
+          <span class="icon"></span> Cuenta Institucional
+        </button>
       </form>
+
 
       <p class="description" *ngIf="mensajeError">{{ mensajeError }}</p>
 
       <p class="register">
         ¿No tienes una cuenta?
-        <a href="#">Crear una cuenta</a>
+        <a routerLink="/register/form">Crear una cuenta</a>
       </p>
 
     </div>

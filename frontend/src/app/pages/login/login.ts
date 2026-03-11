@@ -32,14 +32,12 @@ export class loginComponent {
 
     this.authService.login({ email: this.correo, password: this.clave }).subscribe({
       next: (usuario) => {
-        console.log('ingreso', usuario);
         this.cargando = false; 
 
         if (usuario.role_id === 1) {
-          // Si es ADMIN (Ej: role_id 1), lo mandamos al panel de administración
           this.router.navigate(['/admin/home']); 
         } else if(usuario.role_id === 2) {
-          // Si es USUARIO NORMAL, lo mandamos al generador de dietas o inicio
+          
           this.router.navigate(['nutricionista/home']); 
         } else {
           this.router.navigate(['usuarios/inicio']); 
@@ -50,5 +48,10 @@ export class loginComponent {
         this.cargando = false;
       }
     });
+  }
+
+  iniciarSesionAzure() {
+    this.cargando = true;
+    this.authService.loginWithAzure();
   }
 }
