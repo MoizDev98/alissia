@@ -16,6 +16,7 @@ import { Home } from './pages/home/home';
 import { loginComponent} from './pages/login/login';
 import { registerComponent} from './pages/register/form/register';
 import { TermsConditionsComponent } from '../app/pages/register/terms-conditions/terms-conditions';
+import { CompletarPerfilComponent } from '../app/pages/register/complete-profile/complete-profile'
 
 export const routes: Routes = [
   {
@@ -61,6 +62,7 @@ export const routes: Routes = [
     children: [
       {path: 'form', component: registerComponent },
       {path: 'termsConditions', component: TermsConditionsComponent },
+      {path: 'complete-profile', component: CompletarPerfilComponent},
       {path: '', redirectTo: 'home', pathMatch: 'full' }    
     ]
   },

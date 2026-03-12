@@ -5,7 +5,9 @@ from controllers.user_controller import (
     create_user, 
     update_user, 
     soft_delete_user,
-    login_user
+    login_user,
+    sync_azure_user,
+    get_document_types
 )
 from core.security import obtener_usuario_actual
 
@@ -15,6 +17,11 @@ class LoginRequest(BaseModel):
     email: str
     password: str
 
+class AzureSyncRequest(BaseModel):
+    email: str
+    nombre: str
+    role_id: int
+    token: str
 
 from models.user_schemas import UserCreate, UserUpdate
 
@@ -66,4 +73,23 @@ def login_endpoint(credentials: LoginRequest):
     if "error" in result:
         raise HTTPException(status_code=401, detail=result["error"])
         
+    return result
+
+# Ruta especial para recibir a los usuarios que inician sesión con Microsoft
+@user_router.post("/sync-azure")
+def sync_azure_endpoint(data: AzureSyncRequest):
+    
+    result = sync_azure_user(data.email, data.nombre, data.role_id)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+        
+    return result
+
+
+# Ruta para obtener los tipos de documento
+@user_router.get("/document-types")
+def read_document_types():
+    result = get_document_types()
+    if isinstance(result, dict) and "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
     return result

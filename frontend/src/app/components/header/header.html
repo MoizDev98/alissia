@@ -27,7 +27,7 @@
       <!-- Usuario logueado -->
       <div class="d-flex ms-auto gap-3 align-items-center user-area" *ngIf="usuarioLogueado">
         <span class="fw-bold text-dark">
-          Hola, {{ usuarioLogueado.first_name || 'Usuario' }}
+          Hola, {{ usuarioLogueado.first_name || usuarioLogueado.nombre || 'Usuario' }}
         </span>
         <button type="button" class="btn btn-danger btn-sm" (click)="salir()">
           Salir de la sesión

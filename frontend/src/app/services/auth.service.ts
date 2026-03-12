@@ -92,46 +92,58 @@ export class AuthService {
   }
 
 
+  
   async iniciarAzure() {
     await this.msalInstance.initialize();
 
     try {
       const response = await this.msalInstance.handleRedirectPromise();
-      console.log("object", response)
 
       if (response) {
         const cuenta = response.account;
         const claims = response.idTokenClaims as any;
-        const azureRoles = (response.idTokenClaims as any)?.roles || []; 
+        const azureRoles = claims.roles || []; 
         const nombreReal = claims.name || cuenta?.name || 'Usuario Unibarranquilla';
 
         let miRoleId = 3; 
         if (azureRoles.includes("Admin")) {
           miRoleId = 1;
-        } else if (azureRoles.includes("User")) {
+        } else if (azureRoles.includes("Nutricionista")) {
           miRoleId = 2; 
         }
 
-        const usuarioHomologado = {
+        const paqueteParaBackend = {
           nombre: nombreReal,
           email: cuenta?.username,
           role_id: miRoleId,
-          is_azure: true,
           token: response.idToken 
         };
 
-        if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('kamoca_user', JSON.stringify(usuarioHomologado));
-        }
-        this.currentUserSubject.next(usuarioHomologado);
-
-        if (miRoleId === 1) {
-          this.router.navigate(['/admin/home']); 
-        } else if (miRoleId === 2) {
-          this.router.navigate(['nutricionista/home']); 
-        } else {
-          this.router.navigate(['usuarios/inicio']); 
-        }
+        this.http.post(`${this.baseUrl}/sync-azure`, paqueteParaBackend).subscribe({
+          next: (usuarioDesdeBaseDeDatos: any) => {
+            
+            usuarioDesdeBaseDeDatos.token = response.idToken;
+            if (isPlatformBrowser(this.platformId)) {
+              localStorage.setItem('kamoca_user', JSON.stringify(usuarioDesdeBaseDeDatos));
+            }
+            this.currentUserSubject.next(usuarioDesdeBaseDeDatos);
+    
+            if (usuarioDesdeBaseDeDatos.perfil_incompleto === true) {
+              this.router.navigate(['/register/complete-profile']); 
+            } else {
+              if (usuarioDesdeBaseDeDatos.role_id === 1) {
+                this.router.navigate(['/admin/home']); 
+              } else if (usuarioDesdeBaseDeDatos.role_id === 2) {
+                this.router.navigate(['nutricionista/home']); 
+              } else {
+                this.router.navigate(['usuarios/inicio']); 
+              }
+            }
+          },
+          error: (err) => {
+            console.error("Error al sincronizar con el backend:", err);
+          }
+        });
       }
     } catch (error) {
       console.error("Error al procesar el regreso de Microsoft:", error);

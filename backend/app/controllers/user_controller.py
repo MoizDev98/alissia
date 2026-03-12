@@ -59,6 +59,57 @@ def login_user(email: str, password: str):
             return {"error": "Credenciales incorrectas"}
         
         return response.data[0]
+       
+    except Exception as e:
+        return {"error": str(e)}
+
+
+
+# Sincronizamos el usuario de Azure con nuestra base de datos en Supabase
+def sync_azure_user(email: str, nombre_completo: str, role_id: int):
+    try:
+        response = supabase.table("users").select("*").eq("email", email).execute()
+        if len(response.data) > 0:
+            usuario_existente = response.data[0]
+            doc = usuario_existente.get("document_number")
+            telefono = usuario_existente.get("phone")
+            le_falta_info = not doc or doc == "PENDIENTE" or not telefono
+            usuario_existente["perfil_incompleto"] = le_falta_info
+            
+            return usuario_existente
         
+        partes_nombre = nombre_completo.split(" ", 1)
+        primer_nombre = partes_nombre[0]
+        apellido = partes_nombre[1] if len(partes_nombre) > 1 else "N/A"
+    
+        nuevo_usuario = {
+            "email": email,
+            "first_name": primer_nombre,
+            "last_name": apellido,
+            "role_id": role_id,
+            "password": "SSO_AZURE_USER", 
+            "document_number": "PENDIENTE", 
+            "status": "ACTIVE"
+        }
+        
+        insert_response = supabase.table("users").insert(nuevo_usuario).execute()
+        
+        if len(insert_response.data) > 0:
+            usuario_creado = insert_response.data[0]
+            usuario_creado["perfil_incompleto"] = True 
+            return usuario_creado
+            
+        return {"error": "No se pudo sincronizar el usuario con la base de datos"}
+    
+    except Exception as e:
+        return {"error": str(e)}
+
+
+
+# Obtenemos los tipos de documento para el formulario de register/complete-profile
+def get_document_types():
+    try:
+        response = supabase.table("document_types").select("*").execute()
+        return response.data
     except Exception as e:
         return {"error": str(e)}

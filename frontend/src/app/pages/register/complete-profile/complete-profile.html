@@ -1,0 +1,75 @@
+<div class="register-page">
+  <div class="register-container">
+
+    <div class="register-left">
+      <div class="overlay"></div>
+      <div class="left-content">
+        <img class="logo" src="assets/imagenes/logo.png">
+        <div class="hero-content">
+          <h1 class="hero-title">Tu camino hacia el bienestar</h1>
+          <p class="hero-subtitle">
+            Planes nutricionales inteligentes creados con inteligencia artificial
+            para ayudarte a mejorar tu salud, tus hábitos y tu energía diaria.
+          </p>
+          <div class="benefits">
+            <div class="benefit">
+              <div class="icon"><i class="bi bi-heart-pulse-fill"></i></div>
+              <span>Salud</span>
+            </div>
+            <div class="benefit">
+              <div class="icon"><i class="bi bi-graph-up-arrow"></i></div>
+              <span>Progreso</span>
+            </div>
+            <div class="benefit">
+              <div class="icon"><i class="bi bi-lightning-charge-fill"></i></div>
+              <span>Energía</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="register-right">
+      <div class="form-header">
+        <span class="badge"><i class="bi bi-stars"></i> Asistente Inteligente</span>
+        <h2>Completa tu Perfil</h2>
+        <p>Hola <strong>{{ usuario?.first_name || 'Usuario' }}</strong>, necesitamos unos últimos datos para crear tu plan.</p>
+      </div>
+
+      <form (ngSubmit)="guardarPerfil()">
+        
+        <div *ngIf="mensajeError" style="color: red; margin-bottom: 15px; font-weight: bold;">
+          {{ mensajeError }}
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" [(ngModel)]="telefono">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Tipo de documento</label>
+            <select name="document_type_id" [(ngModel)]="document_type_id">
+              <option [ngValue]="null">Selecciona</option>
+              <option *ngFor="let doc of tiposDocumento" [ngValue]="doc.id">
+                {{ doc.name }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label>Número de documento</label>
+            <input type="text" name="numero_documento" [(ngModel)]="numero_documento">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="cargando">
+          {{ cargando ? 'Guardando...' : 'Guardar y Continuar' }}
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>
