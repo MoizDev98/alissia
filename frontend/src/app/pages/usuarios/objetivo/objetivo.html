@@ -7,6 +7,102 @@
     </p>
   </section>
 
+  <!-- SECCIÓN: Análisis corporal por foto (Path A / Path B) -->
+  <section class="mb-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-1">
+      <h5 class="fw-semibold mb-0">
+        📷 Análisis de contextura corporal
+        <span class="badge bg-secondary ms-2" style="font-size: 0.7rem;">Opcional</span>
+      </h5>
+      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="togglePanelFoto()">
+        {{ mostrarPanelFoto ? 'Cerrar panel' : 'Analizar con foto' }}
+      </button>
+    </div>
+    <p class="text-muted small mb-0">
+      Sube una foto de cuerpo entero y la IA estimará tu contextura (delgada / media / robusta).
+      Si prefieres no subir foto, completa el formulario manualmente abajo.
+    </p>
+
+    <div *ngIf="mostrarPanelFoto" class="bg-white p-4 rounded shadow-sm border mt-3">
+
+      <!-- Instrucciones cuando no hay archivo seleccionado -->
+      <div *ngIf="!selectedFile" class="text-center text-muted py-3 mb-3">
+        <div class="fs-2 mb-2">📸</div>
+        <p class="small mb-2">Sube una foto de cuerpo entero con buena iluminación.<br>Asegúrate de estar solo en la imagen y completamente visible.</p>
+      </div>
+
+      <!-- Input de archivo -->
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Selecciona una imagen</label>
+        <input type="file" class="form-control" accept="image/*" (change)="onFileSelected($event)">
+      </div>
+
+      <!-- Vista previa -->
+      <div *ngIf="previewUrl" class="mb-3 text-center">
+        <img [src]="previewUrl" alt="Vista previa" style="max-height: 280px; max-width: 100%; border-radius: 8px; object-fit: contain; border: 1px solid #dee2e6;">
+        <div class="mt-2">
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="descartarFoto()">
+            🗑 Descartar foto
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón de análisis -->
+      <div *ngIf="selectedFile && !analisisResult" class="mb-3">
+        <button type="button" class="btn btn-primary" (click)="analizarFoto()" [disabled]="analisisLoading">
+          <span *ngIf="analisisLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+          {{ analisisLoading ? 'Analizando imagen...' : '🔍 Analizar imagen' }}
+        </button>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="analisisError" class="alert alert-warning d-flex align-items-start gap-2 mb-3">
+        <span class="fs-5">⚠️</span>
+        <div>
+          <strong>No se pudo analizar la imagen</strong><br>
+          <small>{{ analisisError }}</small>
+        </div>
+      </div>
+
+      <!-- Resultado del análisis -->
+      <div *ngIf="analisisResult" class="card border-success">
+        <div class="card-body">
+          <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+            <span class="badge bg-success">✓ Análisis completado</span>
+            <small class="text-muted">Modelo: {{ analisisResult.modelo_usado }}</small>
+          </div>
+          <div class="row text-center g-3 mb-2">
+            <div class="col-4">
+              <div class="fw-bold fs-5 text-primary">{{ analisisResult.contextura }}</div>
+              <div class="text-muted small">Contextura</div>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold fs-5">{{ (analisisResult.confianza * 100).toFixed(0) }}%</div>
+              <div class="text-muted small">Confianza</div>
+            </div>
+            <div class="col-4">
+              <div class="fw-bold fs-5">{{ analisisResult.ratio }}</div>
+              <div class="text-muted small">Ratio ancho/alto</div>
+            </div>
+          </div>
+
+          <!-- Advertencias -->
+          <div *ngIf="analisisResult.warnings?.length > 0" class="mt-2">
+            <div *ngFor="let w of analisisResult.warnings" class="alert alert-warning py-1 px-2 mb-1 small">
+              ⚠️ {{ w }}
+            </div>
+          </div>
+
+          <p class="text-muted small mt-3 mb-0">
+            <em>Este análisis es orientativo y de carácter académico. No reemplaza una evaluación profesional.</em>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- FIN: Panel de foto -->
+
   <section class="mb-5 bg-white p-4 rounded shadow-sm border">
     <h5 class="fw-semibold mb-3">Tus Medidas Físicas</h5>
     <div class="row g-3">

@@ -8,6 +8,7 @@ export interface PatientProfile {
   activity_level: string;
   goal: string;
   status?: string;
+  contextura?: string;
 }
 
 export interface SavedPlan {

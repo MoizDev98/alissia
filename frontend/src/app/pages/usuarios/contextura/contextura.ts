@@ -20,6 +20,10 @@ export class ContexturaComponent {
   resultado: {
     contextura: string;
     ratio: number;
+    confianza?: number;
+    cobertura_frame?: number;
+    warnings?: string[];
+    modelo_usado?: string;
     bounding_box: { x1: number; y1: number; x2: number; y2: number };
   } | null = null;
 

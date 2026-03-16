@@ -33,9 +33,30 @@
 	<div class="card shadow-sm border-0" *ngIf="resultado">
 		<div class="card-body">
 			<h5 class="fw-semibold mb-3">Resultado</h5>
-			<p class="mb-1"><strong>Persona detectada:</strong> Si</p>
-			<p class="mb-1"><strong>Contextura estimada:</strong> {{ resultado.contextura }}</p>
-			<p class="mb-3"><strong>Ratio corporal:</strong> {{ resultado.ratio }}</p>
+			<div class="d-flex align-items-center gap-2 mb-3">
+				<span class="badge bg-success">✓ Persona detectada</span>
+				<small class="text-muted">Modelo: {{ resultado.modelo_usado }}</small>
+			</div>
+			<div class="row text-center g-3 mb-3">
+				<div class="col-4">
+					<div class="fw-bold fs-5 text-primary">{{ resultado.contextura }}</div>
+					<div class="text-muted small">Contextura</div>
+				</div>
+				<div class="col-4">
+					<div class="fw-bold fs-5">{{ (((resultado.confianza ?? 0) * 100)).toFixed(0) }}%</div>
+					<div class="text-muted small">Confianza</div>
+				</div>
+				<div class="col-4">
+					<div class="fw-bold fs-5">{{ resultado.ratio }}</div>
+					<div class="text-muted small">Ratio ancho/alto</div>
+				</div>
+			</div>
+
+			<div *ngIf="(resultado.warnings?.length ?? 0) > 0" class="mb-3">
+				<div *ngFor="let w of (resultado.warnings ?? [])" class="alert alert-warning py-1 px-2 mb-1 small">
+					⚠️ {{ w }}
+				</div>
+			</div>
 
 			<div class="small text-muted">
 				Bounding box: [{{ resultado.bounding_box.x1 }}, {{ resultado.bounding_box.y1 }}] -

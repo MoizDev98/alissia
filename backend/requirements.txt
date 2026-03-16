@@ -14,4 +14,4 @@ uvicorn==0.40.0
 numpy==2.3.3
 opencv-python==4.11.0.86
 python-multipart==0.0.20
-ultralytics==8.3.172
+ultralytics==8.4.22

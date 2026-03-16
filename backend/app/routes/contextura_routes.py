@@ -20,6 +20,9 @@ async def analizar_contextura(file: UploadFile = File(...)):
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Error procesando la imagen: {exc}") from exc
 
+    if result.get("multiple_personas"):
+        raise HTTPException(status_code=422, detail=result.get("mensaje"))
+
     if not result.get("persona_detectada"):
         raise HTTPException(status_code=404, detail=result.get("mensaje", "No se detecto una persona"))
 
