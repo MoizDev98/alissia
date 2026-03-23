@@ -1,56 +1,48 @@
-{# import os
-# from groq import Groq  
-# from dotenv import load_dotenv
-
-# load_dotenv()
-# api_key = os.environ.get("IA_API_KEY")
-
-# client = Groq(api_key=api_key)
-
-# def generar_dieta_inteligente(peso, altura, objetivo, genero, edad):
-#     prompt_sistema = "Eres un nutricionista experto llamado Kamoca. Respondes SIEMPRE en formato JSON válido, sin texto extra antes ni después."
-    
-#     prompt_usuario = f"""
-#     Crea un plan nutricional de 1 día para este paciente:
-#     - Peso: {peso}kg
-#     - Altura: {altura}cm
-#     - Edad: {edad} años
-#     - Género: {genero}
-#     - Objetivo: {objetivo}
-
-#     Estructura tu respuesta ESTRICTAMENTE así (JSON):
-#     {{
-#         "desayuno": "nombre del plato y breve descripción",
-#         "almuerzo": "nombre del plato y breve descripción",
-#         "cena": "nombre del plato y breve descripción",
-#         "calorias_totales": 000,
-#         "recomendacion_clave": "una frase corta de consejo"
-#     }}
-#     """
-#     try:
-        
-#         chat_completion = client.chat.completions.create(
-#             messages=[
-#                 {"role": "system", "content": prompt_sistema},
-#                 {"role": "user", "content": prompt_usuario}
-#             ],
-#             model="llama-3.3-70b-versatile", 
-#             temperature=0.5, 
-#             response_format={"type": "json_object"} 
-#         )
-
-        
-#         respuesta_json = chat_completion.choices[0].message.content
-#         return respuesta_json
-
-#     except Exception as e:
-#         return str(e)
-}
+from models.ia_model import DietaRequest
 from services.ai_service import generar_dieta_ia
 
-def generar_dieta(datos_usuario):
+
+GENEROS_VALIDOS = {"femenino", "masculino", "otro", "no especificado"}
+
+
+def _pipe_preprocesar(datos_usuario: DietaRequest) -> dict:
+    # Pipe: se aplica en controller antes de llamar al servicio de IA.
+    payload = datos_usuario.model_dump()
+    payload["peso"] = round(float(payload["peso"]), 2)
+    payload["altura"] = round(float(payload["altura"]), 2)
+    payload["edad"] = int(payload["edad"])
+    payload["objetivo"] = " ".join(str(payload.get("objetivo") or "").strip().split())
+    payload["genero"] = str(payload.get("genero") or "no especificado").strip().lower()
+    return payload
+
+
+def _validaciones_propias(payload: dict) -> None:
+    # Validación propia: lógica de negocio manual (sin librerías externas).
+    if payload["peso"] < 30 or payload["peso"] > 350:
+        raise ValueError("El peso debe estar entre 30 y 350 kg")
+
+    if payload["altura"] < 120 or payload["altura"] > 230:
+        raise ValueError("La altura debe estar entre 120 y 230 cm")
+
+    if payload["edad"] < 12 or payload["edad"] > 100:
+        raise ValueError("La edad debe estar entre 12 y 100 años")
+
+    if payload["genero"] not in GENEROS_VALIDOS:
+        raise ValueError("Género inválido. Usa: femenino, masculino, otro o no especificado")
+
+    if len(payload["objetivo"]) < 3 or len(payload["objetivo"]) > 250:
+        raise ValueError("El objetivo debe tener entre 3 y 250 caracteres")
+
+
+def generar_dieta(datos_usuario: DietaRequest | dict):
     try:
-        respuesta = generar_dieta_ia(datos_usuario)
+        # Compatibilidad: acepta interfaz tipada y también dict legado.
+        request = datos_usuario if isinstance(datos_usuario, DietaRequest) else DietaRequest(**datos_usuario)
+
+        payload = _pipe_preprocesar(request)
+        _validaciones_propias(payload)
+
+        respuesta = generar_dieta_ia(payload)
         return respuesta
     except Exception as e:
         return {"error": str(e)}

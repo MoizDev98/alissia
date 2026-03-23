@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../../../services/data.service';
+import { AuthService } from '../../../services/auth.service';
 
 interface RegistroPeso {
   fecha: string;
@@ -14,31 +16,61 @@ interface RegistroPeso {
   templateUrl: './peso.html',
   styleUrls: ['./peso.scss']
 })
-export class PesoComponent {
+export class PesoComponent implements OnInit {
 
-  pesoActual: number = 70; // peso inicial simulado
+  private dataService = inject(DataService);
+  private authService = inject(AuthService);
+
+  usuarioId: number | null = null;
+
+  pesoActual: number = 0;
   nuevoPeso: number | null = null;
 
-  historial: RegistroPeso[] = [
-    { fecha: '2026-02-01', peso: 71 },
-    { fecha: '2026-02-05', peso: 70.5 }
-  ];
+  historial: RegistroPeso[] = [];
+
+  ngOnInit(): void {
+    const user = this.authService.getCurrentUser();
+    this.usuarioId = user?.id ?? null;
+    if (!this.usuarioId) return;
+    this.cargarPesoReal();
+  }
+
+  private cargarPesoReal() {
+    if (!this.usuarioId) return;
+
+    this.dataService.getWeightHistory(this.usuarioId, 30).subscribe({
+      next: (rows) => {
+        this.historial = (rows || []).map((item: any) => ({
+          fecha: String(item.measured_at).slice(0, 10),
+          peso: Number(item.weight)
+        }));
+
+        this.pesoActual = this.historial.length > 0 ? this.historial[0].peso : 0;
+      },
+      error: () => {
+        this.historial = [];
+        this.pesoActual = 0;
+      }
+    });
+  }
 
   registrarPeso() {
     if (this.nuevoPeso === null || this.nuevoPeso <= 0) return;
+    if (!this.usuarioId) return;
 
     // evitar duplicado
     if (this.nuevoPeso === this.pesoActual) return;
 
-    const hoy = new Date().toISOString().split('T')[0];
-
-    this.historial.unshift({
-      fecha: hoy,
-      peso: this.nuevoPeso
+    this.dataService.registerWeight({
+      user_id: this.usuarioId,
+      weight: this.nuevoPeso,
+      source: 'manual'
+    }).subscribe({
+      next: () => {
+        this.nuevoPeso = null;
+        this.cargarPesoReal();
+      }
     });
-
-    this.pesoActual = this.nuevoPeso;
-    this.nuevoPeso = null;
   }
 
   diferenciaConAnterior(): number {

@@ -7,6 +7,9 @@ from routes.profile_routes import profile_router
 from contextlib import asynccontextmanager
 from core.security import azure_scheme
 from routes.contextura_routes import contextura_router
+from routes.weight_routes import weight_router
+from routes.recommendation_routes import recommendation_router
+from routes.meal_routes import meal_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -40,6 +43,9 @@ app.include_router(ia_router)
 app.include_router(profile_router)
 app.include_router(plan_router)
 app.include_router(contextura_router)
+app.include_router(weight_router)
+app.include_router(recommendation_router)
+app.include_router(meal_router)
 
 @app.get("/")
 def home():
