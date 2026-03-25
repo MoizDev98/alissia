@@ -1,19 +1,122 @@
-.card {
-  border-radius: 14px;
+.container {
+  max-width: 950px;
 }
 
+/* ===== TARJETAS GENERALES ===== */
+.card {
+  border: none;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 95, 74, 0.08);
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: 0 18px 40px rgba(15, 95, 74, 0.12);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* ===== ESTADO ===== */
+.card.text-center:first-child {
+  background: linear-gradient(135deg, #0f766e, #10b981);
+  color: white;
+
+  h5 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem;
+  }
+}
+
+/* ===== TITULOS ===== */
+h6 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f5f4a;
+  margin-bottom: 1rem;
+}
+
+/* ===== PLACEHOLDER GRAFICA ===== */
 .grafica-placeholder {
-  height: 160px;
-  border-radius: 12px;
-  background: #f8f9fa;
+  width: 100%;
+  min-height: 240px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border: 2px dashed #86efac;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6c757d;
-  font-size: 0.95rem;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #166534;
+  box-shadow: inset 0 0 0 1px rgba(22, 101, 52, 0.04);
 }
 
+/* ===== PROGRESO ===== */
 .progress {
-  height: 10px;
-  border-radius: 10px;
+  height: 16px;
+  border-radius: 999px;
+  background: #dcfce7;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.progress-bar {
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22c55e, #16a34a) !important;
+  transition: width 0.5s ease;
+}
+
+/* ===== TEXTO PROGRESO ===== */
+strong {
+  font-size: 1.5rem;
+  color: #15803d;
+}
+
+small.text-muted {
+  font-size: 0.95rem;
+  color: #4b5563 !important;
+}
+
+/* ===== INSIGHT FINAL ===== */
+.card:last-child {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+
+  p {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #166534;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card.text-center:first-child h5 {
+    font-size: 1.3rem;
+  }
+
+  .grafica-placeholder {
+    min-height: 190px;
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+
+  strong {
+    font-size: 1.3rem;
+  }
 }

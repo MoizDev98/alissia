@@ -1,49 +1,67 @@
+<div class="dashboard-page">
 
-<div class="container mt-4">
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-text">
+      <span class="hero-badge">✨ Nutrición Inteligente</span>
+      <h1>Tu nutrición, cuidada con IA</h1>
+      <p>
+        Proyecto universitario enfocado en mejorar tu alimentación con
+        seguimiento diario, recomendaciones y herramientas inteligentes.
+      </p>
+    </div>
 
-  <!-- Bienvenida -->
-  <div class="mb-4 text-center">
-    <h2 class="fw-bold">Hola 👋</h2>
-    <p class="text-muted">
-      Este es tu asistente de alimentación. Registra tu día y sigue tu progreso.
-    </p>
+    <div class="hero-stats">
+      <div class="mini-card">
+        <span class="mini-label">Hábitos</span>
+        <strong>+ saludables</strong>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-label">Seguimiento</span>
+        <strong>Diario</strong>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-label">Meta</span>
+        <strong>Bienestar</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- TITULO -->
+  <div class="section-header">
+    <h2>Acciones rápidas</h2>
+    <p>Accede fácilmente a las herramientas principales de tu panel</p>
   </div>
 
-  <!-- Cards -->
-  <div class="row g-4">
-    <div class="col-md-4" *ngFor="let item of menu">
-      <div class="card h-100 shadow-sm border-0 card-hover">
-        <div class="card-body text-center">
+  <!-- CARDS -->
+  <div class="cards-grid">
+    <div class="dashboard-card" *ngFor="let item of menu">
 
-          <!-- Icono -->
-          <div class="fs-1 mb-3">
-            {{ item.icono }}
-          </div>
-
-          <h5 class="card-title fw-semibold">
-            {{ item.titulo }}
-          </h5>
-
-          <p class="card-text text-muted small">
-            {{ item.descripcion }}
-          </p>
-
-          <a
-            [routerLink]="item.ruta"
-            class="btn btn-primary w-100 mt-2"
-          >
-            Ir
-          </a>
-
-        </div>
+        <div class="card-icon">
+    <i [class]="item.icono"></i>
+  </div>
+      <div class="card-content">
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descripcion }}</p>
       </div>
+
+      <a
+        [routerLink]="item.ruta"
+        class="card-btn"
+      >
+        Ir ahora
+      </a>
+
     </div>
   </div>
 
-  <!-- Mensaje motivacional -->
-  <div class="mt-5 text-center text-muted">
-    <p>Pequeños cambios diarios generan grandes resultados 💪</p>
+  <!-- MENSAJE FINAL -->
+  <div class="motivation-box">
+    <p>💚 Pequeños cambios diarios generan grandes resultados.</p>
   </div>
 
 </div>
 
+  

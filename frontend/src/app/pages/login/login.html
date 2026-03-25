@@ -1,33 +1,38 @@
 <section class="login-layout">
-  <!-- Lado izquierdo (banner) -->
+
+  <!-- PANEL IZQUIERDO -->
   <aside class="login-banner">
+    <div class="overlay"></div>
+
     <div class="banner-content">
-      <h1>
-        Tu Plan Nutricional,<br />
-        Potenciado por IA
-      </h1>
-      <p class="subtitle">Personalizado. Dinámico. Inteligente.</p>
+      <h1>Tu nutrición inteligente</h1>
 
-      <div class="badges">
-        <div class="badge">
-          <span class="icon"></span>
-          <span>Análisis en tiempo real</span>
-        </div>
-        <div class="badge">
-          <span class="icon"></span>
-          <span>Recetas Inteligentes</span>
-        </div>
-      </div>
+      <p>
+        Planes personalizados con inteligencia artificial para mejorar tu salud,
+        tus hábitos y tu energía diaria.
+      </p>
+
+    <div class="badge">
+  <i class="bi bi-activity"></i>
+  <span>Análisis en tiempo real</span>
+</div>
+
+<div class="badge">
+  <i class="bi bi-egg-fried"></i>
+  <span>Recetas inteligentes</span>
+</div>
     </div>
-
-    <div class="banner-graphic"></div>
   </aside>
 
-  <!-- Lado derecho (formulario) -->
+  <!-- FORMULARIO -->
   <main class="login-form">
     <div class="form-container">
+
+      <!-- LOGO -->
       <div class="brand">
-        <div class="logo">🤖</div>
+      <div class="logo">
+      <i class="bi bi-heart-pulse-fill"></i>
+    </div>
         <div>
           <h2>Asistente IA</h2>
           <small>ALIMENTACIÓN INTELIGENTE</small>
@@ -35,45 +40,61 @@
       </div>
 
       <h3>Bienvenido de nuevo</h3>
-      <p class="description">Ingresa tus credenciales para acceder a tu panel.</p>
+      <p class="description">
+        Ingresa tus credenciales para continuar
+      </p>
 
+      <!-- FORM -->
       <form (ngSubmit)="iniciarSesion()">
+
         <div class="field">
           <label>Correo Electrónico</label>
-          <input type="email" name="correo" [(ngModel)]="correo" placeholder=" " required />
+          <input type="email" name="correo" [(ngModel)]="correo" required />
         </div>
 
         <div class="field">
           <div class="field-row">
             <label>Contraseña</label>
-            <a class="forgot" href="#">¿Olvidaste tu contraseña?</a>
+            <a class="forgot" href="#">¿Olvidaste?</a>
           </div>
-          <input type="password" name="clave" [(ngModel)]="clave" placeholder=" " required />
+
+          <input type="password" name="clave" [(ngModel)]="clave" required />
         </div>
 
         <label class="remember">
           <input type="checkbox" />
-          Recordarme en este dispositivo
+          Recordarme
         </label>
 
-        <button type="submit" class="submit" [disabled]="cargando">Iniciar Sesión</button>
-        
-        <div class="divider pl-5">
-          <span>o ingresa con</span>
-        </div>
-        <button type="button" class="submit azure-btn" (click)="iniciarSesionAzure()" [disabled]="cargando">
-          <span class="icon"></span> Cuenta Institucional
+        <button type="submit" class="submit" [disabled]="cargando">
+          Iniciar Sesión
         </button>
+
+        <div class="divider">
+          <span>o continuar con</span>
+        </div>
+
+        <button
+          type="button"
+          class="submit azure-btn"
+          (click)="iniciarSesionAzure()"
+          [disabled]="cargando"
+        >
+          Cuenta Institucional
+        </button>
+
       </form>
 
-
-      <p class="description" *ngIf="mensajeError">{{ mensajeError }}</p>
+      <p class="error" *ngIf="mensajeError">
+        {{ mensajeError }}
+      </p>
 
       <p class="register">
-        ¿No tienes una cuenta?
+        ¿No tienes cuenta?
         <a routerLink="/register/form">Crear una cuenta</a>
       </p>
 
     </div>
   </main>
+
 </section>

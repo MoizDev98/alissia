@@ -12,44 +12,44 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./inicio.scss']
 })
 export class Inicio {
-  menu = [
-    {
-      titulo: 'Registrar comidas',
-      descripcion: 'Anota lo que consumes durante el día.',
-      ruta: '/usuarios/comidas',
-      icono: '🍽️'
-    },
-    {
-      titulo: 'Definir objetivo',
-      descripcion: 'Configura tu objetivo alimenticio.',
-      ruta: '/usuarios/objetivo',
-      icono: '🎯'
-    },
-    {
-      titulo: 'Registrar peso',
-      descripcion: 'Lleva seguimiento de tu peso.',
-      ruta: '/usuarios/peso',
-      icono: '⚖️'
-    },
-    {
-      titulo: 'Ver progreso',
-      descripcion: 'Observa tu evolución.',
-      ruta: '/usuarios/progreso',
-      icono: '📊'
-    },
-    {
-      titulo: 'Recomendaciones',
-      descripcion: 'Orientación alimenticia general.',
-      ruta: '/usuarios/recomendaciones',
-      icono: '💡'
-    },
-    {
-      titulo: 'Analizar contextura',
-      descripcion: 'Sube una foto para estimar la contextura corporal.',
-      ruta: '/usuarios/contextura',
-      icono: '📷'
-    }
-  ];
+ menu = [
+  {
+    titulo: 'Plan de comidas',
+    descripcion: 'Consulta tu plan alimenticio diario.',
+    ruta: '/usuarios/comidas',
+    icono: 'bi bi-egg-fried'
+  },
+  {
+    titulo: 'Progreso',
+    descripcion: 'Monitorea tu avance nutricional.',
+    ruta: '/usuarios/progreso',
+    icono: 'bi bi-graph-up-arrow'
+  },
+  {
+    titulo: 'Objetivos',
+    descripcion: 'Define y revisa tus metas de salud.',
+    ruta: '/usuarios/objetivo',
+    icono: 'bi bi-bullseye'
+  },
+  {
+    titulo: 'Recomendaciones',
+    descripcion: 'Obtén sugerencias inteligentes personalizadas.',
+    ruta: '/usuarios/recomendaciones',
+    icono: 'bi bi-lightbulb-fill'
+  },
+  {
+    titulo: 'Perfil',
+    descripcion: 'Administra tu información personal.',
+    ruta: '/usuarios/perfil',
+    icono: 'bi bi-person-circle'
+  },
+  {
+    titulo: 'Historial',
+    descripcion: 'Revisa tus registros y hábitos anteriores.',
+    ruta: '/usuarios/historial',
+    icono: 'bi bi-clock-history'
+  }
+];
 }
 
 

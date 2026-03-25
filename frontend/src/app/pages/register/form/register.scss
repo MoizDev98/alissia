@@ -1,230 +1,396 @@
-.hero-content {
-  text-align: center;
-  max-width: 520px;
-  margin: auto;
-  color: rgb(18, 43, 12);
-}
-
-.hero-title {
-  font-size: 2.4rem;
-  font-weight: 700;
-  margin-bottom: 14px;
-  letter-spacing: 0.5px;
-}
-
-.hero-subtitle {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  opacity: 0.9;
- margin-bottom: 40px;
-
-}
-
-.benefits {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.benefit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
-  background: rgba(255,255,255,0.18);
-  border-radius: 14px;
+/* =========================
+   REGISTER PAGE
+========================= */
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f6fbf8 0%, #eef7f2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
-  backdrop-filter: blur(6px);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.icon i {
-  font-size: 1.4rem;
-  color: white;
-}
-.register-page{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#eef3f2;
-  padding:40px;
-}
-
-.register-container{
-  width:100%;
-  max-width:1250px;
-  min-height:720px;
-  display:grid;
-  grid-template-columns:1.1fr 1fr;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,0.15);
-  background:white;
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.register-container {
+  width: 100%;
+  max-width: 1280px;
+  min-height: 760px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.95fr;
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(20, 83, 45, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.08);
 }
 
-/* PANEL IZQUIERDO */
-
+/* =========================
+   PANEL IZQUIERDO
+========================= */
 .register-left {
-  flex: 1.2;
-  background: linear-gradient(
-      rgba(34, 197, 94, 0.85),
-      rgba(134, 239, 172, 0.85)
-    ),
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 55px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(15, 85, 60, 0.72), rgba(22, 101, 52, 0.68)),
     url('/assets/imagenes/salud.jpg');
-    
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-
-.register-left{
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;      /* centra vertical */
-  justify-content: center;  /* centra horizontal */
-  text-align: center;
-  padding: 60px;
-  color: white;
+.register-left::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  top: -80px;
+  left: -100px;
+  filter: blur(10px);
 }
 
-.left-content{
+.register-left::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  background: rgba(255, 208, 138, 0.14);
+  border-radius: 50%;
+  bottom: -70px;
+  right: -60px;
+  filter: blur(15px);
+}
+
+/* =========================
+   CONTENIDO IZQUIERDO
+========================= */
+.left-content {
   position: relative;
   z-index: 2;
-  max-width: 420px;
+  max-width: 520px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
 }
 
-.logo{
-  width: 70px;
-  margin-bottom: 10px;
+.logo {
+  width: 300px;
+  margin-bottom: 28px;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.15));
 }
 
-.hero-title{
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 1.2;
+.hero-content {
+  color: #ffffff;
 }
 
-.hero-subtitle{
-  font-size: 1rem;
-  opacity: .95;
-  line-height: 1.6;
+.hero-title {
+  font-size: 2.9rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  letter-spacing: -0.5px;
 }
 
-/* ICONOS */
+.hero-subtitle {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 480px;
+  margin: 0 auto 42px;
+}
 
-.benefits{
+/* =========================
+   BENEFICIOS
+========================= */
+.benefits {
   display: flex;
-  gap: 45px;
-  margin-top: 20px;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
 }
 
-.benefit{
+.benefit {
+  min-width: 130px;
+  padding: 18px 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  font-size: .9rem;
+  gap: 10px;
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
-.icon{
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.2);
+.benefit:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: rgba(255, 248, 240, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
-/* FORMULARIO */
-
-.register-right{
-  padding:50px;
+.icon i {
+  font-size: 1.45rem;
+  color: #fff3e0;
 }
 
-.badge{
-  background:#dcfce7;
-  color:#047857;
-  padding:5px 10px;
-  border-radius:6px;
-  font-size:0.8rem;
+.benefit span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
-.form-header h2{
-  margin-top:10px;
-  font-size:1.8rem;
+/* =========================
+   PANEL DERECHO
+========================= */
+.register-right {
+  padding: 55px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
 }
 
-.form-header p{
-  color:#6b7280;
-  font-size:0.9rem;
-  margin-bottom:25px;
+/* =========================
+   HEADER FORMULARIO
+========================= */
+.form-header {
+  margin-bottom: 28px;
 }
 
-.field{
-  display:flex;
-  flex-direction:column;
-  margin-bottom:15px;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ecfdf3;
+  color: #15803d;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.08);
+}
+
+.form-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #163d2d;
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+.form-header p {
+  font-size: 0.98rem;
+  color: #6b7c74;
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+/* =========================
+   FORM
+========================= */
+form {
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #355948;
+  margin-bottom: 8px;
 }
 
 .field input,
-.field select{
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #e5e7eb;
+.field select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1.5px solid #dbe8e1;
+  background: #f9fcfa;
+  font-size: 0.96rem;
+  color: #1f3d30;
+  transition: all 0.25s ease;
+  outline: none;
 }
 
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
+.field input:focus,
+.field select:focus {
+  border-color: #34d399;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.14);
 }
 
-.checkbox{
-  font-size:0.85rem;
-  margin-top:10px;
+.field input::placeholder {
+  color: #a0b4aa;
 }
 
-.btn-primary{
-  width:100%;
-  margin-top:15px;
-  padding:13px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(135deg,#22c55e,#16a34a);
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.2s;
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-.btn-primary:hover{
-  transform:translateY(-2px);
+/* =========================
+   CHECKBOX
+========================= */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 22px;
+  font-size: 0.92rem;
+  color: #4b6358;
+  font-weight: 500;
 }
 
-.login-link{
-  margin-top:15px;
-  text-align:center;
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #22c55e;
 }
 
-.login-link a{
-  color:#16a34a;
-  font-weight:600;
+/* =========================
+   BOTÓN PRINCIPAL
+========================= */
+.btn-primary {
+  width: 100%;
+  border: none;
+  border-radius: 18px;
+  padding: 15px 18px;
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(34, 197, 94, 0.22);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(21, 128, 61, 0.26);
+}
+
+/* =========================
+   LOGIN LINK
+========================= */
+.login-link {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #60756b;
+}
+
+.login-link a {
+  color: #15803d;
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1100px) {
+  .register-container {
+    grid-template-columns: 1fr;
+    max-width: 760px;
+  }
+
+  .register-left {
+    min-height: 420px;
+    padding: 50px 35px;
+  }
+
+  .register-right {
+    padding: 45px 30px;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-page {
+    padding: 20px 14px;
+  }
+
+  .register-container {
+    border-radius: 24px;
+  }
+
+  .register-left {
+    min-height: 380px;
+    padding: 35px 24px;
+  }
+
+  .logo {
+    width: 190px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  .benefits {
+    gap: 14px;
+  }
+
+  .benefit {
+    min-width: 110px;
+    padding: 14px 12px;
+  }
+
+  .register-right {
+    padding: 35px 22px;
+  }
+
+  .form-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 }

@@ -3,15 +3,16 @@
   <section class="mb-4 text-center">
     <h2 class="fw-bold">Define tu perfil y objetivo</h2>
     <p class="text-muted">
-      Kamoca necesita tus medidas exactas para calcular tus calorías correctamente.
+      Nutrisync necesita tus medidas exactas para calcular tus calorías correctamente.
     </p>
   </section>
 
   <!-- SECCIÓN: Análisis corporal por foto (Path A / Path B) -->
   <section class="mb-4">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-1">
-      <h5 class="fw-semibold mb-0">
-        📷 Análisis de contextura corporal
+      <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2">
+  <i class="bi bi-camera2 text-success"></i>
+       Análisis de contextura corporal
         <span class="badge bg-secondary ms-2" style="font-size: 0.7rem;">Opcional</span>
       </h5>
       <button type="button" class="btn btn-sm btn-outline-secondary" (click)="togglePanelFoto()">
@@ -27,7 +28,9 @@
 
       <!-- Instrucciones cuando no hay archivo seleccionado -->
       <div *ngIf="!selectedFile" class="text-center text-muted py-3 mb-3">
-        <div class="fs-2 mb-2">📸</div>
+        <div class="upload-icon mb-2">
+  <i class="bi bi-image"></i>
+    </div>
         <p class="small mb-2">Sube una foto de cuerpo entero con buena iluminación.<br>Asegúrate de estar solo en la imagen y completamente visible.</p>
       </div>
 
@@ -42,17 +45,18 @@
         <img [src]="previewUrl" alt="Vista previa" style="max-height: 280px; max-width: 100%; border-radius: 8px; object-fit: contain; border: 1px solid #dee2e6;">
         <div class="mt-2">
           <button type="button" class="btn btn-sm btn-outline-danger" (click)="descartarFoto()">
-            🗑 Descartar foto
+            <i class="bi bi-trash3-fill me-1"></i> Descartar foto
           </button>
         </div>
       </div>
 
       <!-- Botón de análisis -->
       <div *ngIf="selectedFile && !analisisResult" class="mb-3">
-        <button type="button" class="btn btn-primary" (click)="analizarFoto()" [disabled]="analisisLoading">
-          <span *ngIf="analisisLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-          {{ analisisLoading ? 'Analizando imagen...' : '🔍 Analizar imagen' }}
-        </button>
+       <button type="button" class="btn btn-primary" (click)="analizarFoto()" [disabled]="analisisLoading">
+  <span *ngIf="analisisLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+  <i *ngIf="!analisisLoading" class="bi bi-search me-2"></i>
+  {{ analisisLoading ? 'Analizando imagen...' : 'Analizar imagen' }}
+</button>
       </div>
 
       <!-- Error -->
@@ -89,7 +93,7 @@
           <!-- Advertencias -->
           <div *ngIf="analisisResult.warnings?.length > 0" class="mt-2">
             <div *ngFor="let w of analisisResult.warnings" class="alert alert-warning py-1 px-2 mb-1 small">
-              ⚠️ {{ w }}
+             <i class="bi bi-exclamation-circle-fill me-1"></i> {{ w }}
             </div>
           </div>
 
@@ -138,7 +142,7 @@
             [class.bg-primary-subtle]="objetivoSeleccionado === 'bajar'"
             (click)="seleccionarObjetivo('bajar')">
           <div class="card-body">
-            <div class="fs-1 mb-2">⬇️</div>
+            <div class="goal-icon mb-2"><i class="bi bi-arrow-down-circle-fill"></i></div>
             <h6 class="fw-bold">Bajar de peso</h6>
             <p class="text-muted small">Reducir peso de forma progresiva</p>
           </div>
@@ -150,7 +154,7 @@
             [class.bg-primary-subtle]="objetivoSeleccionado === 'mantener'"
             (click)="seleccionarObjetivo('mantener')">
           <div class="card-body">
-            <div class="fs-1 mb-2">⚖️</div>
+            <div class="goal-icon mb-2"><i class="bi bi-bullseye"></i></div>
             <h6 class="fw-bold">Mantener peso</h6>
             <p class="text-muted small">Conservar tu estado actual</p>
           </div>
@@ -162,7 +166,7 @@
             [class.bg-primary-subtle]="objetivoSeleccionado === 'subir'"
             (click)="seleccionarObjetivo('subir')">
           <div class="card-body">
-            <div class="fs-1 mb-2">⬆️</div>
+            <div class="goal-icon mb-2"><i class="bi bi-arrow-up-circle-fill"></i></div>
             <h6 class="fw-bold">Subir de peso</h6>
             <p class="text-muted small">Aumentar masa de forma controlada</p>
           </div>
@@ -175,13 +179,13 @@
     <h5 class="fw-semibold mb-3">¿A qué ritmo?</h5>
     <div class="d-flex flex-column gap-2">
       <button type="button" class="btn text-start w-100 border" (click)="seleccionarRitmo('lento')" [ngClass]="{'btn-light': ritmoSeleccionado !== 'lento', 'btn-primary text-white': ritmoSeleccionado === 'lento'}">
-        🐢 <strong>Lento y sostenible</strong>
+        <i class="bi bi-shield-check me-2"></i><strong>Lento y sostenible</strong>
       </button>
       <button type="button" class="btn text-start w-100 border" (click)="seleccionarRitmo('moderado')" [ngClass]="{'btn-light': ritmoSeleccionado !== 'moderado', 'btn-primary text-white': ritmoSeleccionado === 'moderado'}">
-        🚶 <strong>Moderado</strong>
+        <i class="bi bi-activity me-2"></i><strong>Moderado</strong>
       </button>
       <button type="button" class="btn text-start w-100 border" (click)="seleccionarRitmo('rapido')" [ngClass]="{'btn-light': ritmoSeleccionado !== 'rapido', 'btn-warning text-dark': ritmoSeleccionado === 'rapido'}">
-        🏃 <strong>Rápido</strong>
+       <i class="bi bi-lightning-charge-fill me-2"></i><strong>Rápido</strong>
       </button>
     </div>
   </section>

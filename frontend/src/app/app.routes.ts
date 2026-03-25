@@ -16,7 +16,10 @@ import { Home } from './pages/home/home';
 import { loginComponent} from './pages/login/login';
 import { registerComponent} from './pages/register/form/register';
 import { TermsConditionsComponent } from '../app/pages/register/terms-conditions/terms-conditions';
-import { CompletarPerfilComponent } from '../app/pages/register/complete-profile/complete-profile'
+import { CompletarPerfilComponent } from '../app/pages/register/complete-profile/complete-profile';
+import { Contactos } from './pages/contactos/contactos';
+import { SobreNosotros } from './pages/sobre-nosotros/sobre-nosotros';
+import { Comunidad } from './pages/comunidad/comunidad';
 
 export const routes: Routes = [
   {
@@ -66,4 +69,20 @@ export const routes: Routes = [
       {path: '', redirectTo: 'home', pathMatch: 'full' }    
     ]
   },
+
+   {
+    path: 'contactos',
+    component: Contactos
+  },
+
+  {
+    path: 'sobre-nosotros',
+    component: SobreNosotros
+  },
+
+  {
+    path: 'comunidad',
+    component: Comunidad
+  }
 ];
+
