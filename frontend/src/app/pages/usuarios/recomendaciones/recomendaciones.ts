@@ -73,7 +73,7 @@ export class RecomendacionesComponent implements OnInit {
     console.log("Datos limpios enviados a FastAPI:", datosParaIA);
 
     this.aiService.generarDieta(datosParaIA).pipe(
-      timeout(30000)  // 30 segundos de timeout
+      timeout(8000)  // 8 segundos de timeout
     ).subscribe({
       next: (dietaGenerada) => {
         this.errorVisual = '';
@@ -108,8 +108,11 @@ export class RecomendacionesComponent implements OnInit {
       },
       error: (err) => {
         console.error("La IA falló", err);
-        if (err?.name === 'TimeoutError') {
-          this.errorVisual = '⏱️ La IA se está tardando demasiado.  intentalo nuevamente.';
+        console.error("Error name:", err?.name);
+        console.error("Error message:", err?.message);
+        
+        if (err?.name === 'TimeoutError' || err?.message?.includes('timeout')) {
+          this.errorVisual = '⏱️ La IA se está tardando demasiado. Verifica que el servidor esté activo e intenta nuevamente.';
           this.resumenIA = 'Tiempo de espera agotado.';
         } else if (err?.status === 400) {
           this.errorVisual = err?.error?.detail || 'Tus datos no cumplen con las validaciones. Corrígelos en Objetivo.';
@@ -119,6 +122,7 @@ export class RecomendacionesComponent implements OnInit {
           this.resumenIA = 'No se pudo generar la dieta por un error de servicio.';
         }
         this.cargando = false;
+        this.cdr.detectChanges();  // Forzar actualización de la UI
       }
     });
   }
