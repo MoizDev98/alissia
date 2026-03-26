@@ -1,14 +1,31 @@
 <div class="container py-4">
 
+  <div class="text-center my-5" *ngIf="cargando">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <h6 class="mt-3 text-muted">Cargando progreso...</h6>
+  </div>
+
+  <div *ngIf="!cargando && errorVisual" class="alert alert-warning mb-4">
+    {{ errorVisual }}
+  </div>
+
+  <ng-container *ngIf="!cargando">
+
   <!-- ESTADO -->
   <div class="card mb-4 shadow-sm text-center">
     <div class="card-body">
       <h5>
+        <span *ngIf="!historial.length">ℹ️ Aún no registras peso</span>
         <span *ngIf="estado === 'bien'">✅ Vas por buen camino</span>
-        <span *ngIf="estado === 'alerta'">⚠️ Revisa tu constancia</span>
+        <span *ngIf="historial.length && estado === 'alerta'">⚠️ Revisa tu constancia</span>
       </h5>
       <p class="text-muted mb-0">
-        Has bajado {{ progresoKg | number:'1.1-1' }} kg desde que iniciaste
+        <span *ngIf="!historial.length">Registra tu primer peso para comenzar a ver tu progreso.</span>
+        <span *ngIf="tendenciaPeso === 'bajo'">Has bajado {{ variacionAbsKg | number:'1.1-1' }} kg desde que iniciaste</span>
+        <span *ngIf="tendenciaPeso === 'subio'">Has subido {{ variacionAbsKg | number:'1.1-1' }} kg desde que iniciaste</span>
+        <span *ngIf="historial.length && tendenciaPeso === 'igual'">Tu peso se ha mantenido estable desde que iniciaste</span>
       </p>
     </div>
   </div>
@@ -53,6 +70,8 @@
       </p>
     </div>
   </div>
+
+  </ng-container>
 
 </div>
 
