@@ -9,6 +9,8 @@ def crear_dieta(datos: DietaRequest):
     # Interface aplicada en route: FastAPI valida el request con Pydantic.
     result = generar_dieta(datos)
     if isinstance(result, dict) and "error" in result:
+        if result.get("error_type") == "validation":
+            raise HTTPException(status_code=400, detail=result["error"])
         raise HTTPException(status_code=502, detail=result["error"])
     return DietaResponse(**result)
 
@@ -17,5 +19,7 @@ def crear_dieta_legacy(datos: DietaRequest):
     # Route legacy: misma validación/interfaz para no romper clientes antiguos.
     result = generar_dieta(datos)
     if isinstance(result, dict) and "error" in result:
+        if result.get("error_type") == "validation":
+            raise HTTPException(status_code=400, detail=result["error"])
         raise HTTPException(status_code=502, detail=result["error"])
     return DietaResponse(**result)

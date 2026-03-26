@@ -17,7 +17,7 @@ def _pipe_preprocesar(datos_usuario: DietaRequest) -> dict:
 
 
 def _validaciones_propias(payload: dict) -> None:
-    # Validación propia: lógica de negocio manual (sin librerías externas).
+    # Validación propia: lógica de negocio manual .
     if payload["peso"] < 30 or payload["peso"] > 350:
         raise ValueError("El peso debe estar entre 30 y 350 kg")
 
@@ -44,5 +44,8 @@ def generar_dieta(datos_usuario: DietaRequest | dict):
 
         respuesta = generar_dieta_ia(payload)
         return respuesta
+    except ValueError as e:
+        # Validación propia: se devuelve como error de negocio reconocible por la ruta.
+        return {"error": str(e), "error_type": "validation"}
     except Exception as e:
         return {"error": str(e)}
