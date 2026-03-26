@@ -1,36 +1,54 @@
 .container {
-  max-width: 480px;
+  max-width: 900px;
 }
 
-/* Tarjetas */
+h4 {
+  color: #0f5f4a;
+  font-weight: 800;
+}
+
 .card {
-  border-radius: 14px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fdfb 100%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #e8f3ee !important;
+  transition: all 0.25s ease;
 }
 
-/* Peso actual */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08) !important;
+}
+
 .display-5 {
   letter-spacing: -1px;
 }
 
-/* Input */
 input.form-control {
   height: 48px;
   font-size: 1rem;
+  border-radius: 14px;
+  border: 1px solid #d9e8e2;
 }
 
-/* Botón */
+input.form-control:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.15);
+}
+
 button.btn-primary {
   height: 48px;
+  border: none;
+  border-radius: 14px;
   font-weight: 600;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  box-shadow: 0 12px 25px rgba(22, 163, 74, 0.18);
 }
 
-/* Historial */
 .list-group-item {
   padding: 0.75rem 0;
   font-size: 0.95rem;
-}
-.card {
-  border-radius: 14px;
+  background: transparent;
 }
 
 .display-6 {

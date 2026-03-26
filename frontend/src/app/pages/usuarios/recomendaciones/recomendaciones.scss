@@ -1,31 +1,31 @@
-/* Contenedor general */
 .container {
-  max-width: 850px;
+  max-width: 900px;
 }
 
-/* Título */
 h4 {
-  letter-spacing: 0.5px;
+  color: #0f5f4a;
+  font-weight: 800;
+  letter-spacing: 0.2px;
 }
 
-/* Cards generales */
 .card {
-  border-radius: 12px;
-  border: none;
-  transition: all 0.2s ease-in-out;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fdfb 100%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #e8f3ee !important;
+  transition: all 0.25s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Resumen IA */
 .card-body p {
   line-height: 1.6;
   font-size: 0.95rem;
 }
 
-/* Lista de recomendaciones */
 .list-group-item {
   border: none;
   padding: 0.9rem 0;
@@ -33,20 +33,25 @@ h4 {
   display: flex;
   align-items: center;
   gap: 8px;
+  background: transparent;
 }
 
 .list-group-item:not(:last-child) {
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid #eef4f1;
 }
 
-/* Badge confianza */
 .badge {
-  border-radius: 20px;
+  border-radius: 999px;
   font-weight: 600;
 }
 
-/* Disclaimer */
+.btn-outline-success {
+  border-radius: 16px;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
+}
+
 .text-muted.small {
   margin-top: 10px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
