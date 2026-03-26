@@ -7,7 +7,8 @@ from controllers.user_controller import (
     soft_delete_user,
     login_user,
     sync_azure_user,
-    get_document_types
+    get_document_types,
+    register_public_user
 )
 from core.security import obtener_usuario_actual
 
@@ -23,9 +24,18 @@ class AzureSyncRequest(BaseModel):
     role_id: int
     token: str
 
-from models.user_schemas import UserCreate, UserUpdate
+from models.user_schemas import UserCreate, UserUpdate, PublicRegisterRequest, PublicRegisterResponse
 
 user_router = APIRouter()
+
+
+@user_router.post("/public/register", response_model=PublicRegisterResponse)
+def public_register_endpoint(payload: PublicRegisterRequest):
+    # Endpoint publico solo para alta de usuarios desde el formulario de registro.
+    result = register_public_user(payload)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+    return result
 
 
 #leemos todos los usuarios disponibles en la base de datos y los devolvemos como respuesta a la solicitud GET /users

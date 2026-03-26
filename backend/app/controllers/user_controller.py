@@ -1,5 +1,5 @@
 from config.db import supabase
-from models.user_schemas import UserCreate, UserUpdate
+from models.user_schemas import UserCreate, UserUpdate, PublicRegisterRequest
 
 #llamamos a la tabla de usuarios y seleccionamos todos los datos
 def get_all_users():
@@ -13,6 +13,63 @@ def create_user(user: UserCreate):
         
         response = supabase.table("users").insert(user_data).execute()
         return response.data
+    except Exception as e:
+        return {"error": str(e)}
+
+
+def register_public_user(payload: PublicRegisterRequest):
+    """
+    Registro publico para usuarios de la app (sin token).
+    Mantiene validaciones de negocio antes de insertar en users.
+    """
+    try:
+        if not payload.accept_terms:
+            return {"error": "Debes aceptar los terminos y condiciones."}
+
+        if payload.password != payload.confirm_password:
+            return {"error": "La contrasena y su confirmacion no coinciden."}
+
+        if payload.age < 5 or payload.age > 120:
+            return {"error": "La edad debe estar entre 5 y 120 anos."}
+
+        if len(payload.password) < 8:
+            return {"error": "La contrasena debe tener al menos 8 caracteres."}
+
+        existing_email = supabase.table("users").select("id").eq("email", payload.email).limit(1).execute()
+        if existing_email.data and len(existing_email.data) > 0:
+            return {"error": "El correo ya esta registrado."}
+
+        existing_document = supabase.table("users").select("id").eq("document_number", payload.document_number).limit(1).execute()
+        if existing_document.data and len(existing_document.data) > 0:
+            return {"error": "El numero de documento ya esta registrado."}
+
+        document_type = supabase.table("document_types").select("id").eq("id", payload.document_type_id).limit(1).execute()
+        if not document_type.data or len(document_type.data) == 0:
+            return {"error": "El tipo de documento seleccionado no es valido."}
+
+        new_user = {
+            "role_id": 3,
+            "document_type_id": payload.document_type_id,
+            "document_number": payload.document_number.strip(),
+            "first_name": payload.first_name.strip(),
+            "last_name": payload.last_name.strip(),
+            "gender": payload.gender.strip().lower(),
+            "phone": payload.phone.strip(),
+            "password": payload.password,
+            "email": str(payload.email).strip().lower(),
+            "status": "ACTIVE",
+        }
+
+        insert_response = supabase.table("users").insert(new_user).execute()
+
+        if not insert_response.data or len(insert_response.data) == 0:
+            return {"error": "No se pudo crear la cuenta."}
+
+        created_user = insert_response.data[0]
+        return {
+            "message": "Cuenta creada correctamente.",
+            "user_id": created_user.get("id"),
+        }
     except Exception as e:
         return {"error": str(e)}
     

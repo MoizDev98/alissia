@@ -67,65 +67,94 @@
 
       </div>
 
-      <form>
+      <form (ngSubmit)="enviarFormulario()" novalidate>
+
+        <div *ngIf="mensajeError" class="error-banner">
+          {{ mensajeError }}
+        </div>
+
+        <div *ngIf="mensajeOk" class="ok-banner">
+          {{ mensajeOk }}
+        </div>
 
         <div class="field">
-          <label>Nombre Completo</label>
-          <input type="text" placeholder="">
+          <label>Nombre</label>
+          <input type="text" name="first_name" [(ngModel)]="form.first_name" [class.input-error]="campoInvalido('first_name')">
+        </div>
+
+        <div class="field">
+          <label>Apellido</label>
+          <input type="text" name="last_name" [(ngModel)]="form.last_name" [class.input-error]="campoInvalido('last_name')">
         </div>
 
         <div class="field">
           <label>Correo Electrónico</label>
-          <input type="email" placeholder="">
+          <input type="email" name="email" [(ngModel)]="form.email" [class.input-error]="campoInvalido('email')">
         </div>
 
         <div class="row">
           <div class="field">
             <label>Edad</label>
-            <input type="number">
+            <input type="number" name="age" [(ngModel)]="form.age" [class.input-error]="campoInvalido('age')" min="1" (keypress)="validarSoloNumeros($event)">
           </div>
 
           <div class="field">
             <label>Teléfono</label>
-            <input type="text">
+            <input type="text" name="phone" [(ngModel)]="form.phone" [class.input-error]="campoInvalido('phone')" (keypress)="validarSoloNumeros($event)">
           </div>
         </div>
 
         <div class="row">
           <div class="field">
             <label>Número de documento</label>
-            <input type="number">
+            <input type="text" name="document_number" [(ngModel)]="form.document_number" [class.input-error]="campoInvalido('document_number')" (keypress)="validarSoloNumeros($event)">
           </div>
 
           <div class="field">
             <label>Tipo de documento</label>
-            <select>
-              <option>Selecciona</option>
-              <option>Cédula</option>
-              <option>Permiso de permanencia</option>
-              <option>Tarjeta de identidad</option>
+            <select name="document_type_id" [(ngModel)]="form.document_type_id" [class.input-error]="campoInvalido('document_type_id')">
+              <option [ngValue]="null">Selecciona</option>
+              <option [ngValue]="1">Cédula</option>
+              <option [ngValue]="2">Permiso de permanencia</option>
+              <option [ngValue]="3">Tarjeta de identidad</option>
             </select>
           </div>
+        </div>
+
+        <div class="field">
+          <label>Género</label>
+          <select name="gender" [(ngModel)]="form.gender" [class.input-error]="campoInvalido('gender')">
+            <option value="">Selecciona</option>
+            <option value="femenino">Femenino</option>
+            <option value="masculino">Masculino</option>
+            <option value="otro">Otro</option>
+          </select>
         </div>
 
         <div class="row">
           <div class="field">
             <label>Contraseña</label>
-            <input type="password">
+            <input type="password" name="password" [(ngModel)]="form.password" [class.input-error]="campoInvalido('password') || passwordsNoCoinciden()">
           </div>
 
           <div class="field">
             <label>Confirmar contraseña</label>
-            <input type="password">
+            <input type="password" name="confirmPassword" [(ngModel)]="form.confirmPassword" [class.input-error]="campoInvalido('confirmPassword') || passwordsNoCoinciden()">
           </div>
         </div>
 
         <label class="checkbox">
-          <input type="checkbox">
+          <input type="checkbox" name="acceptTerms" [(ngModel)]="form.acceptTerms">
           Acepto términos y condiciones
         </label>
 
-        <button class="btn-primary">Crear Cuenta</button>
+        <small *ngIf="enviado && !form.acceptTerms" class="field-error">Debes aceptar los términos y condiciones.</small>
+
+        <small *ngIf="passwordsNoCoinciden()" class="field-error">Las contraseñas no coinciden.</small>
+
+        <button class="btn-primary" type="submit" [disabled]="cargando">
+          {{ cargando ? 'Creando cuenta...' : 'Crear Cuenta' }}
+        </button>
 
         <p class="login-link">
           ¿Ya tienes una cuenta?

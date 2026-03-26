@@ -212,6 +212,27 @@ form {
   width: 100%;
 }
 
+.error-banner,
+.ok-banner {
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.error-banner {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.ok-banner {
+  background: #ecfdf3;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -245,6 +266,12 @@ form {
   box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.14);
 }
 
+.field input.input-error,
+.field select.input-error {
+  border-color: #f87171;
+  background: #fff6f6;
+}
+
 .field input::placeholder {
   color: #a0b4aa;
 }
@@ -253,6 +280,15 @@ form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+.field-error {
+  display: block;
+  margin-top: -8px;
+  margin-bottom: 10px;
+  color: #b91c1c;
+  font-size: 0.84rem;
+  font-weight: 600;
 }
 
 /* =========================

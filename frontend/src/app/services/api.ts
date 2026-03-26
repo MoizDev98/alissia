@@ -19,6 +19,10 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/users`, payload);
   }
 
+  publicRegister(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/public/register`, payload);
+  }
+
   updateUser(id: number, payload: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/users/${id}`, payload);
   }

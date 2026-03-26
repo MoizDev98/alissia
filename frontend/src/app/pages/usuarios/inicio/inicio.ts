@@ -38,16 +38,16 @@ export class Inicio {
     icono: 'bi bi-lightbulb-fill'
   },
   {
-    titulo: 'Perfil',
-    descripcion: 'Administra tu información personal.',
-    ruta: '/usuarios/perfil',
-    icono: 'bi bi-person-circle'
+    titulo: 'Registro de peso',
+    descripcion: 'Registra y consulta tus cambios de peso.',
+    ruta: '/usuarios/peso',
+    icono: 'bi bi-speedometer2'
   },
   {
-    titulo: 'Historial',
-    descripcion: 'Revisa tus registros y hábitos anteriores.',
-    ruta: '/usuarios/historial',
-    icono: 'bi bi-clock-history'
+    titulo: 'Contextura',
+    descripcion: 'Analiza tu contextura corporal.',
+    ruta: '/usuarios/contextura',
+    icono: 'bi bi-person-bounding-box'
   }
 ];
 }

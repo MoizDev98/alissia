@@ -33,3 +33,22 @@ class UserUpdate(BaseModel):
 class LoginAzureRequest(BaseModel):
     email: EmailStr
 
+
+class PublicRegisterRequest(BaseModel):
+    first_name: str
+    last_name: str
+    email: EmailStr
+    age: int
+    phone: str
+    document_type_id: int
+    document_number: str
+    gender: str
+    password: str
+    confirm_password: str
+    accept_terms: bool
+
+
+class PublicRegisterResponse(BaseModel):
+    message: str
+    user_id: int
+
