@@ -73,7 +73,7 @@ export class RecomendacionesComponent implements OnInit {
     console.log("Datos limpios enviados a FastAPI:", datosParaIA);
 
     this.aiService.generarDieta(datosParaIA).pipe(
-      timeout(5000)  // 5 segundos de timeout
+      timeout(30000)  // 30 segundos de timeout
     ).subscribe({
       next: (dietaGenerada) => {
         this.errorVisual = '';
@@ -109,7 +109,7 @@ export class RecomendacionesComponent implements OnInit {
       error: (err) => {
         console.error("La IA falló", err);
         if (err?.name === 'TimeoutError') {
-          this.errorVisual = '⏱️ La IA se está tardando demasiado. Verifica que el servidor esté activo e intenta recargar la página.';
+          this.errorVisual = '⏱️ La IA se está tardando demasiado.  intentalo nuevamente.';
           this.resumenIA = 'Tiempo de espera agotado.';
         } else if (err?.status === 400) {
           this.errorVisual = err?.error?.detail || 'Tus datos no cumplen con las validaciones. Corrígelos en Objetivo.';
