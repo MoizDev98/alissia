@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { timeout } from 'rxjs/operators';
 import { AuthService } from '../../../services/auth.service';
 import { DataService } from '../../../services/data.service';
 import { AiService } from '../../../services/ai.service';
@@ -71,7 +72,9 @@ export class RecomendacionesComponent implements OnInit {
 
     console.log("Datos limpios enviados a FastAPI:", datosParaIA);
 
-    this.aiService.generarDieta(datosParaIA).subscribe({
+    this.aiService.generarDieta(datosParaIA).pipe(
+      timeout(5000)  // 5 segundos de timeout
+    ).subscribe({
       next: (dietaGenerada) => {
         this.errorVisual = '';
         console.log("¡RESPUESTA RECIBIDA EN ANGULAR!", dietaGenerada);
@@ -105,7 +108,10 @@ export class RecomendacionesComponent implements OnInit {
       },
       error: (err) => {
         console.error("La IA falló", err);
-        if (err?.status === 400) {
+        if (err?.name === 'TimeoutError') {
+          this.errorVisual = '⏱️ La IA se está tardando demasiado. Verifica que el servidor esté activo e intenta recargar la página.';
+          this.resumenIA = 'Tiempo de espera agotado.';
+        } else if (err?.status === 400) {
           this.errorVisual = err?.error?.detail || 'Tus datos no cumplen con las validaciones. Corrígelos en Objetivo.';
           this.resumenIA = 'No se pudo generar la dieta por datos inválidos.';
         } else {
