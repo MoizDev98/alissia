@@ -7,6 +7,11 @@
     </p>
   </section>
 
+  <div *ngIf="submitError" class="alert alert-danger d-flex align-items-start gap-2" role="alert">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <div>{{ submitError }}</div>
+  </div>
+
   <!-- SECCIÓN: Análisis corporal por foto (Path A / Path B) -->
   <section class="mb-4">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-1">
@@ -112,23 +117,27 @@
     <div class="row g-3">
       <div class="col-md-3">
         <label class="form-label small fw-bold">Peso (kg)</label>
-        <input type="number" class="form-control" [(ngModel)]="peso" placeholder="Ej: 70">
+        <input type="number" class="form-control" [class.is-invalid]="fieldErrors.peso" [(ngModel)]="peso" placeholder="Ej: 70" min="30" max="350">
+        <div *ngIf="fieldErrors.peso" class="invalid-feedback d-block">{{ fieldErrors.peso }}</div>
       </div>
       <div class="col-md-3">
         <label class="form-label small fw-bold">Altura (cm)</label>
-        <input type="number" class="form-control" [(ngModel)]="altura" placeholder="Ej: 175">
+        <input type="number" class="form-control" [class.is-invalid]="fieldErrors.altura" [(ngModel)]="altura" placeholder="Ej: 175" min="120" max="230">
+        <div *ngIf="fieldErrors.altura" class="invalid-feedback d-block">{{ fieldErrors.altura }}</div>
       </div>
       <div class="col-md-3">
         <label class="form-label small fw-bold">Edad</label>
-        <input type="number" class="form-control" [(ngModel)]="edad" placeholder="Ej: 25">
+        <input type="number" class="form-control" [class.is-invalid]="fieldErrors.edad" [(ngModel)]="edad" placeholder="Ej: 25" min="12" max="100">
+        <div *ngIf="fieldErrors.edad" class="invalid-feedback d-block">{{ fieldErrors.edad }}</div>
       </div>
       <div class="col-md-3">
         <label class="form-label small fw-bold">Género</label>
-        <select class="form-select" [(ngModel)]="genero">
+        <select class="form-select" [class.is-invalid]="fieldErrors.genero" [(ngModel)]="genero">
           <option value="" disabled selected>Elige...</option>
           <option value="Femenino">Femenino</option>
           <option value="Masculino">Masculino</option>
         </select>
+        <div *ngIf="fieldErrors.genero" class="invalid-feedback d-block">{{ fieldErrors.genero }}</div>
       </div>
     </div>
   </section>
@@ -215,6 +224,7 @@
   </section>
 
   <section class="text-center">
+    <div *ngIf="fieldErrors.objetivo" class="text-danger small mb-2">{{ fieldErrors.objetivo }}</div>
     <button class="btn btn-primary btn-lg px-5 shadow" (click)="guardarTodo()" [disabled]="cargando">
       {{ cargando ? 'Guardando...' : 'Guardar y Ver Dieta' }}
     </button>

@@ -25,6 +25,7 @@ export class RecomendacionesComponent implements OnInit {
   recomendaciones: string[] = [];
   nivelConfianza: number = 0;
   caloriasTotales: number = 0;
+  errorVisual: string = '';
 
   ngOnInit(): void {
     this.iniciarMagia();
@@ -72,6 +73,7 @@ export class RecomendacionesComponent implements OnInit {
 
     this.aiService.generarDieta(datosParaIA).subscribe({
       next: (dietaGenerada) => {
+        this.errorVisual = '';
         console.log("¡RESPUESTA RECIBIDA EN ANGULAR!", dietaGenerada);
         const dieta = this.normalizarRespuestaIA(dietaGenerada);
 
@@ -103,7 +105,13 @@ export class RecomendacionesComponent implements OnInit {
       },
       error: (err) => {
         console.error("La IA falló", err);
-        this.resumenIA = "Hubo un problema de conexión con el nutricionista virtual (IA). Por favor, recarga la página.";
+        if (err?.status === 400) {
+          this.errorVisual = err?.error?.detail || 'Tus datos no cumplen con las validaciones. Corrígelos en Objetivo.';
+          this.resumenIA = 'No se pudo generar la dieta por datos inválidos.';
+        } else {
+          this.errorVisual = 'Hubo un problema de conexión con el nutricionista virtual (IA). Intenta recargar la página.';
+          this.resumenIA = 'No se pudo generar la dieta por un error de servicio.';
+        }
         this.cargando = false;
       }
     });

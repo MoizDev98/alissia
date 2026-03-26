@@ -37,6 +37,8 @@ export class ObjetivoComponent implements OnInit {
   altura: number | null = null;
   edad: number | null = null;
   genero: string = '';
+  submitError: string | null = null;
+  fieldErrors: { peso?: string; altura?: string; edad?: string; genero?: string; objetivo?: string } = {};
 
   ngOnInit() {
     this.usuarioActual = this.authService.getCurrentUser();
@@ -97,20 +99,62 @@ export class ObjetivoComponent implements OnInit {
     this.analisisError = null;
   }
 
+  private validarDatosParaDieta(): string | null {
+    this.fieldErrors = {};
+
+    if (!this.peso || this.peso < 30 || this.peso > 350) {
+      this.fieldErrors.peso = 'Rango permitido: 30 a 350 kg.';
+      return 'El peso debe estar entre 30 y 350 kg.';
+    }
+
+    if (!this.altura || this.altura < 120 || this.altura > 230) {
+      this.fieldErrors.altura = 'Rango permitido: 120 a 230 cm.';
+      return 'La altura debe estar entre 120 y 230 cm.';
+    }
+
+    if (!this.edad || this.edad < 12 || this.edad > 100) {
+      this.fieldErrors.edad = 'Rango permitido: 12 a 100 años.';
+      return 'La edad debe estar entre 12 y 100 años.';
+    }
+
+    const generoNormalizado = (this.genero || '').trim().toLowerCase();
+    const generosValidos = new Set(['femenino', 'masculino']);
+    if (!generosValidos.has(generoNormalizado)) {
+      this.fieldErrors.genero = 'Selecciona Femenino o Masculino.';
+      return 'Debes seleccionar un género válido.';
+    }
+
+    return null;
+  }
+
   guardarTodo() {
+    this.submitError = null;
+
     if (!this.peso || !this.altura || !this.edad || !this.genero || !this.objetivoSeleccionado) {
-      alert("Por favor completa tus medidas y elige un objetivo principal.");
+      this.submitError = 'Completa tus medidas y elige un objetivo principal.';
+      return;
+    }
+
+    const errorValidacion = this.validarDatosParaDieta();
+    if (errorValidacion) {
+      this.submitError = errorValidacion;
       return;
     }
 
     if (!this.usuarioActual) {
-      alert("Error: No has iniciado sesión.");
+      this.submitError = 'No has iniciado sesión.';
       return;
     }
 
     this.cargando = true;
 
     const metaParaLaIA = `Quiero ${this.objetivoSeleccionado} de peso. Ritmo: ${this.ritmoSeleccionado || 'normal'}. Preferencias: ${this.preferenciasSeleccionadas.join(', ') || 'Ninguna'}`;
+
+    if (metaParaLaIA.length < 3 || metaParaLaIA.length > 250) {
+      this.fieldErrors.objetivo = 'El objetivo generado excede el límite permitido.';
+      this.submitError = 'El objetivo generado excede el límite permitido. Reduce tus preferencias o ajusta el texto.';
+      return;
+    }
 
     const perfilParaGuardar: PatientProfile = {
       user_id: this.usuarioActual.id,
@@ -130,7 +174,7 @@ export class ObjetivoComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        alert("Hubo un error al guardar tus datos.");
+        this.submitError = err?.error?.detail || 'Hubo un error al guardar tus datos.';
         this.cargando = false;
       }
     });
