@@ -45,7 +45,6 @@ export class AuthService {
     }
   }
 
-
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, credentials).pipe(
       tap((user: any) => {
@@ -58,11 +57,15 @@ export class AuthService {
   }
 
   logout() {
+    const usuarioActual = this.currentUserSubject.value;
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('kamoca_user');
-      this.msalInstance.logoutRedirect({
-        postLogoutRedirectUri: "http://localhost:4200"
-      });
+      if (usuarioActual && usuarioActual.token) {
+        
+        this.msalInstance.logoutRedirect({
+          postLogoutRedirectUri: "http://localhost:4200"
+        });
+      } 
     }
     this.currentUserSubject.next(null);
   }

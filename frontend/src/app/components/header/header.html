@@ -2,19 +2,16 @@
   <nav class="navbar navbar-expand bg-success-subtle shadow-sm custom-navbar">
     <div class="container-fluid">
       
-      <!-- Logo -->
       <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
         <span class="brand-text">NutriSync</span>
       </a>
 
-      <!-- Links -->
       <div class="d-flex ms-auto gap-4 nav-links">
         <a class="nav-link" routerLink="/contactos">Contáctanos</a>
         <a class="nav-link" routerLink="/sobre-nosotros">Sobre nosotros</a>
         <a class="nav-link" routerLink="/comunidad">Comunidad</a>
       </div>
 
-      <!-- Botones cuando NO está logueado -->
       <div class="d-flex ms-auto gap-2 actions" *ngIf="!usuarioLogueado">
         <button type="button" class="btn btn-outline-dark btn-soft" routerLink="/register/form">
           Regístrate
@@ -24,11 +21,14 @@
         </button>
       </div>
 
-      <!-- Usuario logueado -->
       <div class="d-flex ms-auto gap-3 align-items-center user-area" *ngIf="usuarioLogueado">
         <span class="fw-bold text-dark">
-          Hola, {{ usuarioLogueado.first_name || usuarioLogueado.nombre || 'Usuario' }}
+          <button type="button" class="btn btn-success btn-sm" [routerLink]="rutaDelPanel">
+            Hola, {{ usuarioLogueado.first_name || usuarioLogueado.nombre || 'Usuario' }}
+        </button>
+          
         </span>
+
         <button type="button" class="btn btn-danger btn-sm" (click)="salir()">
           Salir de la sesión
         </button>

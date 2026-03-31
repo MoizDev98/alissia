@@ -23,6 +23,18 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  get rutaDelPanel(): string {
+    if (!this.usuarioLogueado) return '/';
+    
+    if (this.usuarioLogueado.role_id === 1) {
+      return '/admin/home';
+    } else if (this.usuarioLogueado.role_id === 2) {
+      return '/nutricionista/home';
+    } else {
+      return '/usuarios/inicio';
+    }
+  }
+
   salir() {
     this.authService.logout();
     this.router.navigate(['/']);
