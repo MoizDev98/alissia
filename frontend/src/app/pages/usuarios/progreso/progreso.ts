@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { DataService } from '../../../services/data.service';
+import type { Chart as ChartType } from 'chart.js';
 
 interface RegistroPeso {
   fecha: string;
@@ -15,16 +16,29 @@ interface RegistroPeso {
   templateUrl: './progreso.html',
   styleUrls: ['./progreso.scss']
 })
-export class ProgresoComponent implements OnInit {
+export class ProgresoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private authService = inject(AuthService);
   private dataService = inject(DataService);
+  private cdr = inject(ChangeDetectorRef);
+
+  @ViewChild('pesoChartCanvas') pesoChartCanvas?: ElementRef<HTMLCanvasElement>;
+
+  private chart?: ChartType;
 
   objetivoPeso = 65;
   cargando = true;
   errorVisual = '';
 
   historial: RegistroPeso[] = [];
+
+  ngAfterViewInit(): void {
+    this.renderChart();
+  }
+
+  ngOnDestroy(): void {
+    this.chart?.destroy();
+  }
 
   ngOnInit(): void {
     this.cargarHistorialPeso();
@@ -54,10 +68,82 @@ export class ProgresoComponent implements OnInit {
         this.errorVisual = '';
 
         this.cargando = false;
+        this.cdr.detectChanges();
+        this.renderChart();
       },
       error: () => {
         this.errorVisual = 'No se pudo cargar el historial de peso desde la base de datos.';
         this.cargando = false;
+        this.cdr.detectChanges();
+        this.renderChart();
+      }
+    });
+  }
+
+  private async renderChart(): Promise<void> {
+    if (!this.pesoChartCanvas?.nativeElement) return;
+
+    this.chart?.destroy();
+
+    if (!this.historial.length) return;
+
+    const labels = this.historial.map((item) => item.fecha);
+    const data = this.historial.map((item) => item.peso);
+
+    const { default: Chart } = await import('chart.js/auto');
+
+    this.chart = new Chart(this.pesoChartCanvas.nativeElement, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Peso (kg)',
+            data,
+            borderColor: '#16a34a',
+            backgroundColor: 'rgba(34, 197, 94, 0.15)',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            tension: 0.35,
+            fill: true,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              usePointStyle: true,
+              pointStyle: 'circle'
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => ` ${context.parsed.y} kg`
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              maxRotation: 0,
+              autoSkip: true
+            },
+            grid: {
+              color: 'rgba(15, 95, 74, 0.08)'
+            }
+          },
+          y: {
+            beginAtZero: false,
+            grid: {
+              color: 'rgba(15, 95, 74, 0.08)'
+            }
+          }
+        }
       }
     });
   }

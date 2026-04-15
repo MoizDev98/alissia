@@ -34,9 +34,12 @@
   <div class="card mb-4 shadow-sm">
     <div class="card-body text-center">
       <h6 class="fw-semibold mb-3">Evolución del peso</h6>
-      <div class="grafica-placeholder">
-        📈 Gráfica de peso (luego va Chart.js)
-      </div>
+        <canvas *ngIf="historial.length; else noData" #pesoChartCanvas></canvas>
+        <ng-template #noData>
+          <div class="grafica-placeholder">
+            📈 Aún no hay datos para mostrar
+          </div>
+        </ng-template>
     </div>
   </div>
 
