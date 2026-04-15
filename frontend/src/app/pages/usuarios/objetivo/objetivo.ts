@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { DataService } from '../../../services/data.service';
 import { ContexturaService } from '../../../services/contextura';
-import { PatientProfile } from '../../../models/data.model';
+import { PatientProfile, UserObjective } from '../../../models/data.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-objetivo',
@@ -36,9 +37,10 @@ export class ObjetivoComponent implements OnInit {
   peso: number | null = null;
   altura: number | null = null;
   edad: number | null = null;
+  pesoObjetivo: number | null = null;
   genero: string = '';
   submitError: string | null = null;
-  fieldErrors: { peso?: string; altura?: string; edad?: string; genero?: string; objetivo?: string } = {};
+  fieldErrors: { peso?: string; altura?: string; edad?: string; genero?: string; objetivo?: string; pesoObjetivo?: string } = {};
 
   ngOnInit() {
     this.usuarioActual = this.authService.getCurrentUser();
@@ -124,6 +126,26 @@ export class ObjetivoComponent implements OnInit {
       return 'Debes seleccionar un género válido.';
     }
 
+    if (!this.pesoObjetivo || this.pesoObjetivo < 30 || this.pesoObjetivo > 350) {
+      this.fieldErrors.pesoObjetivo = 'Rango permitido: 30 a 350 kg.';
+      return 'El peso objetivo debe estar entre 30 y 350 kg.';
+    }
+
+    if (this.objetivoSeleccionado === 'bajar' && this.pesoObjetivo >= this.peso) {
+      this.fieldErrors.pesoObjetivo = 'Para bajar de peso, la meta debe ser menor al peso actual.';
+      return 'Tu peso objetivo debe ser menor al peso actual para el objetivo de bajar.';
+    }
+
+    if (this.objetivoSeleccionado === 'subir' && this.pesoObjetivo <= this.peso) {
+      this.fieldErrors.pesoObjetivo = 'Para subir de peso, la meta debe ser mayor al peso actual.';
+      return 'Tu peso objetivo debe ser mayor al peso actual para el objetivo de subir.';
+    }
+
+    if (this.objetivoSeleccionado === 'mantener' && Math.abs(this.pesoObjetivo - this.peso) > 2) {
+      this.fieldErrors.pesoObjetivo = 'Para mantener, la meta debe estar cerca de tu peso actual (±2 kg).';
+      return 'Si quieres mantener, define una meta cercana a tu peso actual.';
+    }
+
     return null;
   }
 
@@ -148,13 +170,22 @@ export class ObjetivoComponent implements OnInit {
 
     this.cargando = true;
 
-    const metaParaLaIA = `Quiero ${this.objetivoSeleccionado} de peso. Ritmo: ${this.ritmoSeleccionado || 'normal'}. Preferencias: ${this.preferenciasSeleccionadas.join(', ') || 'Ninguna'}`;
+    const metaParaLaIA = `Quiero ${this.objetivoSeleccionado} de peso. Peso meta: ${this.pesoObjetivo} kg. Ritmo: ${this.ritmoSeleccionado || 'normal'}. Preferencias: ${this.preferenciasSeleccionadas.join(', ') || 'Ninguna'}`;
 
     if (metaParaLaIA.length < 3 || metaParaLaIA.length > 250) {
       this.fieldErrors.objetivo = 'El objetivo generado excede el límite permitido.';
       this.submitError = 'El objetivo generado excede el límite permitido. Reduce tus preferencias o ajusta el texto.';
+      this.cargando = false;
       return;
     }
+
+    const objetivoParaGuardar: UserObjective = {
+      user_id: this.usuarioActual.id,
+      goal_type: this.objetivoSeleccionado,
+      target_weight: this.pesoObjetivo,
+      pace: this.ritmoSeleccionado || 'moderado',
+      notes: this.preferenciasSeleccionadas.join(', ') || null,
+    };
 
     const perfilParaGuardar: PatientProfile = {
       user_id: this.usuarioActual.id,
@@ -164,10 +195,17 @@ export class ObjetivoComponent implements OnInit {
       gender: this.genero,
       activity_level: 'Moderado',
       goal: metaParaLaIA,
-      ...(this.analisisResult?.contextura && { contextura: this.analisisResult.contextura })
+      ...(this.analisisResult?.contextura && {
+        contextura: this.analisisResult.contextura,
+        body_analysis: this.analisisResult,
+        analysis_updated_at: new Date().toISOString(),
+      })
     };
 
-    this.dataService.saveProfile(perfilParaGuardar).subscribe({
+    forkJoin([
+      this.dataService.saveObjective(objetivoParaGuardar),
+      this.dataService.saveProfile(perfilParaGuardar),
+    ]).subscribe({
       next: () => {
         this.cargando = false;
         this.router.navigate(['usuarios/recomendaciones']);

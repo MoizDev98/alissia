@@ -63,6 +63,12 @@ h6 {
   box-shadow: inset 0 0 0 1px rgba(22, 101, 52, 0.04);
 }
 
+canvas {
+  width: 100% !important;
+  height: 340px !important;
+  display: block;
+}
+
 /* ===== PROGRESO ===== */
 .progress {
   height: 16px;
@@ -114,6 +120,10 @@ small.text-muted {
     min-height: 190px;
     font-size: 1rem;
     padding: 1.5rem;
+  }
+
+  canvas {
+    height: 260px !important;
   }
 
   strong {

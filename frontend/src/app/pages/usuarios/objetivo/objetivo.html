@@ -199,6 +199,30 @@
     </div>
   </section>
 
+  <section class="mb-5 bg-white p-4 rounded shadow-sm border">
+    <h5 class="fw-semibold mb-3">Define tu peso objetivo</h5>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-6">
+        <label class="form-label small fw-bold">Peso objetivo (kg)</label>
+        <input
+          type="number"
+          class="form-control"
+          [class.is-invalid]="fieldErrors.pesoObjetivo"
+          [(ngModel)]="pesoObjetivo"
+          placeholder="Ej: 68"
+          min="30"
+          max="350"
+        >
+        <div *ngIf="fieldErrors.pesoObjetivo" class="invalid-feedback d-block">{{ fieldErrors.pesoObjetivo }}</div>
+      </div>
+      <div class="col-md-6">
+        <p class="text-muted small mb-0">
+          Esta meta se guardará como dato estructurado en tu objetivo activo para usarla en recomendaciones y métricas.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="mb-5">
     <h5 class="fw-semibold mb-3">Preferencias alimenticias <span class="text-muted small">(opcional)</span></h5>
     <div class="d-flex flex-wrap gap-2">
@@ -215,6 +239,7 @@
         <h6 class="fw-bold mb-2">Resumen de tu objetivo</h6>
         <ul class="mb-0 text-muted small">
           <li>Medidas: <strong>{{ peso || '?' }}kg / {{ altura || '?' }}cm</strong></li>
+          <li>Peso meta: <strong>{{ pesoObjetivo || '?' }} kg</strong></li>
           <li>Objetivo: <strong class="text-capitalize">{{ objetivoSeleccionado || 'No seleccionado' }}</strong></li>
           <li>Ritmo: <strong class="text-capitalize">{{ ritmoSeleccionado || 'No seleccionado' }}</strong></li>
           <li>Preferencias: <strong>{{ preferenciasSeleccionadas.length > 0 ? preferenciasSeleccionadas.join(', ') : 'Ninguna' }}</strong></li>
