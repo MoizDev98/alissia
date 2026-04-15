@@ -1,5 +1,8 @@
 from config.db import supabase
+from config.db import supabase
 from models.user_schemas import UserCreate, UserUpdate, PublicRegisterRequest
+from core.security import crear_token_jwt
+
 
 #llamamos a la tabla de usuarios y seleccionamos todos los datos
 def get_all_users():
@@ -104,19 +107,20 @@ def soft_delete_user(user_id: int):
 
 def login_user(email: str, password: str):
     try:
-        
         response = supabase.table("users")\
             .select("*")\
             .eq("email", email)\
             .eq("password", password)\
             .execute()
-        
-        
+
         if len(response.data) == 0:
             return {"error": "Credenciales incorrectas"}
-        
-        return response.data[0]
-       
+
+        usuario = response.data[0]
+        token = crear_token_jwt(usuario)
+        usuario["token"] = token
+        return usuario
+
     except Exception as e:
         return {"error": str(e)}
 
