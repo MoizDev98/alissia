@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PatientProfile, SavedPlan } from '../models/data.model';
+import { PatientProfile, SavedPlan, UserObjective } from '../models/data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,14 @@ export class DataService {
   
   getProfile(userId: number): Observable<PatientProfile> {
     return this.http.get<PatientProfile>(`${this.baseUrl}/profiles/${userId}`);
+  }
+
+  saveObjective(objective: UserObjective): Observable<any> {
+    return this.http.post(`${this.baseUrl}/objectives`, objective);
+  }
+
+  getActiveObjective(userId: number): Observable<UserObjective> {
+    return this.http.get<UserObjective>(`${this.baseUrl}/objectives/${userId}/active`);
   }
 
   

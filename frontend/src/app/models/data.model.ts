@@ -17,3 +17,13 @@ export interface SavedPlan {
   plan_data: any; 
   created_at?: string;
 }
+
+export interface UserObjective {
+  id?: number;
+  user_id: number;
+  goal_type: 'bajar' | 'mantener' | 'subir';
+  target_weight?: number | null;
+  pace?: 'lento' | 'moderado' | 'rapido';
+  notes?: string | null;
+  is_active?: boolean;
+}
