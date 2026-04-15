@@ -9,6 +9,8 @@ export interface PatientProfile {
   goal: string;
   status?: string;
   contextura?: string;
+  body_analysis?: any;
+  analysis_updated_at?: string;
 }
 
 export interface SavedPlan {

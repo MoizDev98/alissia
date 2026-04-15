@@ -195,7 +195,11 @@ export class ObjetivoComponent implements OnInit {
       gender: this.genero,
       activity_level: 'Moderado',
       goal: metaParaLaIA,
-      ...(this.analisisResult?.contextura && { contextura: this.analisisResult.contextura })
+      ...(this.analisisResult?.contextura && {
+        contextura: this.analisisResult.contextura,
+        body_analysis: this.analisisResult,
+        analysis_updated_at: new Date().toISOString(),
+      })
     };
 
     forkJoin([
