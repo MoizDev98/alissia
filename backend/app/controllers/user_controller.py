@@ -12,7 +12,8 @@ def get_all_users():
 #creamos un nuevo usuario a partir de los datos recibidos en el cuerpo de la solicitud
 def create_user(user: UserCreate):
     try:
-        user_data = user.dict()
+        user_data = user.dict(exclude_none=True)
+        user_data.pop("id", None)
         
         response = supabase.table("users").insert(user_data).execute()
         return response.data

@@ -37,6 +37,10 @@ export class DataService {
     return this.http.post(`${this.baseUrl}/plans`, plan);
   }
 
+  getUserPlans(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/plans/${userId}`);
+  }
+
   getRecommendationHistory(userId: number, limit: number = 20): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/recommendations/history/${userId}?limit=${limit}`);
   }
@@ -45,8 +49,9 @@ export class DataService {
     return this.http.post(`${this.baseUrl}/recommendations/auto/${userId}`, {});
   }
 
-  getTodayMeals(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/meals/${userId}/today`);
+  getTodayMeals(userId: number, mealDate?: string): Observable<any[]> {
+    const query = mealDate ? `?meal_date=${mealDate}` : '';
+    return this.http.get<any[]>(`${this.baseUrl}/meals/${userId}/today${query}`);
   }
 
   saveMealLog(payload: any): Observable<any> {

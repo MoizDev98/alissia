@@ -15,6 +15,7 @@ import { ApiService } from '../../../services/api';
 export class GestionUsuariosComponent implements OnInit {
 
   filtroNombre: string = '';
+  errorOperacion: string | null = null;
 
   usuarios: any[] = [];
 
@@ -36,7 +37,7 @@ export class GestionUsuariosComponent implements OnInit {
           id: user.id,
           nombre: `${user.first_name ?? ''} ${user.last_name ?? ''}`.trim(),
           email: user.email,
-          rol: user.role_id ?? 'Sin rol',
+          rol: this.obtenerNombreRol(user.role_id),
           estado: (user.status ?? '').toUpperCase() === 'ACTIVE' ? 1 : 0
         }));
       },
@@ -69,6 +70,7 @@ export class GestionUsuariosComponent implements OnInit {
   mostrarModal = false;
 
   abrirModal(usuario: any = null) {
+   this.errorOperacion = null;
    this.usuarioSeleccionado = usuario;
    this.mostrarModal = true;
   }
@@ -76,6 +78,7 @@ export class GestionUsuariosComponent implements OnInit {
   cerrarModal() {
     this.mostrarModal = false;
     this.usuarioSeleccionado = null;
+    this.errorOperacion = null;
   }
 
   agregarUsuario(usuario: any) {
@@ -85,9 +88,11 @@ export class GestionUsuariosComponent implements OnInit {
         next: () => {
           this.usuarioSeleccionado = null;
           this.cargarUsuarios();
+          this.cerrarModal();
         },
         error: (error) => {
           console.error('Error al actualizar usuario', error);
+          this.errorOperacion = error?.error?.detail || 'No se pudo actualizar el usuario.';
         }
       });
       return;
@@ -97,9 +102,11 @@ export class GestionUsuariosComponent implements OnInit {
     this.apiService.createUser(payload).subscribe({
       next: () => {
         this.cargarUsuarios();
+        this.cerrarModal();
       },
       error: (error) => {
         console.error('Error al crear usuario', error);
+        this.errorOperacion = error?.error?.detail || 'No se pudo crear el usuario.';
       }
     });
   }
@@ -136,6 +143,24 @@ export class GestionUsuariosComponent implements OnInit {
     }
 
     return payload;
+  }
+
+  private obtenerNombreRol(roleId: any): string {
+    const idNormalizado = Number(roleId);
+
+    if (idNormalizado === 1) {
+      return 'Administrador';
+    }
+
+    if (idNormalizado === 2) {
+      return 'Nutricionista';
+    }
+
+    if (idNormalizado === 3) {
+      return 'Usuario';
+    }
+
+    return roleId ? `Rol ${roleId}` : 'Sin rol';
   }
 
 

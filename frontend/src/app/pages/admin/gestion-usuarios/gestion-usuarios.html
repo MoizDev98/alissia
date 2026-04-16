@@ -93,6 +93,7 @@
 <app-modal-usuario
   *ngIf="mostrarModal"
   [usuarioEditar]="usuarioSeleccionado"
+  [errorMensaje]="errorOperacion"
   (cerrar)="cerrarModal()"
   (guardar)="agregarUsuario($event)">
 </app-modal-usuario>

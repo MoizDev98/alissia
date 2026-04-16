@@ -28,6 +28,10 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/users`, { headers: this.getAuthHeaders() });
   }
 
+  getDocumentTypes(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/document-types`);
+  }
+
   createUser(payload: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/users`, payload, { headers: this.getAuthHeaders() });
   }

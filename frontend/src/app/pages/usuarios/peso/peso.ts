@@ -41,7 +41,7 @@ export class PesoComponent implements OnInit {
     this.dataService.getWeightHistory(this.usuarioId, 30).subscribe({
       next: (rows) => {
         this.historial = (rows || []).map((item: any) => ({
-          fecha: String(item.measured_at).slice(0, 10),
+          fecha: this.formatearFechaLocal(item?.measured_at),
           peso: Number(item.weight)
         }));
 
@@ -52,6 +52,24 @@ export class PesoComponent implements OnInit {
         this.pesoActual = 0;
       }
     });
+  }
+
+  private formatearFechaLocal(valorFecha: string): string {
+    if (!valorFecha) return '';
+    const fecha = new Date(valorFecha);
+    if (Number.isNaN(fecha.getTime())) {
+      return String(valorFecha).slice(0, 10);
+    }
+
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  get ultimaFechaRegistro(): string {
+    if (!this.historial.length) return 'Sin registros';
+    return this.historial[0].fecha;
   }
 
   registrarPeso() {

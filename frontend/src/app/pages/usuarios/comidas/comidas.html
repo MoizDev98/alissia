@@ -8,6 +8,18 @@
     </p>
   </div>
 
+  <div *ngIf="guardando" class="alert alert-info py-2">
+    Guardando cambios...
+  </div>
+
+  <div *ngIf="errorVisual" class="alert alert-danger py-2">
+    {{ errorVisual }}
+  </div>
+
+  <div *ngIf="exitoVisual" class="alert alert-success py-2">
+    {{ exitoVisual }}
+  </div>
+
   <div class="d-flex flex-column gap-3">
 
     <div class="card shadow-sm border-0" *ngFor="let comida of comidas">

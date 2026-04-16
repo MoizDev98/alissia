@@ -120,9 +120,9 @@ export class ObjetivoComponent implements OnInit {
     }
 
     const generoNormalizado = (this.genero || '').trim().toLowerCase();
-    const generosValidos = new Set(['femenino', 'masculino']);
+    const generosValidos = new Set(['femenino', 'masculino', 'otro']);
     if (!generosValidos.has(generoNormalizado)) {
-      this.fieldErrors.genero = 'Selecciona Femenino o Masculino.';
+      this.fieldErrors.genero = 'Selecciona Femenino, Masculino u Otro.';
       return 'Debes seleccionar un género válido.';
     }
 

@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnI
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { DataService } from '../../../services/data.service';
+import { UserObjective } from '../../../models/data.model';
 import type { Chart as ChartType } from 'chart.js';
 
 interface RegistroPeso {
@@ -26,7 +27,8 @@ export class ProgresoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private chart?: ChartType;
 
-  objetivoPeso = 65;
+  objetivoPeso: number | null = null;
+  objetivoTipo: 'bajar' | 'mantener' | 'subir' = 'bajar';
   cargando = true;
   errorVisual = '';
 
@@ -41,7 +43,29 @@ export class ProgresoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.cargarObjetivoActivo();
     this.cargarHistorialPeso();
+  }
+
+  private cargarObjetivoActivo(): void {
+    const usuarioActual = this.authService.getCurrentUser();
+    if (!usuarioActual?.id) {
+      return;
+    }
+
+    this.dataService.getActiveObjective(usuarioActual.id).subscribe({
+      next: (objective: UserObjective) => {
+        if (objective?.goal_type) {
+          this.objetivoTipo = objective.goal_type;
+        }
+        if (objective?.target_weight !== null && objective?.target_weight !== undefined) {
+          this.objetivoPeso = Number(objective.target_weight);
+        }
+      },
+      error: () => {
+        this.objetivoPeso = null;
+      }
+    });
   }
 
   private cargarHistorialPeso(): void {
@@ -59,7 +83,7 @@ export class ProgresoComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.historial = lista
           .map((item: any) => ({
-            fecha: String(item?.measured_at ?? '').slice(0, 10),
+            fecha: this.formatearFechaLocal(item?.measured_at),
             peso: Number(item?.weight ?? 0)
           }))
           .filter((item: RegistroPeso) => !!item.fecha && item.peso > 0)
@@ -78,6 +102,19 @@ export class ProgresoComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderChart();
       }
     });
+  }
+
+  private formatearFechaLocal(valorFecha: string): string {
+    if (!valorFecha) return '';
+    const fecha = new Date(valorFecha);
+    if (Number.isNaN(fecha.getTime())) {
+      return String(valorFecha).slice(0, 10);
+    }
+
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   private async renderChart(): Promise<void> {
@@ -179,19 +216,55 @@ export class ProgresoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get faltanteKg(): number {
-    if (!this.historial.length) return 0;
+    if (!this.historial.length || this.objetivoPeso === null) return 0;
+
+    if (this.objetivoTipo === 'subir') {
+      return Math.max(0, this.objetivoPeso - this.pesoActual);
+    }
+
+    if (this.objetivoTipo === 'mantener') {
+      return Math.abs(this.pesoActual - this.objetivoPeso);
+    }
+
     return Math.max(0, this.pesoActual - this.objetivoPeso);
   }
 
   get progresoPorcentaje(): number {
-    if (!this.historial.length) return 0;
-    const total = this.pesoInicial - this.objetivoPeso;
-    if (total <= 0) return 0;
-    return Math.min(100, Math.max(0, (this.progresoKg / total) * 100));
+    if (!this.historial.length || this.objetivoPeso === null) return 0;
+
+    const total = Math.abs(this.objetivoPeso - this.pesoInicial);
+    if (total <= 0) return 100;
+
+    const avance = Math.abs(this.pesoActual - this.pesoInicial);
+    return Math.min(100, Math.max(0, (avance / total) * 100));
   }
 
   get estado(): 'bien' | 'alerta' {
+    if (this.objetivoTipo === 'subir') {
+      return this.tendenciaPeso === 'subio' ? 'bien' : 'alerta';
+    }
+
+    if (this.objetivoTipo === 'mantener') {
+      return Math.abs(this.variacionKg) <= 1 ? 'bien' : 'alerta';
+    }
+
     return this.tendenciaPeso === 'bajo' ? 'bien' : 'alerta';
+  }
+
+  get textoObjetivoPendiente(): string {
+    if (this.objetivoPeso === null) {
+      return 'Define tu peso objetivo en la sección Objetivo para medir avance.';
+    }
+
+    if (this.objetivoTipo === 'subir') {
+      return `Te faltan ${this.faltanteKg.toFixed(1)} kg para subir hasta tu objetivo.`;
+    }
+
+    if (this.objetivoTipo === 'mantener') {
+      return `Tu desviación actual frente al objetivo es de ${this.faltanteKg.toFixed(1)} kg.`;
+    }
+
+    return `Te faltan ${this.faltanteKg.toFixed(1)} kg para tu objetivo.`;
   }
 }
 

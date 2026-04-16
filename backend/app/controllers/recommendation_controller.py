@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 from config.db import supabase
 from controllers.ia_controller import generar_dieta
 from controllers.profile_controller import get_active_profile
@@ -36,6 +38,42 @@ def _build_objective_text(active_objective: dict | None, profile_goal: str | Non
     return text
 
 
+def _dieta_persistible(dieta: dict | None) -> bool:
+    if not isinstance(dieta, dict):
+        return False
+
+    campos_obligatorios = ["desayuno", "almuerzo", "cena", "recomendacion_clave"]
+    for campo in campos_obligatorios:
+        valor = str(dieta.get(campo) or "").strip()
+        if not valor or valor.lower() == "no disponible":
+            return False
+
+    return True
+
+
+def _snapshot_equivalente(snapshot_a: dict | None, snapshot_b: dict | None) -> bool:
+    if not isinstance(snapshot_a, dict) or not isinstance(snapshot_b, dict):
+        return False
+
+    campos = ["peso", "altura", "edad", "genero", "objetivo"]
+    for campo in campos:
+        if str(snapshot_a.get(campo)) != str(snapshot_b.get(campo)):
+            return False
+
+    return True
+
+
+def _es_hoy(valor_fecha: str | None) -> bool:
+    if not valor_fecha:
+        return False
+
+    try:
+        fecha_normalizada = valor_fecha.replace("Z", "+00:00")
+        return datetime.fromisoformat(fecha_normalizada).date() == date.today()
+    except Exception:
+        return False
+
+
 def generate_recommendation_for_user(user_id: int):
     try:
         profile = get_active_profile(user_id)
@@ -56,9 +94,33 @@ def generate_recommendation_for_user(user_id: int):
         snapshot = _build_snapshot(user_id, profile, latest_weight)
         snapshot["objetivo"] = _build_objective_text(active_objective, profile.get("goal"))
 
+        latest_history_result = (
+            supabase.table("recommendation_history")
+            .select("id, profile_snapshot, ai_response, created_at")
+            .eq("user_id", user_id)
+            .eq("status", "ACTIVE")
+            .order("created_at", desc=True)
+            .limit(1)
+            .execute()
+        )
+
+        if latest_history_result.data:
+            latest_history = latest_history_result.data[0]
+            if _es_hoy(latest_history.get("created_at")) and _snapshot_equivalente(latest_history.get("profile_snapshot"), snapshot) and _dieta_persistible(latest_history.get("ai_response")):
+                return {
+                    "user_id": user_id,
+                    "profile_snapshot": snapshot,
+                    "dieta": latest_history.get("ai_response"),
+                    "history_id": latest_history.get("id"),
+                    "cached": True,
+                }
+
         dieta = generar_dieta(snapshot)
         if isinstance(dieta, dict) and "error" in dieta:
             return dieta
+
+        if not _dieta_persistible(dieta):
+            return {"error": "La IA no devolvio un plan valido para guardar."}
 
         # Guarda plan generado para reutilización del módulo de planes.
         plan_result = (

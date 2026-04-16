@@ -1,12 +1,30 @@
-from datetime import date
+from datetime import datetime
+from zoneinfo import ZoneInfo
+import os
 from config.db import supabase
 from models.meal_model import MealLogUpsert
+
+
+APP_TIMEZONE = os.getenv("APP_TIMEZONE", "America/Bogota")
+
+
+def _resolver_fecha_local(meal_date: str | None) -> str:
+    if meal_date:
+      try:
+          return datetime.fromisoformat(meal_date).date().isoformat()
+      except Exception:
+          pass
+
+    try:
+        return datetime.now(ZoneInfo(APP_TIMEZONE)).date().isoformat()
+    except Exception:
+        return datetime.now().date().isoformat()
 
 
 def upsert_meal_log(payload: MealLogUpsert):
     try:
         data = payload.model_dump()
-        meal_date = data.get("meal_date") or date.today().isoformat()
+        meal_date = _resolver_fecha_local(data.get("meal_date"))
 
         existing = (
             supabase.table("meal_logs")
@@ -47,7 +65,7 @@ def upsert_meal_log(payload: MealLogUpsert):
 
 def get_daily_meal_logs(user_id: int, meal_date: str | None = None):
     try:
-        query_date = meal_date or date.today().isoformat()
+        query_date = _resolver_fecha_local(meal_date)
         response = (
             supabase.table("meal_logs")
             .select("*")

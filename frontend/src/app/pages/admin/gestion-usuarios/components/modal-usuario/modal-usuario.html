@@ -13,6 +13,10 @@
     <!-- Body -->
     <div class="modal-body">
 
+      <div *ngIf="errorMensaje" class="alert alert-danger mb-3">
+        {{ errorMensaje }}
+      </div>
+
       <div class="modal-form-grid">
 
         <div class="mb-3">
@@ -48,19 +52,27 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Rol (ID)</label>
-          <input
-            type="number"
-            class="form-control"
+          <label class="form-label">Rol</label>
+          <select
+            class="form-select"
             [(ngModel)]="usuario.role_id">
+            <option [ngValue]="null">Selecciona un rol</option>
+            <option *ngFor="let rol of rolesDisponibles" [ngValue]="rol.value">
+              {{ rol.label }}
+            </option>
+          </select>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Tipo de documento (ID)</label>
-          <input
-            type="number"
-            class="form-control"
+          <label class="form-label">Tipo de documento</label>
+          <select
+            class="form-select"
             [(ngModel)]="usuario.document_type_id">
+            <option [ngValue]="null">Selecciona un tipo de documento</option>
+            <option *ngFor="let tipo of tiposDocumento" [ngValue]="tipo.id">
+              {{ tipo.name }}
+            </option>
+          </select>
         </div>
 
         <div class="mb-3">
@@ -72,11 +84,15 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Genero</label>
-          <input
-            type="text"
-            class="form-control"
+          <label class="form-label">Género</label>
+          <select
+            class="form-select"
             [(ngModel)]="usuario.gender">
+            <option value="">Selecciona un género</option>
+            <option *ngFor="let genero of generosDisponibles" [value]="genero.value">
+              {{ genero.label }}
+            </option>
+          </select>
         </div>
 
         <div class="mb-3 modal-full-width">
